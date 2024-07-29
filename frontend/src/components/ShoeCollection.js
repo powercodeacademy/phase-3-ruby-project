@@ -4,12 +4,12 @@ import AddShoeForm from "./AddShoeForm"
 const ShoeCollection = () => {
   const [shoes, setShoes] = useState([])
 
-  useEffect(() => {
-    // Fetch the initial list of shoes from the backend
-    fetch("/api/shoes")
-      .then((response) => response.json())
-      .then((data) => setShoes(data))
-  }, [])
+  // useEffect(() => {
+  //   // Fetch the initial list of shoes from the backend
+  //   fetch("/api/shoes")
+  //     .then((response) => response.json())
+  //     .then((data) => setShoes(data))
+  // }, [])
 
   const addShoe = (newShoe) => {
     setShoes([...shoes, newShoe])

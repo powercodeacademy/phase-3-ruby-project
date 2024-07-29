@@ -4,12 +4,12 @@ import AddRunForm from "./AddRunForm"
 const RunHistory = () => {
   const [runs, setRuns] = useState([])
 
-  useEffect(() => {
-    // Fetch the initial list of runs from the backend
-    fetch("/api/runs")
-      .then((response) => response.json())
-      .then((data) => setRuns(data))
-  }, [])
+  // useEffect(() => {
+  //   // Fetch the initial list of runs from the backend
+  //   fetch("/api/runs")
+  //     .then((response) => response.json())
+  //     .then((data) => setRuns(data))
+  // }, [])
 
   const addRun = (newRun) => {
     setRuns([...runs, newRun])

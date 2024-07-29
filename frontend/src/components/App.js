@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react"
 import ShoeCollection from "./ShoeCollection"
 import RunHistory from "./RunHistory"
 import AddUserForm from "./AddUserForm"
-import RunnerDetails from "./RunnerDetails"
 
 const App = () => {
   const [users, setUsers] = useState([])
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState("")
 
   useEffect(() => {
-    // Fetch the initial list of users from the backend
-    fetch("/api/runners")
+    fetch("http://127.0.0.1:9292/runners")
       .then((response) => response.json())
       .then((data) => {
         setUsers(data)
         if (data.length > 0) {
-          setCurrentUser(data[0].id)
+          setCurrentUser(data[0])
         }
       })
   }, [])
@@ -50,7 +48,6 @@ const App = () => {
 
       {currentUser && (
         <>
-          <RunnerDetails userId={currentUser} />
           <ShoeCollection userId={currentUser} />
           <RunHistory userId={currentUser} />
         </>

@@ -5,23 +5,21 @@ const AddRunForm = ({ addRun }) => {
   const [date, setDate] = useState("")
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    const newRun = { distance: parseInt(distance, 10), date }
-
-    // Send the new run to the backend
-    fetch("/api/runs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newRun),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        addRun(data)
-        setDistance("")
-        setDate("")
-      })
+    // e.preventDefault()
+    // const newRun = { distance: parseInt(distance, 10), date }
+    // fetch("/api/runs", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newRun),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     addRun(data)
+    //     setDistance("")
+    //     setDate("")
+    //   })
   }
 
   return (

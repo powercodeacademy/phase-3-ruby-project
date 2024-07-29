@@ -3,12 +3,12 @@ import React, { useState, useEffect } from "react"
 const RunnerDetails = ({ userId }) => {
   const [runner, setRunner] = useState(null)
 
-  useEffect(() => {
-    // Fetch runner details from the backend
-    fetch(`/api/runners/${userId}`)
-      .then((response) => response.json())
-      .then((data) => setRunner(data))
-  }, [userId])
+  // useEffect(() => {
+  //   // Fetch runner details from the backend
+  //   fetch(`/api/runners/${userId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => setRunner(data))
+  // }, [userId])
 
   if (!runner) {
     return <p>Loading...</p>
