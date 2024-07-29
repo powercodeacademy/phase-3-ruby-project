@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_29_133858) do
+ActiveRecord::Schema.define(version: 2024_07_29_222008) do
 
   create_table "bnbs", force: :cascade do |t|
     t.string "name"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2024_07_29_133858) do
     t.string "message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "entry_date"
     t.index ["bnb_id"], name: "index_guest_log_entries_on_bnb_id"
     t.index ["guest_id"], name: "index_guest_log_entries_on_guest_id"
     t.index ["stay_id"], name: "index_guest_log_entries_on_stay_id"
