@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react"
+import GuestLog from "./GuestLog"
 
 function BnbListing({ bnb }) {
   const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
-
   const [guestLog, setGuestLog] = useState([])
-
-  // function getGuestLog() {
-  //   console.log(id)
-
-  //   fetch(`http://localhost:9292//bnbs/${id}/guest_log`)
-  //     .then((r) => r.json())
-  //     .then((entries) => console.log(entries))
-  // }
+  const [showGuestLog, setShowGuestLog] = useState(false)
 
   const getGuestLog = () => {
-    return fetch(`http://localhost:9292//bnbs/${id}/guest_log`)
-      .then((r) => r.json())
-      .then((entries) => console.log(entries))
+    if (!showGuestLog) {
+      fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
+        .then((r) => r.json())
+        .then((entries) => setGuestLog(entries))
+    }
+    setShowGuestLog(!showGuestLog)
   }
 
   return (
@@ -29,11 +24,9 @@ function BnbListing({ bnb }) {
       <p>{description}</p>
       <p>Located in {location}</p>
       <button onClick={getGuestLog}>
-        <Link to="/guest_log">View Guest Log</Link>
+        {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
       </button>
-      <button>
-        <Link to="/booking_form">Book Now</Link>
-      </button>
+      {showGuestLog && <GuestLog guestLog={guestLog} />}
     </div>
   )
 }

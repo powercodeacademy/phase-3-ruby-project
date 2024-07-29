@@ -20,7 +20,7 @@ class ApplicationController < Sinatra::Base
 
   get "/bnbs/:id/guest_log" do
     bnb = Bnb.find(params[:id])
-    bnb.to_json(include: :guest_log_entries)
+    guest_log_entries = bnb.guest_log_entries
+    guest_log_entries.to_json
   end
-
 end
