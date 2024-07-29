@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import AddShoeForm from "./AddShoeForm"
 
-const ShoeCollection = ({ currentRunner }) => {
+const ShoeCollection = ({ currentRunner, updateRunner }) => {
   const [shoes, setShoes] = useState(currentRunner.shoes)
 
   useEffect(() => {
@@ -11,13 +11,15 @@ const ShoeCollection = ({ currentRunner }) => {
   }, [currentRunner])
 
   const addShoe = (newShoe) => {
-    setShoes([...shoes, newShoe])
+    const updatedShoes = [...shoes, newShoe]
+    setShoes(updatedShoes)
+    updateRunner({ ...currentRunner, shoes: updatedShoes })
   }
 
   return (
     <div>
       <h1>Shoe Collection</h1>
-      {shoes.length > 0 ? (
+      {currentRunner.shoes.length > 0 ? (
         <ul>
           {shoes.map((shoe) => (
             <li key={shoe.id}>
@@ -28,7 +30,7 @@ const ShoeCollection = ({ currentRunner }) => {
       ) : (
         <p>No shoes available.</p>
       )}
-      <AddShoeForm addShoe={addShoe} />
+      <AddShoeForm addShoe={addShoe} currentRunner={currentRunner} />
     </div>
   )
 }

@@ -33,6 +33,15 @@ const App = () => {
     setCurrentRunner(selectedRunner)
   }
 
+  const updateRunner = (updatedRunner) => {
+    setCurrentRunner(updatedRunner)
+    setRunners((prevRunners) =>
+      prevRunners.map((runner) =>
+        runner.id === updatedRunner.id ? updatedRunner : runner
+      )
+    )
+  }
+
   return (
     <div>
       <h1>My Fitness App</h1>
@@ -58,7 +67,10 @@ const App = () => {
 
       {currentRunner && (
         <>
-          <ShoeCollection currentRunner={currentRunner} />
+          <ShoeCollection
+            currentRunner={currentRunner}
+            updateRunner={updateRunner}
+          />
           <RunHistory currentRunner={currentRunner} />
         </>
       )}

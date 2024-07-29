@@ -1,15 +1,14 @@
 import React, { useState } from "react"
 
-const AddShoeForm = ({ addShoe }) => {
+const AddShoeForm = ({ currentRunner, setCurrentRunner, addShoe }) => {
   const [name, setName] = useState("")
-  const [mileage, setMileage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newShoe = { name, mileage: parseInt(mileage, 10) }
+    const newShoe = { name: name, runnerId: currentRunner.id }
 
     // Send the new shoe to the backend
-    fetch("/api/shoes", {
+    fetch("http://127.0.0.1:9292/shoes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +19,9 @@ const AddShoeForm = ({ addShoe }) => {
       .then((data) => {
         addShoe(data)
         setName("")
-        setMileage("")
+      })
+      .catch((error) => {
+        console.error("Error adding shoe:", error)
       })
   }
 
@@ -34,17 +35,6 @@ const AddShoeForm = ({ addShoe }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Mileage:
-          <input
-            type="number"
-            value={mileage}
-            onChange={(e) => setMileage(e.target.value)}
             required
           />
         </label>
