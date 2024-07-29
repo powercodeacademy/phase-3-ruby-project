@@ -4,6 +4,8 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+.DS_Store
+
 # Ignore bundler config.
 /backend/.bundle
 
@@ -16,6 +18,8 @@
 
 # Canvas-specific .results.json
 /backend/.results.json
+
+/backend/.DS_Store
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
