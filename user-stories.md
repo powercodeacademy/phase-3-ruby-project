@@ -5,15 +5,15 @@
 **User Story**: As a developer, I want to be able to get all of the board_game data for the frontend
 **Details**: Create tables and board_game models. Set up application controller.
 
-## Feature 2: Display Board Games on Board Games Page
-
-**User Story**: As a user, I want to see all the board games from the db in one place on the front end. 
-**Details**: When loading the board games page, all the board games will show with there respective data. 
-
-## Feature 3: Create Users, Reviews, and Collections Models
+## Feature 2: Create Users, Reviews, and Collections Models
 
 **User Story**: As a user, I want to be able to have a username, leave reviews, and add boardgames to collections
 **Details**: Create Users, Reviews, and Collections models and tables. 
+
+## Feature 3: Display Board Games on Board Games Page
+
+**User Story**: As a user, I want to see all the board games from the db in one place on the front end. 
+**Details**: When loading the board games page, all the board games will show with there respective data. 
 
 ## Feature 4: Allow User to add board game to collection
 
