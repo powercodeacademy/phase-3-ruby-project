@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom"
+import React, { useState } from "react"
+import GuestLog from "./GuestLog"
 
 function BnbListing({ bnb }) {
-  const { name, location, num_of_rooms, cost_per_night, description } = bnb
+  const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
+  const [guestLog, setGuestLog] = useState([])
+  const [showGuestLog, setShowGuestLog] = useState(false)
+
+  const getGuestLog = () => {
+    if (!showGuestLog) {
+      fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
+        .then((r) => r.json())
+        .then((entries) => setGuestLog(entries))
+    }
+    setShowGuestLog(!showGuestLog)
+  }
+
   return (
     <div>
       <h2>{name}</h2>
@@ -10,12 +23,10 @@ function BnbListing({ bnb }) {
       </span>
       <p>{description}</p>
       <p>Located in {location}</p>
-      <button>
-        <Link to="/guest_log">View Guest Log</Link>
+      <button onClick={getGuestLog}>
+        {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
       </button>
-      <button>
-        <Link to="/booking_form">Book Now</Link>
-      </button>
+      {showGuestLog && <GuestLog guestLog={guestLog} />}
     </div>
   )
 }
