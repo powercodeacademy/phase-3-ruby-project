@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <div className="App"></div>
-      <Sidebar></Sidebar>
+      <Sidebar />
     </Router>
   )
 }
