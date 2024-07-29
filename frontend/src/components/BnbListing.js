@@ -13,6 +13,9 @@ function BnbListing({ bnb }) {
       <button>
         <Link to="/guest_log">View Guest Log</Link>
       </button>
+      <button>
+        <Link to="/booking_form">Book Now</Link>
+      </button>
     </div>
   )
 }
