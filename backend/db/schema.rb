@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2024_07_29_165943) do
     t.string "name"
     t.text "description"
     t.decimal "price_per_day", precision: 8, scale: 2
-    t.string "phone_number"
     t.boolean "availability", default: true
     t.string "category"
     t.string "image"
