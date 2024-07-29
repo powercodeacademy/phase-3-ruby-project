@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css"
+import React, { useEffect, useState } from "react"
+import NavBar from "./components/NavBar"
+import BnbListing from "./components/BnbListing"
 
 function App() {
+  const [allBnbs, setAllBnbs] = useState([])
+
+  useEffect(() => {
+    fetch("http://localhost:9292/bnbs/sort_by_price")
+      .then((r) => r.json())
+      .then((bnbs) => setAllBnbs(bnbs))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavBar />
+      <h1>CareBNB</h1>
+      <div>
+        {allBnbs.map((bnb) => {
+          return <BnbListing key={bnb.name} bnb={bnb} />
+        })}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
