@@ -17,13 +17,17 @@ const ShoeCollection = ({ currentRunner }) => {
   return (
     <div>
       <h1>Shoe Collection</h1>
-      <ul>
-        {shoes.map((shoe) => (
-          <li key={shoe.id}>
-            {shoe.name} - {shoe.mileage} miles
-          </li>
-        ))}
-      </ul>
+      {shoes.length > 0 ? (
+        <ul>
+          {shoes.map((shoe) => (
+            <li key={shoe.id}>
+              {shoe.name} - {shoe.mileage} miles
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No shoes available.</p>
+      )}
       <AddShoeForm addShoe={addShoe} />
     </div>
   )

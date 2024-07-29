@@ -11,7 +11,6 @@ const App = () => {
     fetch("http://127.0.0.1:9292/runners")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setRunners(data)
         if (data.length > 0) {
           setCurrentRunner(data[0])
