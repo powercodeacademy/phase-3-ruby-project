@@ -39,6 +39,10 @@ stay5 = Stay.create(bnb_id: bnb5.id, guest_id: guest5.id, check_in: "2024-08-10"
                     check_out: "2024-08-15")
 stay6 = Stay.create(bnb_id: bnb6.id, guest_id: guest6.id, check_in: "2024-08-20",
                     check_out: "2024-08-25")
+stay7 = Stay.create(bnb_id: bnb1.id, guest_id: guest6.id, check_in: "2024-08-20",
+                    check_out: "2024-08-25")
+stay8 = Stay.create(bnb_id: bnb1.id, guest_id: guest6.id, check_in: "2024-08-20",
+                    check_out: "2024-08-25")
 
 puts "creating guest log entries.."
 GuestLogEntry.create(bnb_id: bnb1.id, guest_id: guest1.id, stay_id: stay1.id,
@@ -53,3 +57,7 @@ GuestLogEntry.create(bnb_id: bnb5.id, guest_id: guest5.id, stay_id: stay5.id,
                      message: "Peaceful and quiet at Countryside B&B.")
 GuestLogEntry.create(bnb_id: bnb6.id, guest_id: guest6.id, stay_id: stay6.id,
                      message: "Beautiful lake view at Lake House Lodge.")
+GuestLogEntry.create(bnb_id: bnb1.id, guest_id: guest2.id, stay_id: stay7.id,
+                    message: "BEST BREAKFAST.")
+GuestLogEntry.create(bnb_id: bnb1.id, guest_id: guest6.id, stay_id: stay8.id,
+                    message: "Great linens")

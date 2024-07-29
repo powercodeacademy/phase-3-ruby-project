@@ -17,4 +17,10 @@ class ApplicationController < Sinatra::Base
     bnb = Bnb.order(cost_per_night: :desc)
     bnb.to_json
   end
+
+  get "/bnbs/:id/guest_log" do
+    bnb = Bnb.find(params[:id])
+    bnb.to_json(include: :guest_log_entries)
+  end
+
 end
