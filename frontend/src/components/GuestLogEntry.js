@@ -1,10 +1,10 @@
 import React from "react"
 
 function GuestLogEntry({ entry }) {
-  const { message, created_at, guest_id, guest } = entry
+  const { message, entry_date, guest_id, guest } = entry
   return (
     <tr>
-      <td>{created_at}</td>
+      <td>{entry_date}</td>
       <td>
         {message} -- {guest.name}
       </td>
