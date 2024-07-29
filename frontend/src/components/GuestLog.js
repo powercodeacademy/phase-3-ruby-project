@@ -1,9 +1,10 @@
 import React from "react"
 import GuestLogEntry from "./GuestLogEntry"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function GuestLog({ guestLog }) {
   return (
-    <table>
+    <table className="table table-striped">
       <thead>
         <tr>
           <th>Entry Date</th>

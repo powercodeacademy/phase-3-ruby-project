@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import GuestLog from "./GuestLog"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function BnbListing({ bnb }) {
   const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
@@ -16,17 +17,21 @@ function BnbListing({ bnb }) {
   }
 
   return (
-    <div>
-      <h2>{name}</h2>
-      <span>
-        Number of Rooms {num_of_rooms} - Cost /Night ${cost_per_night}
-      </span>
-      <p>{description}</p>
-      <p>Located in {location}</p>
-      <button onClick={getGuestLog}>
-        {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
-      </button>
-      {showGuestLog && <GuestLog guestLog={guestLog} />}
+    <div className="card mb-4">
+      <div className="card-body">
+        <h2 className="card-title">{name}</h2>
+        <h6 className="card-subtitle mb-2 text-muted">
+          Number of Rooms: {num_of_rooms} - Cost /Night: ${cost_per_night}
+        </h6>
+        <p className="card-text">{description}</p>
+        <p className="card-text">
+          <small className="text-muted">Located in {location}</small>
+        </p>
+        <button className="btn btn-primary" onClick={getGuestLog}>
+          {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
+        </button>
+        {showGuestLog && <GuestLog guestLog={guestLog} />}
+      </div>
     </div>
   )
 }

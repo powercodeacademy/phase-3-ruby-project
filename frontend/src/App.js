@@ -14,7 +14,6 @@ function App() {
 
   return (
     <div>
-      <NavBar />
       <h1>CareBNB</h1>
       <div>
         {allBnbs.map((bnb) => {
