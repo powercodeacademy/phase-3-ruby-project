@@ -12,4 +12,14 @@ class ApplicationController < Sinatra::Base
     board_game = BoardGame.find(params[:id])
     board_game.to_json
   end
+
+  get "/board_games/:id/reviews" do
+    board_game_reviews = BoardGame.find(params[:id]).reviews
+    board_game_reviews.to_json
+  end
+
+  get "/users" do
+    users = User.all
+    users.to_json
+  end
 end
