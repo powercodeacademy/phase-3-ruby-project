@@ -12,4 +12,15 @@ class ApplicationController < Sinatra::Base
     tool = Tool.find(params[:id])
     tool.to_json
   end
+
+  post "/tools" do
+    tool = Tool.create(
+      name: params[:name],
+      description: params[:description],
+      price_per_day: params[:price_per_day],
+      category: params[:category],
+      image: params[:image]
+    )
+    tool.to_json
+  end
 end
