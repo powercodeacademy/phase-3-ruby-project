@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react"
 import AddShoeForm from "./AddShoeForm"
 
-const ShoeCollection = () => {
-  const [shoes, setShoes] = useState([])
+const ShoeCollection = ({ currentRunner }) => {
+  const [shoes, setShoes] = useState(currentRunner.shoes)
 
-  // useEffect(() => {
-  //   // Fetch the initial list of shoes from the backend
-  //   fetch("/api/shoes")
-  //     .then((response) => response.json())
-  //     .then((data) => setShoes(data))
-  // }, [])
+  useEffect(() => {
+    if (currentRunner) {
+      setShoes(currentRunner.shoes)
+    }
+  }, [currentRunner])
 
   const addShoe = (newShoe) => {
     setShoes([...shoes, newShoe])

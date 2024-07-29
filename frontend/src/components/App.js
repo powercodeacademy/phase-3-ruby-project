@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from "react"
 import ShoeCollection from "./ShoeCollection"
 import RunHistory from "./RunHistory"
-import AddUserForm from "./AddUserForm"
+import AddRunnerForm from "./AddRunnerForm"
 
 const App = () => {
-  const [users, setUsers] = useState([])
-  const [currentUser, setCurrentUser] = useState("")
+  const [runners, setRunners] = useState([])
+  const [currentRunner, setCurrentRunner] = useState(null)
 
   useEffect(() => {
     fetch("http://127.0.0.1:9292/runners")
       .then((response) => response.json())
       .then((data) => {
-        setUsers(data)
+        console.log(data)
+        setRunners(data)
         if (data.length > 0) {
-          setCurrentUser(data[0])
+          setCurrentRunner(data[0])
         }
+      })
+      .catch((error) => {
+        console.error("Error fetching runners:", error)
       })
   }, [])
 
-  const addUser = (newUser) => {
-    setUsers([...users, newUser])
-    setCurrentUser(newUser.id)
+  const addRunner = (newRunner) => {
+    setRunners([...runners, newRunner])
+    setCurrentRunner(newRunner)
   }
 
-  const handleUserChange = (e) => {
-    setCurrentUser(e.target.value)
+  const handleRunnerChange = (e) => {
+    const selectedRunner = runners.find(
+      (runner) => runner.id === parseInt(e.target.value, 10)
+    )
+    setCurrentRunner(selectedRunner)
   }
 
   return (
@@ -33,23 +40,27 @@ const App = () => {
 
       <div>
         <label>
-          Select User:
-          <select value={currentUser} onChange={handleUserChange}>
-            {users.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.name}
+          Select Runner:
+          <select
+            value={currentRunner ? currentRunner.id : ""}
+            onChange={handleRunnerChange}
+          >
+            <option value="">Select a runner</option>
+            {runners.map((runner) => (
+              <option key={runner.id} value={runner.id}>
+                {runner.name}
               </option>
             ))}
           </select>
         </label>
       </div>
 
-      <AddUserForm addUser={addUser} />
+      <AddRunnerForm addRunner={addRunner} />
 
-      {currentUser && (
+      {currentRunner && (
         <>
-          <ShoeCollection userId={currentUser} />
-          <RunHistory userId={currentUser} />
+          <ShoeCollection currentRunner={currentRunner} />
+          <RunHistory currentRunner={currentRunner} />
         </>
       )}
     </div>
