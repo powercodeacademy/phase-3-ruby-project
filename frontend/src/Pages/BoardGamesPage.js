@@ -23,8 +23,11 @@ function BoardGamePage() {
   })
 
   return(
-    <div>
-      {boardGameCards}
+    <div className="container">
+      <header className="my-4">
+        <h1 className="text-center">Board Games</h1>
+      </header>
+      { boardGameCards }
     </div>
   )
 }
