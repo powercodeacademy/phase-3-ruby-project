@@ -7,6 +7,7 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact"
+import "bootstrap-icons/font/bootstrap-icons.css"
 import { NavLink } from "react-router-dom"
 
 const Sidebar = () => {
@@ -21,7 +22,7 @@ const Sidebar = () => {
             className="text-decoration-none"
             style={{ color: "inherit" }}
           >
-            Sidebar
+            Travel Planner
           </a>
         </CDBSidebarHeader>
 
@@ -30,27 +31,27 @@ const Sidebar = () => {
             <NavLink exact to="/" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="columns">Dashboard</CDBSidebarMenuItem>
             </NavLink>
-            <NavLink exact to="/tables" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Tables</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/profile" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="user">Profile page</CDBSidebarMenuItem>
-            </NavLink>
-            <NavLink exact to="/analytics" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="chart-line">
-                Analytics
-              </CDBSidebarMenuItem>
-            </NavLink>
-
             <NavLink
               exact
-              to="/hero404"
-              target="_blank"
+              to="/create_new_trip"
               activeClassName="activeClicked"
             >
-              <CDBSidebarMenuItem icon="exclamation-circle">
-                404 page
+              <CDBSidebarMenuItem icon="bi bi-pencil-square">
+                Create New Trip
               </CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/my_travels" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="bi bi-airplane-fill">
+                My Travels
+              </CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/calendar" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="bi bi-calendar-date-fill">
+                Calendar
+              </CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink exact to="/stats" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">Stats</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
