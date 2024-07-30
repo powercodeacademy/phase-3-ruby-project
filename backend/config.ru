@@ -14,4 +14,5 @@ end
 use Rack::JSONBodyParser
 
 # Our application
+use ReviewController
 run ApplicationController
