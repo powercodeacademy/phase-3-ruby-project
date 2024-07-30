@@ -1,39 +1,58 @@
-import React, { useState } from 'react'
-import { useUser } from '../context/UserContext'
-import { loginUser } from '../services/fetchers'
+import React, { useState } from "react"
+import { useNavigate } from 'react-router-dom';
+import { useUser } from "../context/UserContext"
+import { loginUser } from "../services/fetchers"
 
-function Login(){
+function Login() {
   const { setUser } = useUser()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    loginUser().then(data => {
-      if(data.success){
+    loginUser(username, password).then((data) => {
+      if (data.success) {
         setUser(data.user)
+        navigate('/board_games')
       } else {
         console.error(data.message)
       }
     })
   }
 
-  return(
+  return (
     <div className="container-fluid">
       <div className="row justify-content-center align-items-center min-vh-100">
         <div className="col-md-4 col-lg-3">
           <div className="login-form bg-light p-4 rounded">
             <h2 className="text-center mb-4">Login</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="form-group mb-3">
                 <label htmlFor="username">Username</label>
-                <input type="text" className="form-control" id="username" placeholder="Enter your username" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="username"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={event => setUsername(event.target.value)}
+                />
               </div>
               <div className="form-group mb-4">
                 <label htmlFor="password">Password</label>
-                <input type="password" className="form-control" id="password" placeholder="Enter your password" />
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={event => setPassword(event.target.value)}
+                />
               </div>
-              <button type="submit" className="btn btn-primary w-100">Login</button>
+              <button type="submit" className="btn btn-primary w-100">
+                Login
+              </button>
             </form>
           </div>
         </div>

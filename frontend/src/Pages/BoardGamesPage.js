@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
 import BoardGameCard from "../components/BoardGameCard"
 import { getAllBoardGames } from "../services/fetchers"
+import { useUser } from "../context/UserContext"
 
 function BoardGamePage() {
   const [boardGames, setBoardGames] = useState(null)
+  const { user } = useUser()
+
 
   useEffect(() => {
     getAllBoardGames().then(boardGamesList => setBoardGames(boardGamesList))
