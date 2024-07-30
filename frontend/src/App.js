@@ -12,9 +12,16 @@ function App() {
       .then((bnbs) => setAllBnbs(bnbs))
   }, [])
 
-  function handleSortByPrice() {
+  function handleSortByPriceDesc() {
     // console.log("test")
-    fetch("http://localhost:9292/bnbs/sort_by_price")
+    fetch("http://localhost:9292/bnbs/sort_by_price_desc")
+      .then((r) => r.json())
+      .then((bnbs) => setAllBnbs(bnbs))
+  }
+
+  function handleSortByPriceAsc() {
+    // console.log("test")
+    fetch("http://localhost:9292/bnbs/sort_by_price_asc")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
   }
@@ -22,8 +29,11 @@ function App() {
   return (
     <div>
       <h1>WarmWelcomes</h1>
-      <button className="button-74" onClick={handleSortByPrice}>
+      <button className="button-74" onClick={handleSortByPriceDesc}>
         sort by most expensive
+      </button>
+      <button className="button-74" onClick={handleSortByPriceAsc}>
+        sort by most affordable
       </button>
       <div>
         {allBnbs.map((bnb) => {
