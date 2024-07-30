@@ -14,17 +14,3 @@ const ToolCard = ({ tool }) => {
 }
 
 export default ToolCard
-
-// const fetchTools = async () => {
-//   try {
-//     const response = await fetch(
-//       `http://localhost:9292/tools?sort_by=${sort}`
-//     )
-//     if (response.ok) {
-//       const data = await response.json()
-//       setTools(data)
-//     }
-//   } catch (error) {
-//     console.error("Failed to fetch tools:", error)
-//   }
-// }
