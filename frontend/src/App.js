@@ -1,9 +1,9 @@
-import BoardGamePage from "./Pages/BoardGamesPage";
+import Login from "./Pages/Login";
 
 function App() {
   return (
     <div className="Home">
-      <BoardGamePage />
+      <Login />
     </div>
   );
 }
