@@ -4,7 +4,17 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
   get "/tools" do
-    tools = Tool.all
+    sort_by = params[:sort_by] || "name"
+    tools = if sort_by == "name"
+              Tool.order(:name)
+            elsif sort_by == "available"
+              Tool.where(availability: true)
+            elsif sort_by == "id"
+              Tool.order(:id)
+            else
+              Tool.order(:name)
+            end
+    binding.pry
     tools.to_json
   end
 
