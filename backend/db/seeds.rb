@@ -13,13 +13,13 @@ user3 = User.create(username: "CharliesAngels1")
 user4 = User.create(username: "DianaWW")
 
 puts "Creating board games..."
-game1 = BoardGame.create(name: "Catan", image: "images/catan.jpg",
+game1 = BoardGame.create(name: "Catan", image: "https://cdn.openart.ai/uploads/image_GSPA1RvZ_1722263694326_raw.jpg",
                          description: "A strategy game about building settlements.")
-game2 = BoardGame.create(name: "Ticket to Ride", image: "images/ticket_to_ride.jpg",
+game2 = BoardGame.create(name: "Ticket to Ride", image: "https://cdn.openart.ai/uploads/image_Twr0mAsq_1722263736380_raw.jpg",
                          description: "A game about building train routes.")
-game3 = BoardGame.create(name: "Carcassonne", image: "images/carcassonne.jpg",
+game3 = BoardGame.create(name: "Carcassonne", image: "https://cdn.openart.ai/uploads/image_-TyzzXNj_1722263781459_raw.jpg",
                          description: "A tile-placement game where you build a medieval landscape.")
-game4 = BoardGame.create(name: "Pandemic", image: "images/pandemic.jpg",
+game4 = BoardGame.create(name: "Pandemic", image: "https://cdn.openart.ai/uploads/image_11iZw04q_1722263917722_raw.jpg",
                          description: "A cooperative game about curing diseases.")
 
 puts "Creating reviews..."

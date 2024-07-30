@@ -8,6 +8,11 @@ class ApplicationController < Sinatra::Base
     board_games.to_json
   end
 
+  get "/board_games/" do
+    board_games = BoardGame.all
+    board_games.to_json
+  end
+
   get "/board_games/:id" do
     board_game = BoardGame.find(params[:id])
     board_game.to_json
