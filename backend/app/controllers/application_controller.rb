@@ -14,7 +14,6 @@ class ApplicationController < Sinatra::Base
             else
               Tool.order(:name)
             end
-    binding.pry
     tools.to_json
   end
 
