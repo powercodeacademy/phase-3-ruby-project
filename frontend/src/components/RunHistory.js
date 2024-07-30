@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react"
 import AddRunForm from "./AddRunForm"
 
-const RunHistory = () => {
+const RunHistory = ({ currentRunner, updateRunner }) => {
   const [runs, setRuns] = useState([])
 
-  // useEffect(() => {
-  //   // Fetch the initial list of runs from the backend
-  //   fetch("/api/runs")
-  //     .then((response) => response.json())
-  //     .then((data) => setRuns(data))
-  // }, [])
+  useEffect(() => {
+    if (currentRunner) {
+      setRuns(currentRunner.runs)
+    }
+  }, [currentRunner])
 
   const addRun = (newRun) => {
+    const updatedRuns = [...runs, newRun]
     setRuns([...runs, newRun])
+    updateRunner({ ...currentRunner, runs: updatedRuns })
   }
 
   return (
@@ -21,11 +22,11 @@ const RunHistory = () => {
       <ul>
         {runs.map((run) => (
           <li key={run.id}>
-            {run.distance} miles on {new Date(run.date).toLocaleDateString()}
+            {run.distance} miles on {run.created_at}
           </li>
         ))}
       </ul>
-      <AddRunForm addRun={addRun} />
+      <AddRunForm addRun={addRun} currentRunner={currentRunner} />
     </div>
   )
 }

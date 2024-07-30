@@ -1,25 +1,30 @@
 import React, { useState } from "react"
 
-const AddRunForm = ({ addRun }) => {
+const AddRunForm = ({ addRun, currentRunner }) => {
   const [distance, setDistance] = useState("")
-  const [date, setDate] = useState("")
+  const [shoeID, setShoeID] = useState("")
 
   const handleSubmit = (e) => {
-    // e.preventDefault()
-    // const newRun = { distance: parseInt(distance, 10), date }
-    // fetch("/api/runs", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(newRun),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     addRun(data)
-    //     setDistance("")
-    //     setDate("")
-    //   })
+    e.preventDefault()
+    const newRun = {
+      distance: parseInt(distance, 10),
+      runnerId: currentRunner.id,
+      shoeID: shoeID,
+    }
+    debugger
+    fetch("http://127.0.0.1:9292/runs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newRun),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        addRun(data)
+        setShoeID("")
+        setDistance("")
+      })
   }
 
   return (
@@ -38,13 +43,15 @@ const AddRunForm = ({ addRun }) => {
       </div>
       <div>
         <label>
-          Date:
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-          />
+          Shoe:
+          <select value={shoeID} onChange={(e) => setShoeID(e.target.value)}>
+            <option value="">Select a shoe</option>
+            {currentRunner.shoes.map((shoe) => (
+              <option key={shoe.id} value={shoe.id}>
+                {shoe.name}
+              </option>
+            ))}
+          </select>
         </label>
       </div>
       <button type="submit">Add Run</button>

@@ -12,7 +12,7 @@ const ShoeCollection = ({ currentRunner, updateRunner }) => {
 
   const addShoe = (newShoe) => {
     const updatedShoes = [...shoes, newShoe]
-    setShoes(updatedShoes)
+    setShoes([...shoes, newShoe])
     updateRunner({ ...currentRunner, shoes: updatedShoes })
   }
 

@@ -71,7 +71,10 @@ const App = () => {
             currentRunner={currentRunner}
             updateRunner={updateRunner}
           />
-          <RunHistory currentRunner={currentRunner} />
+          <RunHistory
+            currentRunner={currentRunner}
+            updateRunner={updateRunner}
+          />
         </>
       )}
     </div>
