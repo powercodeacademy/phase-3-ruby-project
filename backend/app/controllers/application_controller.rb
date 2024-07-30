@@ -68,4 +68,10 @@ class ApplicationController < Sinatra::Base
     )
     entry.to_json
   end
+
+  delete '/guest_log_delete/:id' do
+    entry = GuestLogEntry.find(params[:id])
+    entry.destroy
+    entry.to_json
+  end
 end
