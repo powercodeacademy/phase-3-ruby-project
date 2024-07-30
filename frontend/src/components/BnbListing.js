@@ -35,6 +35,11 @@ function BnbListing({ bnb }) {
   const toggleBookingForm = () => {
     setShowBookingForm(!showBookingForm)
   }
+
+  const handleDeleteStay = (stayId) => {
+    setStaysList((prevStays) => prevStays.filter((stay) => stay.id !== stayId))
+  }
+
   return (
     <div className="card mb-4">
       <div className="card-body">
@@ -59,7 +64,9 @@ function BnbListing({ bnb }) {
         <button className="button-74" onClick={getStaysList}>
           {showStaysList ? "Hide Stays List" : "View Stays List"}
         </button>
-        {showStaysList && <StaysList staysList={staysList} />}
+        {showStaysList && (
+          <StaysList staysList={staysList} onDeleteStay={handleDeleteStay} />
+        )}
       </div>
     </div>
   )

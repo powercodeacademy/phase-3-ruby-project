@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import GuestLogForm from "./GuestLogForm"
 
-function StayEntry({ entry }) {
+function StayEntry({ entry, onDeleteStay }) {
   const [guestLogForm, setGuestLogForm] = useState(false)
   const { check_in, check_out, guest, id } = entry
 
@@ -13,6 +13,8 @@ function StayEntry({ entry }) {
   function handleDeleteClick() {
     fetch(`http://localhost:9292/stays/${id}`, {
       method: "DELETE",
+    }).then(() => {
+      onDeleteStay(id)
     })
   }
 
