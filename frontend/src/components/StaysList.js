@@ -1,8 +1,7 @@
 import React from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-function GuestLogEntry({ entry }) {
-  const { message, entry_date, guest } = entry
+function StaysList() {
   return (
     <tr>
       <td>{entry_date}</td>
@@ -13,4 +12,4 @@ function GuestLogEntry({ entry }) {
   )
 }
 
-export default GuestLogEntry
+export default StaysList

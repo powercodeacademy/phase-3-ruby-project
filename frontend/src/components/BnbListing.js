@@ -7,6 +7,7 @@ function BnbListing({ bnb }) {
   const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
   const [guestLog, setGuestLog] = useState([])
   const [showGuestLog, setShowGuestLog] = useState(false)
+  const [showStaysList, setShowStaysList] = useState(false)
 
   const getGuestLog = () => {
     if (!showGuestLog) {
@@ -16,6 +17,15 @@ function BnbListing({ bnb }) {
     }
     setShowGuestLog(!showGuestLog)
   }
+
+  // const getGuestLog = () => {
+  //   if (!showGuestLog) {
+  //     fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
+  //       .then((r) => r.json())
+  //       .then((entries) => setGuestLog(entries))
+  //   }
+  //   setShowGuestLog(!showGuestLog)
+  // }
 
   return (
     <div className="card mb-4">
@@ -32,6 +42,9 @@ function BnbListing({ bnb }) {
           {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
         </button>
         {showGuestLog && <GuestLog guestLog={guestLog} />}
+        <button className="button-74" onClick={getGuestLog}>
+          {showStaysList ? "Hide Stays List" : "View Stays List"}
+        </button>
       </div>
     </div>
   )
