@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  # Add your routes here
   get "/" do
     { message: "Good luck with your project!" }.to_json
   end
@@ -30,4 +27,14 @@ class ApplicationController < Sinatra::Base
     stays_with_guests
   end
 
+  post '/guest_log' do
+    log_entry = GuestLogEntry.create(
+      message: params[:message],
+      guest_id: params[:guest_id],
+      bnb_id: params[:bnb_id],
+      stay_id: params[:stay_id],
+      entry_date: params[:entry_date],
+    )
+    log_entry.to_json
+  end
 end
