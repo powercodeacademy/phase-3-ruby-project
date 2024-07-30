@@ -2,10 +2,13 @@ import React, { useState } from "react"
 import GuestLog from "./GuestLog"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../App.css"
+import StaysList from "./StaysList"
 
 function BnbListing({ bnb }) {
   const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
   const [guestLog, setGuestLog] = useState([])
+  const [staysList, setStaysList] = useState([])
+
   const [showGuestLog, setShowGuestLog] = useState(false)
   const [showStaysList, setShowStaysList] = useState(false)
 
@@ -18,14 +21,14 @@ function BnbListing({ bnb }) {
     setShowGuestLog(!showGuestLog)
   }
 
-  // const getGuestLog = () => {
-  //   if (!showGuestLog) {
-  //     fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
-  //       .then((r) => r.json())
-  //       .then((entries) => setGuestLog(entries))
-  //   }
-  //   setShowGuestLog(!showGuestLog)
-  // }
+  const getStaysList = () => {
+    if (!showStaysList) {
+      fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
+        .then((r) => r.json())
+        .then((entries) => setStaysList(entries))
+    }
+    setShowStaysList(!showStaysList)
+  }
 
   return (
     <div className="card mb-4">
@@ -42,9 +45,10 @@ function BnbListing({ bnb }) {
           {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
         </button>
         {showGuestLog && <GuestLog guestLog={guestLog} />}
-        <button className="button-74" onClick={getGuestLog}>
+        <button className="button-74" onClick={getStaysList}>
           {showStaysList ? "Hide Stays List" : "View Stays List"}
         </button>
+        {showStaysList && <StaysList staysList={staysList} />}
       </div>
     </div>
   )
