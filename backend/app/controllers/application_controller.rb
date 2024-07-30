@@ -5,15 +5,14 @@ class ApplicationController < Sinatra::Base
 
   get "/tools" do
     sort_by = params[:sort_by] || "name"
-    tools = if sort_by == "name"
-              Tool.order(:name)
-            elsif sort_by == "available"
-              Tool.where(availability: true)
-            elsif sort_by == "category"
-              Tool.order(:category)
-            else
-              Tool.order(:name)
-            end
+    tools =
+      if sort_by == "available"
+        Tool.where(availability: true)
+      elsif sort_by == "category"
+        Tool.order(:category)
+      else
+        Tool.order(:name)
+      end
     tools.to_json
   end
 
