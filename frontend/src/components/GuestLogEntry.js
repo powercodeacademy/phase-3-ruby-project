@@ -7,7 +7,7 @@ function GuestLogEntry({ entry }) {
     <tr>
       <td>{entry_date}</td>
       <td>
-        {message} -- {guest.name}
+        {message} - {guest.name}
       </td>
     </tr>
   )

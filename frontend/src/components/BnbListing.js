@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import GuestLog from "./GuestLog"
 import "bootstrap/dist/css/bootstrap.min.css"
+import "../App.css"
 
 function BnbListing({ bnb }) {
   const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
@@ -27,7 +28,7 @@ function BnbListing({ bnb }) {
         <p className="card-text">
           <small className="text-muted">Located in {location}</small>
         </p>
-        <button className="btn btn-primary" onClick={getGuestLog}>
+        <button className="button-74" onClick={getGuestLog}>
           {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
         </button>
         {showGuestLog && <GuestLog guestLog={guestLog} />}

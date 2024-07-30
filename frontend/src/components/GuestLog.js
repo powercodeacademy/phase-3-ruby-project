@@ -12,10 +12,6 @@ function GuestLog({ guestLog }) {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>2024-07-29</td>
-          <td>Sample message content</td>
-        </tr>
         {guestLog.map((entry) => {
           return <GuestLogEntry key={entry.id} entry={entry} />
         })}

@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div>
-      <h1>CareBNB</h1>
+      <h1>WarmWelcomes</h1>
       <div>
         {allBnbs.map((bnb) => {
           return <BnbListing key={bnb.name} bnb={bnb} />
