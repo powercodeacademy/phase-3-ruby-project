@@ -9,6 +9,7 @@ function GuestLog({ guestLog }) {
         <tr>
           <th>Entry Date</th>
           <th>Message</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
