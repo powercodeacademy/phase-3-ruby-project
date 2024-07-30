@@ -60,4 +60,12 @@ class ApplicationController < Sinatra::Base
     stay.destroy
     stay.to_json
   end
+
+  patch '/guest_log/:id' do
+    entry = GuestLogEntry.find(params[:id])
+    entry.update(
+      message: params[:newMessage],
+    )
+    entry.to_json
+  end
 end
