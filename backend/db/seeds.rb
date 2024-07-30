@@ -43,6 +43,8 @@ stay7 = Stay.create(bnb_id: bnb1.id, guest_id: guest6.id, check_in: "2024-08-20"
                     check_out: "2024-08-25")
 stay8 = Stay.create(bnb_id: bnb1.id, guest_id: guest6.id, check_in: "2024-08-20",
                     check_out: "2024-08-25")
+stay5 = Stay.create(bnb_id: bnb5.id, guest_id: guest3.id, check_in: "2024-11-10",
+                    check_out: "2024-11-15")
 
 puts "creating guest log entries.."
 GuestLogEntry.create(bnb_id: bnb1.id, guest_id: guest1.id, stay_id: stay1.id,
