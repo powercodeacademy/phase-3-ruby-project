@@ -1,11 +1,14 @@
 import React from "react"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function GuestLogEntry({ entry }) {
-  const { message, created_at } = entry
+  const { message, entry_date, guest } = entry
   return (
     <tr>
-      <td>{created_at}</td>
-      <td>{message}</td>
+      <td>{entry_date}</td>
+      <td>
+        {message} - {guest.name}
+      </td>
     </tr>
   )
 }
