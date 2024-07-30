@@ -3,6 +3,7 @@ import GuestLog from "./GuestLog"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../App.css"
 import StaysList from "./StaysList"
+import BookingForm from "./BookingForm"
 
 function BnbListing({ bnb }) {
   const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
@@ -11,6 +12,7 @@ function BnbListing({ bnb }) {
 
   const [showGuestLog, setShowGuestLog] = useState(false)
   const [showStaysList, setShowStaysList] = useState(false)
+  const [showBookingForm, setShowBookingForm] = useState(false)
 
   const getGuestLog = () => {
     if (!showGuestLog) {
@@ -30,10 +32,19 @@ function BnbListing({ bnb }) {
     setShowStaysList(!showStaysList)
   }
 
+  const toggleBookingForm = () => {
+    setShowBookingForm(!showBookingForm)
+  }
   return (
     <div className="card mb-4">
       <div className="card-body">
-        <h2 className="card-title">{name}</h2>
+        <h2 className="card-title">
+          {name}{" "}
+          <button onClick={toggleBookingForm} className="button-74">
+            Book Now
+          </button>
+        </h2>
+        {showBookingForm && <BookingForm bnb={bnb} />}
         <h6 className="card-subtitle mb-2 text-muted">
           Number of Rooms: {num_of_rooms} - Cost /Night: ${cost_per_night}
         </h6>
