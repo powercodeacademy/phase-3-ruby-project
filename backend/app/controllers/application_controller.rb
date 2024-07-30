@@ -37,4 +37,22 @@ class ApplicationController < Sinatra::Base
     )
     log_entry.to_json
   end
+
+  post "/create_guest_and_stay" do
+    guest = Guest.new(name: params[:name], age: params[:age])
+
+    if guest.save
+      stay = Stay.new(
+        bnb_id: params[:bnb_id],
+        guest_id: guest.id,
+        check_in: params[:check_in],
+        check_out: params[:check_out]
+      )
+
+      if stay.save
+        stay.to_json(include: { guest: { only: [:name, :age] } })
+      end
+    end
+  end
+
 end
