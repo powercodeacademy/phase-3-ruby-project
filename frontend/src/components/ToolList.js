@@ -12,30 +12,32 @@ const ToolsList = () => {
   }, [sort])
 
   const fetchTools = () => {
-    fetch(`http://localhost:9292/tools?sort=${sort}`)
+    fetch(`http://localhost:9292/tools?sort_by=${sort}`)
       .then((response) => response.json())
       .then((toolData) => setTools(toolData))
       .catch((error) => console.error("Failed to fetch tools:", error))
   }
 
-  const handleSortChange = (e) => {
-    setSort(e.target.value)
+  const handleSortChange = (event) => {
+    setSort(event.target.value)
   }
 
   const handleAddTool = (newTool) => {
     setTools([...tools, newTool])
-    setShowForm(false) // Close the form after adding a tool
+    setShowForm(false)
   }
 
   return (
     <div>
-      <div className="sort-container">
-        <label htmlFor="sort">Sort by: </label>
-        <select id="sort" value={sort} onChange={handleSortChange}>
+      <h1>Tools</h1>
+      <label>
+        Sort by:
+        <select value={sort} onChange={handleSortChange}>
           <option value="name">Name</option>
-          <option value="availability">Availability</option>
+          <option value="available">Available</option>
+          <option value="category">Tool Category</option>
         </select>
-      </div>
+      </label>
 
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "Close Form" : "Add Tool"}
