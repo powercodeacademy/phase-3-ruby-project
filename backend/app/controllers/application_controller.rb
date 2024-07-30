@@ -6,11 +6,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/runners" do
-    runners = Runner.all.to_a.map do |runner|
+    runners = Runner.all.map do |runner|
       {
         id: runner.id,
         name: runner.name,
         shoes: runner.shoes,
+        runs: runner.runs,
       }
     end
     runners.to_json
@@ -32,17 +33,26 @@ class ApplicationController < Sinatra::Base
     runner.to_json
   end
 
-  patch "/messages/:id" do
-    message = Message.find(params[:id])
-    message.update(
-      body: params[:body]
+  post "/runs" do
+    run = Run.create(
+      distance: params[:distance],
+      runner_id: params[:runnerId],
+      shoe_id: params[:shoeID]
     )
-    message.to_json
+    run.to_json
   end
 
-  delete "/messages/:id" do
-    message = Message.find(params[:id])
-    message.destroy
-    message.to_json
+  patch "/runs/:id" do
+    run = Run.find(params[:id])
+    run.update(
+      distance: params[:distance]
+    )
+    run.to_json
+  end
+
+  delete "/runs/:id" do
+    run = Run.find(params[:id])
+    run.destroy
+    run.to_json
   end
 end
