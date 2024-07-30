@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-function GuestLogForm({ entry }) {
+function GuestLogForm({ entry, getGuestLog }) {
   const { bnb_id, check_in, guest_id, id } = entry
-  const [message, setMessage] = useState("")
+  const [newMessage, setNewMessage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const newEntry = {
       entry_date: check_in,
-      message: message,
+      message: newMessage,
       bnb_id: bnb_id,
       guest_id: guest_id,
       stay_id: id,
@@ -23,7 +23,10 @@ function GuestLogForm({ entry }) {
       body: JSON.stringify(newEntry),
     })
       .then((r) => r.json())
-      .then(setMessage(""))
+      .then(() => {
+        setNewMessage("")
+        getGuestLog()
+      })
   }
 
   return (
@@ -33,8 +36,8 @@ function GuestLogForm({ entry }) {
         <textarea
           id="message"
           className="form-control"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
           required
         />
       </div>

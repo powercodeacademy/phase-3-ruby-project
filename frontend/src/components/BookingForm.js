@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 function BookingForm({ bnb }) {
   const { id } = bnb
   const [guestName, setGuestName] = useState("")
-  const [guestAge, setGuestAge] = useState("") // Add age field if needed
+  const [guestAge, setGuestAge] = useState("")
   const [checkIn, setCheckIn] = useState("")
   const [checkOut, setCheckOut] = useState("")
 
@@ -12,7 +12,7 @@ function BookingForm({ bnb }) {
     e.preventDefault()
     const newStay = {
       name: guestName,
-      age: guestAge, // Include age if needed
+      age: guestAge,
       check_in: checkIn,
       check_out: checkOut,
       bnb_id: id,
@@ -28,7 +28,7 @@ function BookingForm({ bnb }) {
       .then((r) => r.json())
       .then(() => {
         setGuestName("")
-        setGuestAge("") // Reset age field
+        setGuestAge("")
         setCheckIn("")
         setCheckOut("")
       })
