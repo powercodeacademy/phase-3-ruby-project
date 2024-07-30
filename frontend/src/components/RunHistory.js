@@ -5,6 +5,7 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
   const [runs, setRuns] = useState([])
   const [editingRunId, setEditingRunId] = useState(null)
   const [currentMileage, setCurrentMileage] = useState("")
+  const [shoeID, setShoeID] = useState("")
 
   useEffect(() => {
     if (currentRunner) {
@@ -43,7 +44,7 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
   const handleSaveClick = (runId) => {
     const updatedRuns = runs.map((run) =>
       run.id === runId
-        ? { ...run, distance: parseInt(currentMileage, 10) }
+        ? { ...run, distance: parseInt(currentMileage, 10), shoeID: shoeID }
         : run
     )
     setRuns(updatedRuns)
@@ -54,7 +55,10 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ distance: parseInt(currentMileage, 10) }),
+      body: JSON.stringify({
+        distance: parseInt(currentMileage, 10),
+        shoeID: shoeID,
+      }),
     })
       .then((response) => response.json())
       .catch((error) => {
@@ -77,7 +81,21 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
                   value={currentMileage}
                   onChange={handleMileageChange}
                 />
-                Miles
+                Miles -
+                <label>
+                  Shoe:
+                  <select
+                    value={shoeID}
+                    onChange={(e) => setShoeID(e.target.value)}
+                  >
+                    <option value="">Select a shoe</option>
+                    {currentRunner.shoes.map((shoe) => (
+                      <option key={shoe.id} value={shoe.id}>
+                        {shoe.name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 <button onClick={() => handleSaveClick(run.id)}>Save</button>
               </div>
             ) : (

@@ -45,7 +45,8 @@ class ApplicationController < Sinatra::Base
   patch "/runs/:id" do
     run = Run.find(params[:id])
     run.update(
-      distance: params[:distance]
+      distance: params[:distance],
+      shoe_id: params[:shoeID]
     )
     run.to_json
   end
