@@ -25,30 +25,30 @@ class ApplicationController < Sinatra::Base
 
   enable :sessions
 
-  post '/login' do
+  post "/login" do
     user = User.authenticate(params[:username], params[:password])
 
     if user
       session[:user_id] = user.id
-      { success: true, message: 'Login successful', user: user.username }.to_json
+      { success: true, message: "Login successful", user: user.username }.to_json
     else
       status 401
-      { success: false, message: 'Invalid username or password' }.to_json
+      { success: false, message: "Invalid username or password" }.to_json
     end
   end
 
-  get '/current_user' do
+  get "/current_user" do
     if session[:user_id]
       user = User.find(session[:user_id])
       { success: true, user: { id: user.id, username: user.username } }.to_json
     else
-      { success: false, message: 'No user logged in' }.to_json
+      { success: false, message: "No user logged in" }.to_json
     end
   end
 
-  delete '/logout' do
+  delete "/logout" do
     session.clear
-    { success: true, message: 'Logged out successfully' }.to_json
+    { success: true, message: "Logged out successfully" }.to_json
   end
 
   get "/users" do

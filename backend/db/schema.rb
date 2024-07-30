@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_29_134244) do
-
+ActiveRecord::Schema.define(version: 20_240_729_134_244) do
   create_table "board_games", force: :cascade do |t|
     t.string "name"
     t.string "image"
@@ -53,5 +52,4 @@ ActiveRecord::Schema.define(version: 2024_07_29_134244) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
-
 end

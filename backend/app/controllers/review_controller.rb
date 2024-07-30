@@ -1,4 +1,3 @@
-
 class ReviewController < Sinatra::Base
   # post "/reviews" do
   #   review = Review.create(
