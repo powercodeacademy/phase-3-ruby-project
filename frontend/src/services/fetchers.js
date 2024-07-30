@@ -1,5 +1,4 @@
 const urlBoardGames = "http://localhost:9292/board_games/"
-const urlAuth = "http://localhost:9292/current_user"
 const urlLogin = "http://localhost:9292/login"
 
 const getAllBoardGames = () => {
@@ -18,8 +17,5 @@ const loginUser = (username, password) => {
   }).then(resp => resp.json())
 }
 
-const authCheck = () => {
-  return fetch(urlAuth).then(resp => resp.json())
-}
 
-export { getAllBoardGames, getBoardGameData, loginUser, authCheck }
+export { getAllBoardGames, getBoardGameData, loginUser }
