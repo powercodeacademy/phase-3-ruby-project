@@ -1,24 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authCheck } from '../services/fetchers';
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
-const UserContext = createContext();
+const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    authCheck().then(authResponse => {
-      if(authResponse.success){
-        setUser(authResponse.user)
-      } else {
-        setUser(null)
-      }
-    })
-    .catch(error => {
-      console.error('Failed to check authentication:', error);
-        setUser(null);
-    })
-  }, [])
+  const [user, setUser] = useState(null)
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -27,4 +12,4 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-export const useUser = () => useContext(UserContext);
+export const useUser = () => useContext(UserContext)
