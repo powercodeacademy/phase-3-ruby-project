@@ -55,4 +55,9 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  delete '/stays/:id' do
+    stay = Stay.find(params[:id])
+    stay.destroy
+    stay.to_json
+  end
 end
