@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 function BoardGameCard({ boardGame }) {
   return (
@@ -7,7 +8,7 @@ function BoardGameCard({ boardGame }) {
         <div className="card-body">
           <h5 className="card-title">{boardGame.name}</h5>
           <p className="card-text">{boardGame.description}</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
+          <Link to={`/board_games/${boardGame.id}`}>View Board Game</Link>
         </div>
       </div>
     </div>
