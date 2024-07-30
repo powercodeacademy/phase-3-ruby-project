@@ -9,8 +9,8 @@ class ApplicationController < Sinatra::Base
               Tool.order(:name)
             elsif sort_by == "available"
               Tool.where(availability: true)
-            elsif sort_by == "id"
-              Tool.order(:id)
+            elsif sort_by == "category"
+              Tool.order(:category)
             else
               Tool.order(:name)
             end
