@@ -7,14 +7,24 @@ function App() {
   const [allBnbs, setAllBnbs] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:9292/bnbs/sort_by_price")
+    fetch("http://localhost:9292/bnbs")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
   }, [])
 
+  function handleSortByPrice() {
+    // console.log("test")
+    fetch("http://localhost:9292/bnbs/sort_by_price")
+      .then((r) => r.json())
+      .then((bnbs) => setAllBnbs(bnbs))
+  }
+
   return (
     <div>
       <h1>WarmWelcomes</h1>
+      <button className="button-74" onClick={handleSortByPrice}>
+        sort by most expensive
+      </button>
       <div>
         {allBnbs.map((bnb) => {
           return <BnbListing key={bnb.name} bnb={bnb} />
