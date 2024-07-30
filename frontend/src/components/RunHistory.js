@@ -97,6 +97,7 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
                   </select>
                 </label>
                 <button onClick={() => handleSaveClick(run.id)}>Save</button>
+                <button onClick={() => setEditingRunId(null)}>Cancel</button>
               </div>
             ) : (
               <>
