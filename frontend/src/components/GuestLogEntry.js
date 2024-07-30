@@ -1,7 +1,12 @@
 import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-function GuestLogEntry({ entry, updateGuestLogEntry, getGuestLog }) {
+function GuestLogEntry({
+  entry,
+  updateGuestLogEntry,
+  getGuestLog,
+  onDeleteEntry,
+}) {
   const { message, entry_date, guest, id } = entry
   const [showEditInput, setShowEditInput] = useState(false)
   const [newMessage, setNewMessage] = useState(message)
@@ -34,6 +39,14 @@ function GuestLogEntry({ entry, updateGuestLogEntry, getGuestLog }) {
       })
   }
 
+  function handleDeleteClick() {
+    fetch(`http://localhost:9292/guest_log/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      onDeleteEntry(id)
+    })
+  }
+
   return (
     <tr>
       <td>{entry_date}</td>
@@ -57,6 +70,9 @@ function GuestLogEntry({ entry, updateGuestLogEntry, getGuestLog }) {
       <td>
         <button onClick={toggleEntryForm} className="button-74">
           Edit log entry
+        </button>
+        <button className="button-74" onClick={handleDeleteClick}>
+          Delete Entry
         </button>
       </td>
     </tr>

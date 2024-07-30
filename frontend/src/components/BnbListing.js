@@ -54,6 +54,12 @@ function BnbListing({ bnb }) {
     )
   }
 
+  const handleDeleteGuestLogEntry = (entryId) => {
+    setGuestLog((prevEntries) =>
+      prevEntries.filter((entry) => entry.id !== entryId)
+    )
+  }
+
   return (
     <div className="card mb-4">
       <div className="card-body">
@@ -81,6 +87,7 @@ function BnbListing({ bnb }) {
             setMessage={setMessage}
             getGuestLog={getGuestLog}
             updateGuestLogEntry={updateGuestLogEntry}
+            onDeleteEntry={handleDeleteGuestLogEntry}
           />
         )}
         <button className="button-74" onClick={getStaysList}>

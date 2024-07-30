@@ -8,6 +8,7 @@ function GuestLog({
   setMessage,
   getGuestLog,
   updateGuestLogEntry,
+  onDeleteEntry,
 }) {
   return (
     <table className="table table-striped">
@@ -27,6 +28,7 @@ function GuestLog({
               setMessage={setMessage}
               updateGuestLogEntry={updateGuestLogEntry}
               getGuestLog={getGuestLog}
+              onDeleteEntry={onDeleteEntry}
             />
           )
         })}

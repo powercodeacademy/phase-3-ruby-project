@@ -2,7 +2,12 @@ import React from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import StayEntry from "./StayEntry"
 
-function StaysList({ staysList, onDeleteStay, getGuestLog }) {
+function StaysList({
+  staysList,
+  onDeleteStay,
+  getGuestLog,
+  handleDeleteGuestLogEntry,
+}) {
   return (
     <table className="table table-striped">
       <thead>
@@ -20,6 +25,7 @@ function StaysList({ staysList, onDeleteStay, getGuestLog }) {
               entry={entry}
               onDeleteStay={onDeleteStay}
               getGuestLog={getGuestLog}
+              handleDeleteGuestLogEntry={handleDeleteGuestLogEntry}
             />
           )
         })}
