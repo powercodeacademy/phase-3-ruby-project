@@ -10,7 +10,7 @@ class ApplicationController < Sinatra::Base
     bnbs.to_json
   end
 
-  get "/bnbs/sort_by_price" do
+  get "/bnbs/sort_by_price_desc" do
     bnb = Bnb.order(cost_per_night: :desc)
     bnb.to_json
   end
@@ -73,5 +73,10 @@ class ApplicationController < Sinatra::Base
     entry = GuestLogEntry.find(params[:id])
     entry.destroy
     entry.to_json
+  end
+
+  get "/bnbs/sort_by_price_asc" do
+    bnb = Bnb.order(cost_per_night: :asc)
+    bnb.to_json
   end
 end
