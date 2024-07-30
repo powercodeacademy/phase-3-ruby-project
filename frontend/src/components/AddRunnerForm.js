@@ -5,24 +5,9 @@ const AddRunnerForm = ({ addRunner }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newRunner = { name: name } // Shoes will be handled automatically on the backend
-
-    // Send the new runner to the backend
-    fetch("http://127.0.0.1:9292/runners", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newRunner),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        addRunner(data)
-        setName("")
-      })
-      .catch((error) => {
-        console.error("Error adding runner:", error)
-      })
+    const newRunner = { name: name }
+    addRunner(newRunner)
+    setName("")
   }
 
   return (

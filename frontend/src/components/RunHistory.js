@@ -1,55 +1,22 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import AddRunForm from "./AddRunForm"
 
-const RunHistory = ({ currentRunner, updateRunner }) => {
-  const [runs, setRuns] = useState([])
+const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
   const [editingRunId, setEditingRunId] = useState(null)
   const [currentMileage, setCurrentMileage] = useState("")
   const [shoeID, setShoeID] = useState("")
 
-  useEffect(() => {
-    if (currentRunner) {
-      setRuns(currentRunner.runs)
-    }
-  }, [currentRunner])
-
-  const addRun = (newRun) => {
-    const updatedRuns = [...runs, newRun]
-    setRuns(updatedRuns)
-    updateRunner({ ...currentRunner, runs: updatedRuns })
-  }
-
-  const deleteRun = (runId) => {
-    const updatedRuns = runs.filter((run) => run.id !== runId)
-
-    setRuns(updatedRuns)
-    updateRunner({ ...currentRunner, runs: updatedRuns })
-
-    fetch(`http://127.0.0.1:9292/runs/${runId}`, {
-      method: "DELETE",
-    }).catch((error) => {
-      console.error("Error deleting run:", error)
-    })
-  }
+  const runs = currentRunner.shoes.flatMap((shoe) =>
+    shoe.runs.map((run) => ({ ...run, shoeName: shoe.name }))
+  )
 
   const handleEditClick = (run) => {
     setEditingRunId(run.id)
     setCurrentMileage(run.distance)
-  }
-
-  const handleMileageChange = (e) => {
-    setCurrentMileage(e.target.value)
+    setShoeID(run.shoe_id)
   }
 
   const handleSaveClick = (runId) => {
-    const updatedRuns = runs.map((run) =>
-      run.id === runId
-        ? { ...run, distance: parseInt(currentMileage, 10), shoeID: shoeID }
-        : run
-    )
-    setRuns(updatedRuns)
-    updateRunner({ ...currentRunner, runs: updatedRuns })
-
     fetch(`http://127.0.0.1:9292/runs/${runId}`, {
       method: "PATCH",
       headers: {
@@ -61,11 +28,23 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
       }),
     })
       .then((response) => response.json())
+      .then(updateRunners)
       .catch((error) => {
         console.error("Error updating run:", error)
       })
 
     setEditingRunId(null)
+  }
+
+  const deleteRun = (runId) => {
+    fetch(`http://127.0.0.1:9292/runs/${runId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then(updateRunners)
+      .catch((error) => {
+        console.error("Error deleting run:", error)
+      })
   }
 
   return (
@@ -79,7 +58,7 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
                 <input
                   type="number"
                   value={currentMileage}
-                  onChange={handleMileageChange}
+                  onChange={(e) => setCurrentMileage(e.target.value)}
                 />
                 Miles -
                 <label>
@@ -101,7 +80,9 @@ const RunHistory = ({ currentRunner, updateRunner }) => {
               </div>
             ) : (
               <>
-                {run.distance} miles on {run.created_at}
+                {run.distance} miles on{" "}
+                {new Date(run.created_at).toLocaleDateString()} with{" "}
+                {run.shoeName}
                 <button onClick={() => handleEditClick(run)}>Edit</button>
                 <button onClick={() => deleteRun(run.id)}>Delete</button>
               </>

@@ -11,19 +11,9 @@ const AddRunForm = ({ addRun, currentRunner }) => {
       runnerId: currentRunner.id,
       shoeID: shoeID,
     }
-    fetch("http://127.0.0.1:9292/runs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newRun),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        addRun(data)
-        setShoeID("")
-        setDistance("")
-      })
+    addRun(newRun)
+    setShoeID("")
+    setDistance("")
   }
 
   return (

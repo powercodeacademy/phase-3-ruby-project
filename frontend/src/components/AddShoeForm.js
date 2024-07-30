@@ -1,28 +1,13 @@
 import React, { useState } from "react"
 
-const AddShoeForm = ({ currentRunner, setCurrentRunner, addShoe }) => {
+const AddShoeForm = ({ currentRunner, addShoe }) => {
   const [name, setName] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newShoe = { name: name, runnerId: currentRunner.id }
-
-    // Send the new shoe to the backend
-    fetch("http://127.0.0.1:9292/shoes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newShoe),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        addShoe(data)
-        setName("")
-      })
-      .catch((error) => {
-        console.error("Error adding shoe:", error)
-      })
+    const newShoe = { name: name, runner_id: currentRunner.id }
+    addShoe(newShoe)
+    setName("")
   }
 
   return (

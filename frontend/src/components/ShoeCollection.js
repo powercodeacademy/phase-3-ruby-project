@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react"
-import AddShoeForm from "./AddShoeForm"
+import React, { useState } from "react"
 
-const ShoeCollection = ({ currentRunner, updateRunner }) => {
-  const [shoes, setShoes] = useState(currentRunner.shoes)
+const ShoeCollection = ({ shoes, addShoe, currentRunner }) => {
+  const [shoeName, setShoeName] = useState("")
 
-  useEffect(() => {
-    if (currentRunner) {
-      setShoes(currentRunner.shoes)
-    }
-  }, [currentRunner])
-
-  const addShoe = (newShoe) => {
-    const updatedShoes = [...shoes, newShoe]
-    setShoes([...shoes, newShoe])
-    updateRunner({ ...currentRunner, shoes: updatedShoes })
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const newShoe = { name: shoeName, runnerId: currentRunner.id }
+    addShoe(newShoe)
+    setShoeName("")
   }
 
   return (
     <div>
       <h1>Shoe Collection</h1>
-      {currentRunner.shoes.length > 0 ? (
+      {shoes.length > 0 ? (
         <ul>
           {shoes.map((shoe) => (
             <li key={shoe.id}>
@@ -30,7 +24,16 @@ const ShoeCollection = ({ currentRunner, updateRunner }) => {
       ) : (
         <p>No shoes available.</p>
       )}
-      <AddShoeForm addShoe={addShoe} currentRunner={currentRunner} />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={shoeName}
+          onChange={(e) => setShoeName(e.target.value)}
+          placeholder="New Shoe Name"
+          required
+        />
+        <button type="submit">Add Shoe</button>
+      </form>
     </div>
   )
 }

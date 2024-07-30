@@ -1,45 +1,46 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  get "/" do
-    "Hello World"
-  end
-
-  get "/runners" do
+  def return_runners
     runners = Runner.all.map do |runner|
       {
         id: runner.id,
         name: runner.name,
-        shoes: runner.shoes,
+        shoes: runner.shoes.to_a.map do |shoe|
+                 shoe.attributes.merge(runs: shoe.runs, mileage: shoe.mileage)
+               end,
         runs: runner.runs,
       }
     end
     runners.to_json
   end
 
+  get "/runners" do
+    return_runners
+  end
+
   post "/shoes" do
-    shoe = Shoe.create(
+    Shoe.create(
       name: params[:name],
-      mileage: 0,
       runner_id: params[:runnerId]
     )
-    shoe.to_json
+    return_runners
   end
 
   post "/runners" do
-    runner = Runner.create(
+    Runner.create(
       name: params[:name]
     )
-    runner.to_json
+    return_runners
   end
 
   post "/runs" do
-    run = Run.create(
+    Run.create(
       distance: params[:distance],
       runner_id: params[:runnerId],
       shoe_id: params[:shoeID]
     )
-    run.to_json
+    return_runners
   end
 
   patch "/runs/:id" do
@@ -48,12 +49,12 @@ class ApplicationController < Sinatra::Base
       distance: params[:distance],
       shoe_id: params[:shoeID]
     )
-    run.to_json
+    return_runners
   end
 
   delete "/runs/:id" do
     run = Run.find(params[:id])
     run.destroy
-    run.to_json
+    return_runners
   end
 end
