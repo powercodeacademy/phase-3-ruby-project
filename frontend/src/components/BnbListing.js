@@ -14,13 +14,19 @@ function BnbListing({ bnb }) {
   const [showStaysList, setShowStaysList] = useState(false)
   const [showBookingForm, setShowBookingForm] = useState(false)
 
-  const getGuestLog = () => {
+  const [message, setMessage] = useState("")
+
+  const handleGuestLogClick = () => {
     if (!showGuestLog) {
-      fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
-        .then((r) => r.json())
-        .then((entries) => setGuestLog(entries))
+      getGuestLog()
     }
     setShowGuestLog(!showGuestLog)
+  }
+
+  const getGuestLog = () => {
+    fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
+      .then((r) => r.json())
+      .then((entries) => setGuestLog(entries))
   }
 
   const getStaysList = () => {
@@ -35,6 +41,25 @@ function BnbListing({ bnb }) {
   const toggleBookingForm = () => {
     setShowBookingForm(!showBookingForm)
   }
+
+  const handleDeleteStay = (stayId) => {
+    setStaysList((prevStays) => prevStays.filter((stay) => stay.id !== stayId))
+  }
+
+  const updateGuestLogEntry = (updatedEntry) => {
+    setGuestLog((prevEntries) =>
+      prevEntries.map((entry) =>
+        entry.id === updatedEntry.id ? updatedEntry : entry
+      )
+    )
+  }
+
+  const handleDeleteGuestLogEntry = (entryId) => {
+    setGuestLog((prevEntries) =>
+      prevEntries.filter((entry) => entry.id !== entryId)
+    )
+  }
+
   return (
     <div className="card mb-4">
       <div className="card-body">
@@ -52,14 +77,29 @@ function BnbListing({ bnb }) {
         <p className="card-text">
           <small className="text-muted">Located in {location}</small>
         </p>
-        <button className="button-74" onClick={getGuestLog}>
+        <button className="button-74" onClick={handleGuestLogClick}>
           {showGuestLog ? "Hide Guest Log" : "View Guest Log"}
         </button>
-        {showGuestLog && <GuestLog guestLog={guestLog} />}
+        {showGuestLog && (
+          <GuestLog
+            guestLog={guestLog}
+            message={message}
+            setMessage={setMessage}
+            getGuestLog={getGuestLog}
+            updateGuestLogEntry={updateGuestLogEntry}
+            onDeleteEntry={handleDeleteGuestLogEntry}
+          />
+        )}
         <button className="button-74" onClick={getStaysList}>
           {showStaysList ? "Hide Stays List" : "View Stays List"}
         </button>
-        {showStaysList && <StaysList staysList={staysList} />}
+        {showStaysList && (
+          <StaysList
+            staysList={staysList}
+            onDeleteStay={handleDeleteStay}
+            getGuestLog={getGuestLog}
+          />
+        )}
       </div>
     </div>
   )
