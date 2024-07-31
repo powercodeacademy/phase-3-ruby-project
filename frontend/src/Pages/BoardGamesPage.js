@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useUser } from "../context/UserContext"
 import BoardGameCard from "../components/BoardGameCard"
 import { getAllBoardGames } from "../services/fetchers"
+import NavBar from "../components/NavBar"
 
 function BoardGamePage() {
   const { setUser } = useUser()
@@ -33,13 +34,16 @@ function BoardGamePage() {
   })
 
   return(
-    <div className="container">
+    <div>
+      <NavBar />
+      <div className="container">
       <header className="my-4">
         <h1 className="text-center">Board Games</h1>
       </header>
       <div className="row row-cols-1 row-cols-md-2 g-4">
       { boardGameCards }
       </div>
+    </div>
     </div>
   )
 }
