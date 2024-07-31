@@ -1,6 +1,7 @@
 import App from "./App";
 import BoardGameDetailsPage from "./Pages/BoardGameDetailsPage";
 import BoardGamePage from "./Pages/BoardGamesPage";
+import CreateUserPage from "./Pages/CreateUserPage";
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: "/board_games/:index",
     element: <BoardGameDetailsPage />
+  },
+  {
+    path: "/create_user",
+    element: <CreateUserPage />
   }
 ]
 
