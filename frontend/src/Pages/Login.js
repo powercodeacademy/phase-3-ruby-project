@@ -16,7 +16,7 @@ function Login() {
         setUser(data.user)
         navigate('/board_games')
       } else {
-        console.error(data.message)
+        alert(data.message)
       }
     })
   }
