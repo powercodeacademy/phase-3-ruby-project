@@ -35,10 +35,19 @@ const createReview = (review) => {
   }).then((resp) => resp.json())
 }
 
+const updateReview = (review) => {
+  return fetch(urlReview + "/" + review.id, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(review),
+  }).then((resp) => resp.json())
+}
+
 export {
   getAllBoardGames,
   getBoardGameData,
   loginUser,
   createUser,
   createReview,
+  updateReview
 }
