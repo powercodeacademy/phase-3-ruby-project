@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from "../context/UserContext"
 import { loginUser } from "../services/fetchers"
 
@@ -25,6 +25,7 @@ function Login() {
     <div className="container-fluid">
       <div className="row justify-content-center align-items-center min-vh-100">
         <div className="col-md-4 col-lg-3">
+          <h1 className="text-center mb-4">PlayShelf</h1>
           <div className="login-form bg-light p-4 rounded">
             <h2 className="text-center mb-4">Login</h2>
             <form onSubmit={handleSubmit}>
@@ -54,6 +55,7 @@ function Login() {
                 Login
               </button>
             </form>
+              <Link to="/create_user">Sign up</Link>
           </div>
         </div>
       </div>
