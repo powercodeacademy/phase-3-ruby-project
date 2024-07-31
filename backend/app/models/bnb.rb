@@ -33,4 +33,18 @@ class Bnb < ActiveRecord::Base
   def self.most_popular
     order(stays: :asc)
   end
+
+  def revenue_forcasting
+    daily_projection = cost_per_night * num_of_rooms
+    weekly_projection = daily_projection * 7
+    monthly_projection = daily_projection * 30
+    annual_projection = daily_projection * 365
+
+    {
+      daily_projection: daily_projection,
+      weekly_projection: weekly_projection,
+      monthly_projection: monthly_projection,
+      annual_projection: annual_projection
+    }
+  end
 end

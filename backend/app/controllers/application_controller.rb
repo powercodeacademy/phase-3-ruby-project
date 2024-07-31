@@ -5,12 +5,13 @@ class ApplicationController < Sinatra::Base
     bnbs = Bnb.all.map do |bnb|
       bnb.as_json.merge(
         total_revenue: bnb.total_revenue,
-        bnb_activity: bnb.bnb_activity
+        bnb_activity: bnb.bnb_activity,
+        avg_guest_age: bnb.avg_guest_age,
+        revenue_forcasting: bnb.revenue_forcasting
       )
     end
     bnbs.to_json
   end
-
 
   get "/bnbs/:id/guest_log" do
     bnb = Bnb.find(params[:id])
