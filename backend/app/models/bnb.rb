@@ -10,4 +10,8 @@ class Bnb < ActiveRecord::Base
   def daily_projections
     num_of_rooms * cost_per_night
   end
+
+  def self.most_popular
+    order(stays: :asc)
+  end
 end
