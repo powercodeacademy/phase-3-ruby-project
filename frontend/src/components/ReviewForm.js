@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useUser } from "../context/UserContext"
-import { createReview } from "../services/fetchers"
 
 const initialValues = {
   title: "",
@@ -12,8 +11,7 @@ function ReviewForm({
   review = initialValues,
   closeForm,
   boardGameId,
-  reviews,
-  setReviews,
+  handleReview
 }) {
   const [formData, setFormData] = useState(review)
   const { user } = useUser()
@@ -40,13 +38,11 @@ function ReviewForm({
     event.preventDefault()
     closeForm()
     const newReview = sanitizeReview()
-    console.log(newReview)
-    createReview(newReview).then(review => setReviews([...reviews, review]))
+    handleReview(newReview)
   }
-  // setReviews([...reviews, review])
 
-  console.log("user " + user)
-  console.log("board game " + boardGameId)
+    console.log(boardGameId)
+
 
   return (
     <div className="container mt-5">
