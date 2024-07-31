@@ -22,4 +22,14 @@ class ReviewController < Sinatra::Base
     review.to_json(include: :user)
   end
 
+  delete "/reviews/:id" do
+    review = Review.find(params[:id])
+    if review.destroy
+      { success: true, message: "Item deleted", review: review }.to_json
+    else
+      status 422
+      { success: false, message: "Failed to delete item" }.to_json
+    end
+  end
+
 end
