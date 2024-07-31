@@ -43,11 +43,18 @@ const updateReview = (review) => {
   }).then((resp) => resp.json())
 }
 
+const deleteReview = (review) => {
+  return fetch(urlReview + "/" + review.id, {
+    method: "DELETE"
+  }).then((resp) => resp.json())
+}
+
 export {
   getAllBoardGames,
   getBoardGameData,
   loginUser,
   createUser,
   createReview,
-  updateReview
+  updateReview,
+  deleteReview
 }

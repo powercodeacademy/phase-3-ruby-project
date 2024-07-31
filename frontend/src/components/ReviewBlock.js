@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useUser } from "../context/UserContext"
 import ReviewForm from "./ReviewForm"
-import { updateReview } from "../services/fetchers"
+import { deleteReview, updateReview } from "../services/fetchers"
 
 function ReviewBlock({ review, boardGameId, reviews, setReviews }) {
   const [showForm, setShowForm] = useState(false)
@@ -12,8 +12,20 @@ function ReviewBlock({ review, boardGameId, reviews, setReviews }) {
   }
 
   const editReview = (editedReview) => {
-    updateReview(editedReview).then(reviewResp => {
-      setReviews(reviews.map(review => review.id === editedReview.id ? reviewResp : review))
+    updateReview(editedReview).then((reviewResp) => {
+      setReviews(
+        reviews.map((review) =>
+          review.id === editedReview.id ? reviewResp : review
+        )
+      )
+    })
+  }
+
+  const removeReview = () => {
+    deleteReview(review).then(data => {
+      if(data.success){
+        setReviews(reviews.filter(review => review.id !== data.review.id))
+      }
     })
   }
 
@@ -45,6 +57,11 @@ function ReviewBlock({ review, boardGameId, reviews, setReviews }) {
           <p>
             <strong>Rating:</strong> {review.rating} / 5
           </p>
+          {checkUser() ? (
+            <button className="btn btn-primary" id="delete-button" onClick={removeReview}>
+              Delete
+            </button>
+          ) : null}
           <hr />
         </>
       )}
