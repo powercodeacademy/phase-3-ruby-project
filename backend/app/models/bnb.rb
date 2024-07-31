@@ -6,4 +6,8 @@ class Bnb < ActiveRecord::Base
   def total_revenue
     cost_per_night * stays.count
   end
+
+  def daily_projections
+    num_of_rooms * cost_per_night
+  end
 end
