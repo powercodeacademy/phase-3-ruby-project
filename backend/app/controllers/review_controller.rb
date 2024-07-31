@@ -31,5 +31,4 @@ class ReviewController < Sinatra::Base
       { success: false, message: "Failed to delete item" }.to_json
     end
   end
-
 end
