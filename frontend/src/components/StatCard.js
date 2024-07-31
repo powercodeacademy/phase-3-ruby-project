@@ -5,32 +5,44 @@ function StatCard({ bnb }) {
   const {
     name,
     location,
-    description,
     total_revenue,
     num_of_rooms,
     cost_per_night,
+    avg_guest_age,
+    revenue_forcasting,
   } = bnb
 
-  const dailyProjection = (cost_per_night * num_of_rooms).toFixed(2)
+  const {
+    daily_projection: daily,
+    weekly_projection: weekly,
+    monthly_projection: monthly,
+    annual_projection: annual,
+  } = revenue_forcasting
 
-  const weeklyProjection = (dailyProjection * 7).toFixed(2)
-  const monthlyProjection = (dailyProjection * 30).toFixed(2)
-  const annualProjection = (dailyProjection * 365).toFixed(2)
+  // const dailyProjection = (cost_per_night * num_of_rooms).toFixed(2)
+
+  // const weeklyProjection = (dailyProjection * 7).toFixed(2)
+  // const monthlyProjection = (dailyProjection * 30).toFixed(2)
+  // const annualProjection = (dailyProjection * 365).toFixed(2)
 
   return (
     <div className="card mb-4">
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
-        <h6 className="card-subtitle mb-2 text-muted">
-          Total Revenue: ${total_revenue}
-        </h6>
-        <p className="card-text">{description}</p>
         <p className="card-text">
           <small className="text-muted">Located in {location}</small>
         </p>
-        <p className="card-text">
-          <small className="text-muted">Number of rooms: {num_of_rooms}</small>
-        </p>
+        <h6 className="card-subtitle mb-2 text-muted">
+          Number of rooms: {num_of_rooms}
+        </h6>
+        <h6 className="card-subtitle mb-2 text-muted">
+          Cost per night: ${cost_per_night}
+        </h6>
+        <h6 className="card-subtitle mb-2 text-muted">
+          {" "}
+          Average Age of Guests: {avg_guest_age}
+        </h6>
+
         <div className="table-responsive">
           <table className="table table-bordered">
             <thead>
@@ -45,10 +57,10 @@ function StatCard({ bnb }) {
             <tbody>
               <tr>
                 <td>${total_revenue}</td>
-                <td>${dailyProjection}</td>
-                <td>${weeklyProjection}</td>
-                <td>${monthlyProjection}</td>
-                <td>${annualProjection}</td>
+                <td>${daily}</td>
+                <td>${weekly}</td>
+                <td>${monthly}</td>
+                <td>${annual}</td>
               </tr>
             </tbody>
           </table>
