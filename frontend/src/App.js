@@ -32,8 +32,7 @@ function App() {
 
   return (
     <div className="container mt-5">
-      {/* <NavBar /> */}
-      <h1 className="mb-4 text-center">WarmWelcomes</h1>
+      <NavBar />
       <button className="button-74" onClick={handleSortByPriceDesc}>
         sort by most expensive
       </button>
