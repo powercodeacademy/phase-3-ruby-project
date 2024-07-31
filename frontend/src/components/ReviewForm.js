@@ -40,13 +40,8 @@ function ReviewForm({
     event.preventDefault()
     closeForm()
     const newReview = sanitizeReview()
-    console.log(newReview)
     createReview(newReview).then(review => setReviews([...reviews, review]))
   }
-  // setReviews([...reviews, review])
-
-  console.log("user " + user)
-  console.log("board game " + boardGameId)
 
   return (
     <div className="container mt-5">
