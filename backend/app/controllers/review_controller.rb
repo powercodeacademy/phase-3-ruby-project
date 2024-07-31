@@ -7,6 +7,19 @@ class ReviewController < Sinatra::Base
       board_game_id: params[:board_game_id],
       user_id: params[:user_id]
     )
-    review.to_json(include: :user )
+    review.to_json(include: :user)
   end
+
+  patch "/reviews/:id" do
+    review = Review.find(params[:id])
+    review.update(
+      title: params[:title],
+      body: params[:body],
+      rating: params[:rating],
+      board_game_id: params[:board_game_id],
+      user_id: params[:user_id]
+    )
+    review.to_json(include: :user)
+  end
+
 end
