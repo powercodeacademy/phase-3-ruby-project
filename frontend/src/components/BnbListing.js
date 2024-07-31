@@ -6,7 +6,15 @@ import StaysList from "./StaysList"
 import BookingForm from "./BookingForm"
 
 function BnbListing({ bnb }) {
-  const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
+  const {
+    id,
+    name,
+    location,
+    num_of_rooms,
+    cost_per_night,
+    description,
+    total_revenue,
+  } = bnb
   const [guestLog, setGuestLog] = useState([])
   const [staysList, setStaysList] = useState([])
 
@@ -15,6 +23,7 @@ function BnbListing({ bnb }) {
   const [showBookingForm, setShowBookingForm] = useState(false)
 
   const [message, setMessage] = useState("")
+  // const [totalRevenue, setTotalRevenue] = useState("")
 
   const getGuestLog = () => {
     fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
@@ -27,6 +36,12 @@ function BnbListing({ bnb }) {
       .then((r) => r.json())
       .then((entries) => setStaysList(entries))
   }
+
+  // const getTotalRevenue = () => {
+  //   fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
+  //     .then((r) => r.json())
+  //     .then((total) => setTotalRevenue(total))
+  // }
 
   const handleStayListClick = () => {
     if (!showStaysList) {
@@ -70,6 +85,10 @@ function BnbListing({ bnb }) {
     getStayList()
   }, [])
 
+  // useEffect(() => {
+  //   getTotalRevenue()
+  // })
+
   return (
     <div className="card mb-4">
       <div className="card-body">
@@ -110,6 +129,7 @@ function BnbListing({ bnb }) {
             getGuestLog={getGuestLog}
           />
         )}
+        <p>{total_revenue}</p>
       </div>
     </div>
   )
