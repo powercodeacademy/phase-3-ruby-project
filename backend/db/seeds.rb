@@ -7,10 +7,10 @@ CollectionBoardGame.destroy_all
 puts "🌱 Seeding spices..."
 
 puts "Creating users..."
-user1 = User.create(username: "AliceInWonderland33")
-user2 = User.create(username: "BobsBurgers")
-user3 = User.create(username: "CharliesAngels1")
-user4 = User.create(username: "DianaWW")
+user1 = User.create(username: "AliceInWonderland33", password: "test1")
+user2 = User.create(username: "BobsBurgers", password: "test2")
+user3 = User.create(username: "CharliesAngels1", password: "test3")
+user4 = User.create(username: "DianaWW", password: "test4")
 
 puts "Creating board games..."
 game1 = BoardGame.create(name: "Catan", image: "https://cdn.openart.ai/uploads/image_GSPA1RvZ_1722263694326_raw.jpg",

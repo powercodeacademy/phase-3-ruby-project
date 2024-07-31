@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
@@ -23,14 +22,16 @@ class ApplicationController < Sinatra::Base
     board_game_reviews.to_json
   end
 
-  # post "/reviews" do
-  #   review = Review.create(
-  #     title: params[:title],
-  #     body: params[:body],
-  #     rating: params[:rating]
-  #   )
-  #   review.to_json
-  # end
+  post "/login" do
+    user = User.authenticate(params[:username], params[:password])
+
+    if user
+      { success: true, message: "Login successful", user: user.username }.to_json
+    else
+      status 401
+      { success: false, message: "Invalid username or password" }.to_json
+    end
+  end
 
   get "/users" do
     users = User.all
