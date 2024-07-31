@@ -11,19 +11,30 @@ const App = () => {
   useEffect(() => {
     fetch("http://127.0.0.1:9292/runners")
       .then((response) => response.json())
-      .then((data) => setCurrentRunner(data[0]))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setRunners(data)
+          if (data.length > 0) {
+            setCurrentRunner(data[0])
+          }
+        } else {
+          console.error("Expected an array but received:", data)
+        }
+      })
       .catch((error) => {
         console.error("Error fetching runners:", error)
       })
   }, [])
 
   const updateRunners = (newRunners) => {
-    setRunners(newRunners)
-    if (currentRunner) {
-      const updatedRunner = newRunners.find(
-        (runner) => runner.id === currentRunner.id
-      )
-      setCurrentRunner(updatedRunner)
+    if (Array.isArray(newRunners)) {
+      setRunners(newRunners)
+      if (currentRunner) {
+        const updatedRunner = newRunners.find(
+          (runner) => runner.id === currentRunner.id
+        )
+        setCurrentRunner(updatedRunner)
+      }
     }
   }
 

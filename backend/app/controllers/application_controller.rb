@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/runs" do
-    Run.create_random(params[:runnerId], params[:shoeId])
+    Run.create_random(params[:runnerID], params[:shoeID])
     return_runners
   end
 
