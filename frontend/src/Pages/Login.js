@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useNavigate } from 'react-router-dom'
 import { useUser } from "../context/UserContext"
 import { loginUser } from "../services/fetchers"
@@ -14,12 +14,22 @@ function Login() {
     loginUser(username, password).then((data) => {
       if (data.success) {
         setUser(data.user)
+        localStorage.setItem("userId", JSON.stringify(data.user))
         navigate('/board_games')
       } else {
         alert(data.message)
       }
     })
   }
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("userId")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+      navigate('/board_games')
+    }
+  }, [])
 
   return (
     <div className="container-fluid">

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { useUser } from "../context/UserContext"
 import { createReview, getBoardGameData } from "../services/fetchers"
 import ReviewBlock from "../components/ReviewBlock"
 import ReviewForm from "../components/ReviewForm"
 
 function BoardGameDetailsPage() {
   const params = useParams()
+  const { setUser } = useUser()
   const [boardGameData, setBoardGameData] = useState(null)
   const [reviews, setReviews] = useState(null)
   const [showForm, setShowForm] = useState(false)
@@ -18,6 +20,14 @@ function BoardGameDetailsPage() {
   }
 
   useEffect(fetchBoardGameData, [params.index])
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("userId")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+    }
+  }, [])
 
   if (!boardGameData || !reviews) {
     return <h1>Loading...</h1>

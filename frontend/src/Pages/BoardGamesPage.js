@@ -1,13 +1,23 @@
 import { useState, useEffect } from "react"
+import { useUser } from "../context/UserContext"
 import BoardGameCard from "../components/BoardGameCard"
 import { getAllBoardGames } from "../services/fetchers"
 
 function BoardGamePage() {
+  const { setUser } = useUser()
   const [boardGames, setBoardGames] = useState(null)
 
   useEffect(() => {
     getAllBoardGames().then(boardGamesList => setBoardGames(boardGamesList))
   },[])
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("userId")
+    const user = savedUser ? JSON.parse(savedUser) : null
+    if (user) {
+      setUser(user)
+    }
+  }, [])
 
   if(!boardGames){
     return (
