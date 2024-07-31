@@ -1,26 +1,39 @@
 import { useState } from "react"
+import { useUser } from "../context/UserContext"
+import { createReview } from "../services/fetchers"
 
 const initialValues = {
   title: "",
   body: "",
-  rating: ""
+  rating: "",
 }
 
-function ReviewForm({ review = initialValues, closeForm, boardGameId}) {
+function ReviewForm({
+  review = initialValues,
+  closeForm,
+  boardGameId,
+  reviews,
+  setReviews,
+}) {
   const [formData, setFormData] = useState(review)
+  const { user } = useUser()
 
   const updateFormData = ({ target }) => {
     const newData = {
       ...formData,
-      [target.name]: target.value
+      [target.name]: target.value,
     }
 
     setFormData(newData)
   }
 
   const sanitizeReview = () => {
-    formData["board_game_id"] = boardGameId
-    return formData
+    const newReview = {
+      ...formData,
+      board_game_id: boardGameId,
+      user_id: user,
+    }
+    return newReview
   }
 
   const handleSubmit = (event) => {
@@ -28,7 +41,12 @@ function ReviewForm({ review = initialValues, closeForm, boardGameId}) {
     closeForm()
     const newReview = sanitizeReview()
     console.log(newReview)
+    createReview(newReview).then(review => setReviews([...reviews, review]))
   }
+  // setReviews([...reviews, review])
+
+  console.log("user " + user)
+  console.log("board game " + boardGameId)
 
   return (
     <div className="container mt-5">
@@ -72,7 +90,9 @@ function ReviewForm({ review = initialValues, closeForm, boardGameId}) {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
   )

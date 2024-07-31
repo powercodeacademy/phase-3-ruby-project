@@ -7,22 +7,24 @@ import ReviewForm from "../components/ReviewForm"
 function BoardGameDetailsPage() {
   const params = useParams()
   const [boardGameData, setBoardGameData] = useState(null)
+  const [reviews, setReviews] = useState(null)
   const [showForm, setShowForm] = useState(false)
 
   const fetchBoardGameData = () => {
-    getBoardGameData(params.index).then((boardGameData) =>
+    getBoardGameData(params.index).then((boardGameData) => {
       setBoardGameData(boardGameData)
-    )
+      setReviews(boardGameData.reviews)
+    })
   }
 
   useEffect(fetchBoardGameData, [params.index])
 
-  if (!boardGameData) {
+  if (!boardGameData || !reviews) {
     return <h1>Loading...</h1>
   }
 
-  const reviewBlocks = boardGameData.reviews.map((review) => {
-    return <ReviewBlock key={review.id} review={review} boardGameId={boardGameData.id}/>
+  const reviewBlocks = reviews.map((review) => {
+    return <ReviewBlock key={review.id} review={review} />
   })
 
   return (
@@ -52,7 +54,14 @@ function BoardGameDetailsPage() {
             >
               Add Review
             </button>
-            {showForm ? <ReviewForm closeForm={setShowForm}/> : null}
+            {showForm ? (
+              <ReviewForm
+                closeForm={setShowForm}
+                boardGameId={boardGameData.id}
+                reviews={reviews}
+                setReviews={setReviews}
+              />
+            ) : null}
             {boardGameData.reviews.length > 0 ? (
               reviewBlocks
             ) : (
