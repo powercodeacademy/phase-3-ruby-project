@@ -27,8 +27,6 @@ function BoardGameDetailsPage() {
     return <ReviewBlock key={review.id} review={review} />
   })
 
-  console.log(reviews)
-
   return (
     <div className="container mt-4">
       <div className="row">
