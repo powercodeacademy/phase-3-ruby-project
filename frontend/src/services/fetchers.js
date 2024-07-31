@@ -27,6 +27,10 @@ const createUser = (user) => {
   }).then((resp) => resp.json())
 }
 
+const getUser = (id) => {
+  return fetch(urlUser + "/" + id).then((resp) => resp.json())
+}
+
 const createReview = (review) => {
   return fetch(urlReview, {
     method: "POST",
@@ -54,6 +58,7 @@ export {
   getBoardGameData,
   loginUser,
   createUser,
+  getUser,
   createReview,
   updateReview,
   deleteReview
