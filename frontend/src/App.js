@@ -13,22 +13,20 @@ function App() {
   }, [])
 
   function handleSortByPriceDesc() {
-    // console.log("test")
     fetch("http://localhost:9292/bnbs/sort_by_price_desc")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
   }
 
   function handleSortByPriceAsc() {
-    // console.log("test")
     fetch("http://localhost:9292/bnbs/sort_by_price_asc")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
   }
 
   return (
-    <div>
-      <h1>WarmWelcomes</h1>
+    <div className="container mt-5">
+      <h1 className="mb-4 text-center">WarmWelcomes</h1>
       <button className="button-74" onClick={handleSortByPriceDesc}>
         sort by most expensive
       </button>
