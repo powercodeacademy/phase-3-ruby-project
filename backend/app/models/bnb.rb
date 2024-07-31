@@ -14,4 +14,13 @@ class Bnb < ActiveRecord::Base
   def self.most_popular
     order(stays: :asc)
   end
+
+  def avg_guest_age
+    total = 0
+    guests.map do |guest|
+      total += guest.age
+    end
+    avg_age = total / guests.count
+    avg_age
+  end
 end
