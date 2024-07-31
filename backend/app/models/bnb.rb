@@ -11,10 +11,6 @@ class Bnb < ActiveRecord::Base
     num_of_rooms * cost_per_night
   end
 
-  def self.most_popular
-    order(stays: :asc)
-  end
-
   def avg_guest_age
     total = 0
     guests.map do |guest|
@@ -22,5 +18,19 @@ class Bnb < ActiveRecord::Base
     end
     avg_age = total / guests.count
     avg_age
+  end
+
+  def bnb_activity
+    if avg_guest_age >= 30 && avg_guest_age < 55
+      "Guided hiking tours"
+    elsif avg_guest_age < 30
+      "Group hoverboard lessons"
+    elsif avg_guest_age >= 55
+        "Nightly bingo"
+    end
+  end
+
+  def self.most_popular
+    order(stays: :asc)
   end
 end
