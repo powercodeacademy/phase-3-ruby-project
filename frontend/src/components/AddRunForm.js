@@ -7,7 +7,7 @@ const AddRunForm = ({ addRun, currentRunner }) => {
     e.preventDefault()
     const newRun = {
       runnerId: currentRunner.id,
-      shoeID: shoeID,
+      shoeId: shoeID,
     }
     addRun(newRun)
     setShoeID("")
