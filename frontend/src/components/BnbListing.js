@@ -71,6 +71,14 @@ function BnbListing({ bnb }) {
     )
   }
 
+  const addNewStay = (newStay) => {
+    setStaysList((prevStays) => [...prevStays, newStay])
+  }
+
+  const addNewLogEntry = (newEntry) => {
+    setGuestLog((prevEntries) => [...prevEntries, newEntry])
+  }
+
   useEffect(() => {
     getGuestLog()
   }, [])
@@ -88,7 +96,7 @@ function BnbListing({ bnb }) {
             Book Now
           </button>
         </h2>
-        {showBookingForm && <BookingForm bnb={bnb} />}
+        {showBookingForm && <BookingForm bnb={bnb} addNewStay={addNewStay} />}
         <h6 className="card-subtitle mb-2 text-muted">
           Number of Rooms: {num_of_rooms} - Cost /Night: ${cost_per_night}
         </h6>
@@ -116,7 +124,7 @@ function BnbListing({ bnb }) {
           <StaysList
             staysList={staysList}
             onDeleteStay={handleDeleteStay}
-            getGuestLog={getGuestLog}
+            addNewLogEntry={addNewLogEntry}
           />
         )}
         <p>Total Revenue: {total_revenue} --</p>

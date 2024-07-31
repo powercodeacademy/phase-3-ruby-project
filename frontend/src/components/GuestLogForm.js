@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-function GuestLogForm({ entry, getGuestLog }) {
+function GuestLogForm({ entry, addNewLogEntry }) {
   const { bnb_id, check_in, guest_id, id } = entry
   const [newMessage, setNewMessage] = useState("")
 
@@ -23,9 +23,9 @@ function GuestLogForm({ entry, getGuestLog }) {
       body: JSON.stringify(newEntry),
     })
       .then((r) => r.json())
-      .then(() => {
+      .then((newEntry) => {
         setNewMessage("")
-        getGuestLog()
+        addNewLogEntry(newEntry)
       })
   }
 

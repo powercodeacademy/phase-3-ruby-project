@@ -5,8 +5,8 @@ import StayEntry from "./StayEntry"
 function StaysList({
   staysList,
   onDeleteStay,
-  getGuestLog,
   handleDeleteGuestLogEntry,
+  addNewLogEntry,
 }) {
   return (
     <table className="table table-striped">
@@ -24,8 +24,8 @@ function StaysList({
               key={entry.id}
               entry={entry}
               onDeleteStay={onDeleteStay}
-              getGuestLog={getGuestLog}
               handleDeleteGuestLogEntry={handleDeleteGuestLogEntry}
+              addNewLogEntry={addNewLogEntry}
             />
           )
         })}
