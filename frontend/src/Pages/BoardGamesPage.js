@@ -7,6 +7,7 @@ function BoardGamePage() {
   const [boardGames, setBoardGames] = useState(null)
   const { user } = useUser()
 
+  console.log(user)
 
   useEffect(() => {
     getAllBoardGames().then(boardGamesList => setBoardGames(boardGamesList))
