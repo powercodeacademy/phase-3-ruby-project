@@ -127,8 +127,6 @@ function BnbListing({ bnb }) {
             addNewLogEntry={addNewLogEntry}
           />
         )}
-        <p>Total Revenue: {total_revenue} --</p>
-        <p>Daily Activity: {bnb_activity}</p>
       </div>
     </div>
   )

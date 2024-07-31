@@ -14,7 +14,7 @@ function StatsPortal() {
   return (
     <div className="container mt-5">
       <NavBar />
-      <h1 className="mb-4 text-center">Stats</h1>
+      <h1 className="mb-4 text-center">Insights</h1>
       <div>
         {allBnbs.map((bnb) => {
           return <StatCard key={bnb.name} bnb={bnb} />
