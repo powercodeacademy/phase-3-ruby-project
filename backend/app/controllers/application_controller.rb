@@ -1,19 +1,16 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
-  end
-
   get "/bnbs" do
-    bnbs = Bnb.all
+    bnbs = Bnb.all.map do |bnb|
+      bnb.as_json.merge(
+        total_revenue: bnb.total_revenue,
+        bnb_activity: bnb.bnb_activity
+      )
+    end
     bnbs.to_json
   end
 
-  get "/bnbs/sort_by_price_desc" do
-    bnb = Bnb.order(cost_per_night: :desc)
-    bnb.to_json
-  end
 
   get "/bnbs/:id/guest_log" do
     bnb = Bnb.find(params[:id])
@@ -75,8 +72,24 @@ class ApplicationController < Sinatra::Base
     entry.to_json
   end
 
+  get "/bnbs/sort_by_price_desc" do
+    bnb = Bnb.order(cost_per_night: :desc)
+    bnb.to_json
+  end
+
   get "/bnbs/sort_by_price_asc" do
     bnb = Bnb.order(cost_per_night: :asc)
+    bnb.to_json
+  end
+
+  get "/bnbs/:id/total_revenue" do
+    bnb = Bnb.find(params[:id])
+    total = bnb.total_revenue
+    total.to_json
+  end
+
+  get "/bnbs/sort_by_most_popular" do
+    bnb = Bnb.most_popular
     bnb.to_json
   end
 end

@@ -1,7 +1,7 @@
 import "./App.css"
 import React, { useEffect, useState } from "react"
-import NavBar from "./components/NavBar"
 import BnbListing from "./components/BnbListing"
+import NavBar from "./components/NavBar"
 
 function App() {
   const [allBnbs, setAllBnbs] = useState([])
@@ -24,14 +24,23 @@ function App() {
       .then((bnbs) => setAllBnbs(bnbs))
   }
 
+  function handleSortByMostPopular() {
+    fetch("http://localhost:9292/bnbs/sort_by_most_popular")
+      .then((r) => r.json())
+      .then((bnbs) => setAllBnbs(bnbs))
+  }
+
   return (
     <div className="container mt-5">
-      <h1 className="mb-4 text-center">WarmWelcomes</h1>
+      <NavBar />
       <button className="button-74" onClick={handleSortByPriceDesc}>
         sort by most expensive
       </button>
       <button className="button-74" onClick={handleSortByPriceAsc}>
         sort by most affordable
+      </button>
+      <button className="button-74" onClick={handleSortByMostPopular}>
+        sort by most popular
       </button>
       <div>
         {allBnbs.map((bnb) => {

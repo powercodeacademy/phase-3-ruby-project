@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import GuestLogForm from "./GuestLogForm"
 
-function StayEntry({ entry, onDeleteStay, getGuestLog }) {
+function StayEntry({ entry, onDeleteStay, addNewLogEntry }) {
   const [guestLogForm, setGuestLogForm] = useState(false)
   const { check_in, check_out, guest, id } = entry
 
@@ -28,7 +28,7 @@ function StayEntry({ entry, onDeleteStay, getGuestLog }) {
           {guestLogForm ? "Hide Guest Log" : "Sign Guest Log"}
         </button>
         {guestLogForm && (
-          <GuestLogForm entry={entry} getGuestLog={getGuestLog} />
+          <GuestLogForm entry={entry} addNewLogEntry={addNewLogEntry} />
         )}
       </td>
       <td>

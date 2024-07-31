@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 
-function BookingForm({ bnb }) {
+function BookingForm({ bnb, addNewStay }) {
   const { id } = bnb
   const [guestName, setGuestName] = useState("")
   const [guestAge, setGuestAge] = useState("")
@@ -26,11 +26,12 @@ function BookingForm({ bnb }) {
       body: JSON.stringify(newStay),
     })
       .then((r) => r.json())
-      .then(() => {
+      .then((createdStay) => {
         setGuestName("")
         setGuestAge("")
         setCheckIn("")
         setCheckOut("")
+        addNewStay(createdStay)
       })
   }
 

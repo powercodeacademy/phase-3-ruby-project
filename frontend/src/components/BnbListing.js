@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import GuestLog from "./GuestLog"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../App.css"
@@ -6,7 +6,16 @@ import StaysList from "./StaysList"
 import BookingForm from "./BookingForm"
 
 function BnbListing({ bnb }) {
-  const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
+  const {
+    id,
+    name,
+    location,
+    num_of_rooms,
+    cost_per_night,
+    description,
+    total_revenue,
+    bnb_activity,
+  } = bnb
   const [guestLog, setGuestLog] = useState([])
   const [staysList, setStaysList] = useState([])
 
@@ -16,26 +25,28 @@ function BnbListing({ bnb }) {
 
   const [message, setMessage] = useState("")
 
-  const handleGuestLogClick = () => {
-    if (!showGuestLog) {
-      getGuestLog()
-    }
-    setShowGuestLog(!showGuestLog)
-  }
-
   const getGuestLog = () => {
     fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
       .then((r) => r.json())
       .then((entries) => setGuestLog(entries))
   }
 
-  const getStaysList = () => {
+  const getStayList = () => {
+    fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
+      .then((r) => r.json())
+      .then((entries) => setStaysList(entries))
+  }
+
+  const handleStayListClick = () => {
     if (!showStaysList) {
-      fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
-        .then((r) => r.json())
-        .then((entries) => setStaysList(entries))
     }
     setShowStaysList(!showStaysList)
+  }
+
+  const handleGuestLogClick = () => {
+    if (!showGuestLog) {
+    }
+    setShowGuestLog(!showGuestLog)
   }
 
   const toggleBookingForm = () => {
@@ -60,6 +71,22 @@ function BnbListing({ bnb }) {
     )
   }
 
+  const addNewStay = (newStay) => {
+    setStaysList((prevStays) => [...prevStays, newStay])
+  }
+
+  const addNewLogEntry = (newEntry) => {
+    setGuestLog((prevEntries) => [...prevEntries, newEntry])
+  }
+
+  useEffect(() => {
+    getGuestLog()
+  }, [])
+
+  useEffect(() => {
+    getStayList()
+  }, [])
+
   return (
     <div className="card mb-4">
       <div className="card-body">
@@ -69,7 +96,7 @@ function BnbListing({ bnb }) {
             Book Now
           </button>
         </h2>
-        {showBookingForm && <BookingForm bnb={bnb} />}
+        {showBookingForm && <BookingForm bnb={bnb} addNewStay={addNewStay} />}
         <h6 className="card-subtitle mb-2 text-muted">
           Number of Rooms: {num_of_rooms} - Cost /Night: ${cost_per_night}
         </h6>
@@ -90,16 +117,18 @@ function BnbListing({ bnb }) {
             onDeleteEntry={handleDeleteGuestLogEntry}
           />
         )}
-        <button className="button-74" onClick={getStaysList}>
+        <button className="button-74" onClick={handleStayListClick}>
           {showStaysList ? "Hide Stays List" : "View Stays List"}
         </button>
         {showStaysList && (
           <StaysList
             staysList={staysList}
             onDeleteStay={handleDeleteStay}
-            getGuestLog={getGuestLog}
+            addNewLogEntry={addNewLogEntry}
           />
         )}
+        <p>Total Revenue: {total_revenue} --</p>
+        <p>Daily Activity: {bnb_activity}</p>
       </div>
     </div>
   )
