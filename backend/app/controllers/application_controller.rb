@@ -26,7 +26,7 @@ class ApplicationController < Sinatra::Base
     user = User.authenticate(params[:username], params[:password])
 
     if user
-      { success: true, message: "Login successful", user: user.username }.to_json
+      { success: true, message: "Login successful", user: user.id }.to_json
     else
       status 401
       { success: false, message: "Invalid username or password" }.to_json
@@ -36,5 +36,13 @@ class ApplicationController < Sinatra::Base
   get "/users" do
     users = User.all
     users.to_json
+  end
+
+  post "/users" do
+    user = User.create(
+      username: params[:username],
+      password: params[:password]
+    )
+    user.to_json
   end
 end
