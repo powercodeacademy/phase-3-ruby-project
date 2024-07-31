@@ -6,10 +6,9 @@ class ApplicationController < Sinatra::Base
       {
         id: runner.id,
         name: runner.name,
-        shoes: runner.shoes.to_a.map do |shoe|
-                 shoe.attributes.merge(runs: shoe.runs, mileage: shoe.mileage)
-               end,
+        shoes: runner.shoe_stats,
         runs: runner.runs,
+        stats: runner.stats,
       }
     end
     runners.to_json
@@ -35,18 +34,13 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/runs" do
-    Run.create(
-      distance: params[:distance],
-      runner_id: params[:runnerId],
-      shoe_id: params[:shoeID]
-    )
+    Run.create_random(params[:runnerID], params[:shoeID])
     return_runners
   end
 
   patch "/runs/:id" do
     run = Run.find(params[:id])
     run.update(
-      distance: params[:distance],
       shoe_id: params[:shoeID]
     )
     return_runners

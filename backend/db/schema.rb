@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_30_151030) do
+ActiveRecord::Schema.define(version: 2024_07_31_130225) do
 
   create_table "runners", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(version: 2024_07_30_151030) do
     t.integer "distance"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "cadence"
+    t.integer "average_heart_rate"
+    t.decimal "average_pace"
+    t.integer "calories_burned"
+    t.integer "total_time_minutes"
     t.index ["runner_id"], name: "index_runs_on_runner_id"
     t.index ["shoe_id"], name: "index_runs_on_shoe_id"
   end

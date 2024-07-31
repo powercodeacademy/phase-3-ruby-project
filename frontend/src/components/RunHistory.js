@@ -3,7 +3,6 @@ import AddRunForm from "./AddRunForm"
 
 const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
   const [editingRunId, setEditingRunId] = useState(null)
-  const [currentMileage, setCurrentMileage] = useState("")
   const [shoeID, setShoeID] = useState("")
 
   const runs = currentRunner.shoes.flatMap((shoe) =>
@@ -12,7 +11,6 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
 
   const handleEditClick = (run) => {
     setEditingRunId(run.id)
-    setCurrentMileage(run.distance)
     setShoeID(run.shoe_id)
   }
 
@@ -23,7 +21,6 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        distance: parseInt(currentMileage, 10),
         shoeID: shoeID,
       }),
     })
@@ -55,14 +52,9 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
           <li key={run.id}>
             {editingRunId === run.id ? (
               <div>
-                <input
-                  type="number"
-                  value={currentMileage}
-                  onChange={(e) => setCurrentMileage(e.target.value)}
-                />
-                Miles -
+                {run.distance} miles on{" "}
+                {new Date(run.created_at).toLocaleDateString()} with
                 <label>
-                  Shoe:
                   <select
                     value={shoeID}
                     onChange={(e) => setShoeID(e.target.value)}
@@ -83,7 +75,9 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
                 {run.distance} miles on{" "}
                 {new Date(run.created_at).toLocaleDateString()} with{" "}
                 {run.shoeName}
-                <button onClick={() => handleEditClick(run)}>Edit</button>
+                <button onClick={() => handleEditClick(run)}>
+                  Change Shoe
+                </button>
                 <button onClick={() => deleteRun(run.id)}>Delete</button>
               </>
             )}

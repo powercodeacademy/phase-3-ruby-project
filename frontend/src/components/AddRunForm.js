@@ -1,19 +1,16 @@
 import React, { useState } from "react"
 
 const AddRunForm = ({ addRun, currentRunner }) => {
-  const [distance, setDistance] = useState("")
   const [shoeID, setShoeID] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const newRun = {
-      distance: parseInt(distance, 10),
       runnerId: currentRunner.id,
       shoeID: shoeID,
     }
     addRun(newRun)
     setShoeID("")
-    setDistance("")
   }
 
   return (
@@ -21,18 +18,6 @@ const AddRunForm = ({ addRun, currentRunner }) => {
       <h2>Add New Run</h2>
       <div>
         <label>
-          Distance:
-          <input
-            type="number"
-            value={distance}
-            onChange={(e) => setDistance(e.target.value)}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Shoe:
           <select value={shoeID} onChange={(e) => setShoeID(e.target.value)}>
             <option value="">Select a shoe</option>
             {currentRunner.shoes.map((shoe) => (

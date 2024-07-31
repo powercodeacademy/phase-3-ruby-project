@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import ShoeCollection from "./ShoeCollection"
 import RunHistory from "./RunHistory"
 import AddRunnerForm from "./AddRunnerForm"
+import RunnerStats from "./RunnerStats"
 
 const App = () => {
   const [runners, setRunners] = useState([])
@@ -122,6 +123,7 @@ const App = () => {
             updateRunners={updateRunners}
             addRun={addRun}
           />
+          <RunnerStats currentRunner={currentRunner} />
         </>
       )}
     </div>
