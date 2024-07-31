@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import GuestLog from "./GuestLog"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "../App.css"
@@ -16,26 +16,28 @@ function BnbListing({ bnb }) {
 
   const [message, setMessage] = useState("")
 
-  const handleGuestLogClick = () => {
-    if (!showGuestLog) {
-      getGuestLog()
-    }
-    setShowGuestLog(!showGuestLog)
-  }
-
   const getGuestLog = () => {
     fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
       .then((r) => r.json())
       .then((entries) => setGuestLog(entries))
   }
 
-  const getStaysList = () => {
+  const getStayList = () => {
+    fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
+      .then((r) => r.json())
+      .then((entries) => setStaysList(entries))
+  }
+
+  const handleStayListClick = () => {
     if (!showStaysList) {
-      fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
-        .then((r) => r.json())
-        .then((entries) => setStaysList(entries))
     }
     setShowStaysList(!showStaysList)
+  }
+
+  const handleGuestLogClick = () => {
+    if (!showGuestLog) {
+    }
+    setShowGuestLog(!showGuestLog)
   }
 
   const toggleBookingForm = () => {
@@ -59,6 +61,14 @@ function BnbListing({ bnb }) {
       prevEntries.filter((entry) => entry.id !== entryId)
     )
   }
+
+  useEffect(() => {
+    getGuestLog()
+  }, [])
+
+  useEffect(() => {
+    getStayList()
+  }, [])
 
   return (
     <div className="card mb-4">
@@ -90,7 +100,7 @@ function BnbListing({ bnb }) {
             onDeleteEntry={handleDeleteGuestLogEntry}
           />
         )}
-        <button className="button-74" onClick={getStaysList}>
+        <button className="button-74" onClick={handleStayListClick}>
           {showStaysList ? "Hide Stays List" : "View Stays List"}
         </button>
         {showStaysList && (
