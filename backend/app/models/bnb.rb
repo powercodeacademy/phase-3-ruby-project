@@ -16,8 +16,7 @@ class Bnb < ActiveRecord::Base
     guests.map do |guest|
       total += guest.age
     end
-    avg_age = total / guests.count
-    avg_age
+    total / guests.count
   end
 
   def bnb_activity
@@ -26,7 +25,7 @@ class Bnb < ActiveRecord::Base
     elsif avg_guest_age < 30
       "Group hoverboard lessons"
     elsif avg_guest_age >= 55
-        "Nightly bingo"
+      "Nightly bingo"
     end
   end
 
@@ -44,7 +43,7 @@ class Bnb < ActiveRecord::Base
       daily_projection: daily_projection,
       weekly_projection: weekly_projection,
       monthly_projection: monthly_projection,
-      annual_projection: annual_projection
+      annual_projection: annual_projection,
     }
   end
 end

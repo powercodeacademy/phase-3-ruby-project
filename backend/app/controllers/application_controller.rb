@@ -25,13 +25,13 @@ class ApplicationController < Sinatra::Base
     stays_with_guests
   end
 
-  post '/guest_log' do
+  post "/guest_log" do
     log_entry = GuestLogEntry.create(
       message: params[:message],
       guest_id: params[:guest_id],
       bnb_id: params[:bnb_id],
       stay_id: params[:stay_id],
-      entry_date: params[:entry_date],
+      entry_date: params[:entry_date]
     )
     log_entry.to_json
   end
@@ -39,35 +39,35 @@ class ApplicationController < Sinatra::Base
   post "/create_guest_and_stay" do
     guest = Guest.new(name: params[:name], age: params[:age])
 
-    if guest.save
-      stay = Stay.new(
-        bnb_id: params[:bnb_id],
-        guest_id: guest.id,
-        check_in: params[:check_in],
-        check_out: params[:check_out]
-      )
+    guest.save
 
-      if stay.save
-        stay.to_json(include: { guest: { only: [:name, :age] } })
-      end
-    end
+    stay = Stay.new(
+      bnb_id: params[:bnb_id],
+      guest_id: guest.id,
+      check_in: params[:check_in],
+      check_out: params[:check_out]
+    )
+
+    stay.save
+
+    stay.to_json(include: { guest: { only: [:name, :age] } })
   end
 
-  delete '/stays/:id' do
+  delete "/stays/:id" do
     stay = Stay.find(params[:id])
     stay.destroy
     stay.to_json
   end
 
-  patch '/guest_log/:id' do
+  patch "/guest_log/:id" do
     entry = GuestLogEntry.find(params[:id])
     entry.update(
-      message: params[:newMessage],
+      message: params[:newMessage]
     )
     entry.to_json
   end
 
-  delete '/guest_log_delete/:id' do
+  delete "/guest_log_delete/:id" do
     entry = GuestLogEntry.find(params[:id])
     entry.destroy
     entry.to_json
