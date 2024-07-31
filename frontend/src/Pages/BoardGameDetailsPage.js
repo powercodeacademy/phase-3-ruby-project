@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getBoardGameData } from "../services/fetchers"
+import { createReview, getBoardGameData } from "../services/fetchers"
 import ReviewBlock from "../components/ReviewBlock"
 import ReviewForm from "../components/ReviewForm"
 
@@ -23,8 +23,20 @@ function BoardGameDetailsPage() {
     return <h1>Loading...</h1>
   }
 
+  const addReview = (newReview) => {
+    createReview(newReview).then(review => setReviews([...reviews, review]))
+  }
+
   const reviewBlocks = reviews.map((review) => {
-    return <ReviewBlock key={review.id} review={review} />
+    return (
+      <ReviewBlock
+        key={review.id}
+        review={review}
+        boardGameId={boardGameData.id}
+        reviews={reviews}
+        setReviews={setReviews}
+      />
+    )
   })
 
   return (
@@ -58,8 +70,7 @@ function BoardGameDetailsPage() {
               <ReviewForm
                 closeForm={setShowForm}
                 boardGameId={boardGameData.id}
-                reviews={reviews}
-                setReviews={setReviews}
+                handleReview={addReview}
               />
             ) : null}
             {boardGameData.reviews.length > 0 ? (

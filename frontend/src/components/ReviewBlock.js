@@ -1,13 +1,20 @@
 import { useState } from "react"
 import { useUser } from "../context/UserContext"
 import ReviewForm from "./ReviewForm"
+import { updateReview } from "../services/fetchers"
 
-function ReviewBlock({ review }) {
+function ReviewBlock({ review, boardGameId, reviews, setReviews }) {
   const [showForm, setShowForm] = useState(false)
   const { user } = useUser()
 
   const checkUser = () => {
     return review.user.id == user
+  }
+
+  const editReview = (editedReview) => {
+    updateReview(editedReview).then(reviewResp => {
+      setReviews(reviews.map(review => review.id === editedReview.id ? reviewResp : review))
+    })
   }
 
   return (
@@ -21,7 +28,14 @@ function ReviewBlock({ review }) {
           Edit
         </button>
       ) : null}
-      {showForm ? <ReviewForm /> : (
+      {showForm ? (
+        <ReviewForm
+          review={review}
+          closeForm={setShowForm}
+          boardGameId={boardGameId}
+          handleReview={editReview}
+        />
+      ) : (
         <>
           <h4>{review.title}</h4>
           <h5>
