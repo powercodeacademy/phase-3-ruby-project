@@ -53,12 +53,6 @@ class ApplicationController < Sinatra::Base
     stay.to_json(include: { guest: { only: [:name, :age] } })
   end
 
-  # delete "/stays/:id" do
-  #   stay = Stay.find(params[:id])
-  #   stay.destroy
-  #   stay.to_json
-  # end
-
   patch "/guest_log/:id" do
     entry = GuestLogEntry.find(params[:id])
     entry.update(
