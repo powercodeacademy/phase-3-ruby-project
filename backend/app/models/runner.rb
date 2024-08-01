@@ -25,7 +25,12 @@ class Runner < ActiveRecord::Base
   end
 
   def favorite_shoes
-    shoes.max_by(&:mileage)
+    favorite_shoe = shoes.max_by(&:mileage)
+    if favorite_shoe
+      favorite_shoe.name
+    else
+      "Go for a run to track your favorite shoes."
+    end
   end
 
   def title
@@ -64,6 +69,6 @@ class Runner < ActiveRecord::Base
      "Pairs of shoes owned: #{shoe_count}",
      "Average Calories Burned Per Run: #{average_calories_burned}",
      "Total Steps Taken: #{total_steps}",
-     "Favorite Shoes: #{favorite_shoes.name}",]
+     "Favorite Shoes: #{favorite_shoes}",]
   end
 end

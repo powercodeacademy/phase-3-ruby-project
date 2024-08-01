@@ -13,14 +13,8 @@ const App = () => {
     fetch("http://127.0.0.1:9292/runners")
       .then((response) => response.json())
       .then((data) => {
-        if (Array.isArray(data)) {
-          setRunners(data)
-          if (data.length > 0) {
-            setCurrentRunner(data[0])
-          }
-        } else {
-          console.error("Expected an array but received:", data)
-        }
+        setRunners(data)
+        setCurrentRunner(data[0])
       })
       .catch((error) => {
         console.error("Error fetching runners:", error)
@@ -114,12 +108,12 @@ const App = () => {
       {currentRunner && (
         <>
           <div className="section">
-            <div class="card text-white bg-secondary mb-3">
+            <div className="card text-white bg-secondary mb-3">
               <AddRunnerForm addRunner={addRunner} />
             </div>
           </div>
           <div className="section">
-            <div class="card text-white bg-secondary mb-3">
+            <div className="card text-white bg-secondary mb-3">
               <ShoeCollection
                 shoes={currentRunner.shoes}
                 addShoe={addShoe}
@@ -128,7 +122,7 @@ const App = () => {
             </div>
           </div>
           <div className="section">
-            <div class="card text-white bg-secondary mb-3">
+            <div className="card text-white bg-secondary mb-3">
               <RunHistory
                 currentRunner={currentRunner}
                 updateRunners={updateRunners}
@@ -138,7 +132,7 @@ const App = () => {
           </div>
           <div className="section">
             <div
-              class="card text-white bg-secondary
+              className="card text-white bg-secondary
              mb-3"
             >
               <RunnerStats currentRunner={currentRunner} />

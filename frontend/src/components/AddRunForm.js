@@ -1,16 +1,18 @@
 import React, { useState } from "react"
 
 const AddRunForm = ({ addRun, currentRunner }) => {
-  const [shoeID, setShoeID] = useState("")
+  const [shoeId, setShoeId] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newRun = {
-      runnerId: currentRunner.id,
-      shoeId: shoeID,
+    if (shoeId) {
+      const newRun = {
+        runnerId: currentRunner.id,
+        shoeId: shoeId,
+      }
+      addRun(newRun)
+      setShoeId("")
     }
-    addRun(newRun)
-    setShoeID("")
   }
 
   return (
@@ -18,7 +20,7 @@ const AddRunForm = ({ addRun, currentRunner }) => {
       <h2>Add New Run</h2>
       <div>
         <label>
-          <select value={shoeID} onChange={(e) => setShoeID(e.target.value)}>
+          <select value={shoeId} onChange={(e) => setShoeId(e.target.value)}>
             <option value="">Select a shoe</option>
             {currentRunner.shoes.map((shoe) => (
               <option key={shoe.id} value={shoe.id}>
@@ -28,9 +30,7 @@ const AddRunForm = ({ addRun, currentRunner }) => {
           </select>
         </label>
       </div>
-      <button className="btn btn-outline-info m-3" type="submit">
-        Add Run
-      </button>
+      <button type="submit">Add Run</button>
     </form>
   )
 }
