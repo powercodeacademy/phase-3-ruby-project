@@ -7,7 +7,7 @@ class Bnb < ActiveRecord::Base
     cost_per_night * stays.count
   end
 
-  def daily_projections
+  def daily_projection
     num_of_rooms * cost_per_night
   end
 
@@ -29,12 +29,24 @@ class Bnb < ActiveRecord::Base
     end
   end
 
+  # def self.most_popular
+  #   order(stays: :asc)
+  # end
+  #
+  #
+
   def self.most_popular
-    order(stays: :asc)
+    joins(:stays)
+      .group("bnbs.id")
+      .order("COUNT(stays.id) DESC")
   end
 
+  # def self.most_popular
+
+  # end
+
   def revenue_forcasting
-    daily_projection = cost_per_night * num_of_rooms
+    daily_projection
     weekly_projection = daily_projection * 7
     monthly_projection = daily_projection * 30
     annual_projection = daily_projection * 365
