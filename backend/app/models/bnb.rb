@@ -7,7 +7,7 @@ class Bnb < ActiveRecord::Base
     cost_per_night * stays.count
   end
 
-  def daily_projections
+  def daily_projection
     num_of_rooms * cost_per_night
   end
 
@@ -16,8 +16,7 @@ class Bnb < ActiveRecord::Base
     guests.map do |guest|
       total += guest.age
     end
-    avg_age = total / guests.count
-    avg_age
+    total / guests.count
   end
 
   def bnb_activity
@@ -26,11 +25,37 @@ class Bnb < ActiveRecord::Base
     elsif avg_guest_age < 30
       "Group hoverboard lessons"
     elsif avg_guest_age >= 55
-        "Nightly bingo"
+      "Nightly bingo"
     end
   end
 
+  # def self.most_popular
+  #   order(stays: :asc)
+  # end
+  #
+  #
+
   def self.most_popular
-    order(stays: :asc)
+    joins(:stays)
+      .group("bnbs.id")
+      .order("COUNT(stays.id) DESC")
+  end
+
+  # def self.most_popular
+
+  # end
+
+  def revenue_forcasting
+    daily_projection
+    weekly_projection = daily_projection * 7
+    monthly_projection = daily_projection * 30
+    annual_projection = daily_projection * 365
+
+    {
+      daily_projection: daily_projection,
+      weekly_projection: weekly_projection,
+      monthly_projection: monthly_projection,
+      annual_projection: annual_projection,
+    }
   end
 end
