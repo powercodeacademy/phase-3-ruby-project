@@ -29,21 +29,11 @@ class Bnb < ActiveRecord::Base
     end
   end
 
-  # def self.most_popular
-  #   order(stays: :asc)
-  # end
-  #
-  #
-
   def self.most_popular
     joins(:stays)
       .group("bnbs.id")
       .order("COUNT(stays.id) DESC")
   end
-
-  # def self.most_popular
-
-  # end
 
   def revenue_forcasting
     daily_projection

@@ -15,7 +15,7 @@ function GuestLogForm({ entry, addNewLogEntry }) {
       stay_id: id,
     }
 
-    fetch(`http://localhost:9292/guest_log`, {
+    fetch("http://localhost:9292/guest_log", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,11 +23,11 @@ function GuestLogForm({ entry, addNewLogEntry }) {
       body: JSON.stringify(newEntry),
     })
       .then((r) => r.json())
-      .then((newEntry) => {
+      .then((createdEntry) => {
         setNewMessage("")
-        addNewLogEntry(newEntry)
+        addNewLogEntry(createdEntry)
       })
-      .catch((error) => console.log(error))
+      .catch((error) => console.error("Error adding log entry:", error))
   }
 
   return (

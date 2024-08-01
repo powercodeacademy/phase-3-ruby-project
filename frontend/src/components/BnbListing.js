@@ -91,7 +91,7 @@ function BnbListing({ bnb }) {
         </h2>
         {showBookingForm && <BookingForm bnb={bnb} addNewStay={addNewStay} />}
         <h6 className="card-subtitle mb-2 text-muted">
-          Number of Rooms: {num_of_rooms} - Cost /Night: ${cost_per_night}
+          ${cost_per_night} per night
         </h6>
         <p className="card-text">{description}</p>
         <p className="card-text">

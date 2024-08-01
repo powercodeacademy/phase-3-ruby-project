@@ -33,7 +33,7 @@ class ApplicationController < Sinatra::Base
       stay_id: params[:stay_id],
       entry_date: params[:entry_date]
     )
-    log_entry.to_json
+    log_entry.to_json(include: { guest: { only: [:name] } })
   end
 
   post "/create_guest_and_stay" do
@@ -67,7 +67,7 @@ class ApplicationController < Sinatra::Base
     entry.to_json
   end
 
-  delete "/guest_log_delete/:id" do
+  delete "/guest_log/:id" do
     entry = GuestLogEntry.find(params[:id])
     entry.destroy
     entry.to_json
@@ -81,12 +81,6 @@ class ApplicationController < Sinatra::Base
   get "/bnbs/sort_by_price_asc" do
     bnb = Bnb.order(cost_per_night: :asc)
     bnb.to_json
-  end
-
-  get "/bnbs/:id/total_revenue" do
-    bnb = Bnb.find(params[:id])
-    total = bnb.total_revenue
-    total.to_json
   end
 
   get "/bnbs/sort_by_most_popular" do
