@@ -36,7 +36,7 @@ To install and set up the application, follow these steps:
    ```bash
    cd backend
    bundle install
-   bundle exec rake db:migrate db:seed db:server
+   bundle exec rake db:migrate db:seed server
 
    ```
 
