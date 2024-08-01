@@ -41,7 +41,7 @@ class ApplicationController < Sinatra::Base
   patch "/runs/:id" do
     run = Run.find(params[:id])
     run.update(
-      shoe_id: params[:shoeID]
+      shoe_id: params[:shoeId]
     )
     return_runners
   end

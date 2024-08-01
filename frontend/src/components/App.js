@@ -57,7 +57,7 @@ const App = () => {
       body: JSON.stringify(newRunner),
     })
       .then((response) => response.json())
-      .then(updateRunners)
+      .then((resp) => updateRunners(resp))
       .catch((error) => {
         console.error("Error adding runner:", error)
       })

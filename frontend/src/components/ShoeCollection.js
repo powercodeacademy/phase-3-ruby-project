@@ -22,7 +22,7 @@ const ShoeCollection = ({ shoes, addShoe, currentRunner }) => {
           ))}
         </ul>
       ) : (
-        <p>No shoes available.</p>
+        <p>Add a shoe to get started.</p>
       )}
       <form onSubmit={handleSubmit}>
         <input
