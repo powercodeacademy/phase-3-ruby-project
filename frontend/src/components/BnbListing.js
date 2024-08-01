@@ -46,10 +46,6 @@ function BnbListing({ bnb }) {
     setShowBookingForm(!showBookingForm)
   }
 
-  const handleDeleteStay = (stayId) => {
-    setStaysList((prevStays) => prevStays.filter((stay) => stay.id !== stayId))
-  }
-
   const updateGuestLogEntry = (updatedEntry) => {
     setGuestLog((prevEntries) =>
       prevEntries.map((entry) =>
@@ -114,11 +110,7 @@ function BnbListing({ bnb }) {
           {showStaysList ? "Hide Stays List" : "View Stays List"}
         </button>
         {showStaysList && (
-          <StaysList
-            staysList={staysList}
-            onDeleteStay={handleDeleteStay}
-            addNewLogEntry={addNewLogEntry}
-          />
+          <StaysList staysList={staysList} addNewLogEntry={addNewLogEntry} />
         )}
       </div>
     </div>
