@@ -19,12 +19,6 @@ function StatCard({ bnb }) {
     annual_projection: annual,
   } = revenue_forcasting
 
-  // const dailyProjection = (cost_per_night * num_of_rooms).toFixed(2)
-
-  // const weeklyProjection = (dailyProjection * 7).toFixed(2)
-  // const monthlyProjection = (dailyProjection * 30).toFixed(2)
-  // const annualProjection = (dailyProjection * 365).toFixed(2)
-
   return (
     <div className="card mb-4">
       <div className="card-body">
