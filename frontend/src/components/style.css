@@ -1,0 +1,53 @@
+body {
+  background-color: #565758; /* Light grey-blue background */
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: rgb(214, 140, 140);
+}
+
+.select-runner {
+  margin-bottom: 20px;
+}
+
+.select-runner label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.select-runner select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid #d53c3c;
+  border-radius: 5px;
+  background-color: #be9c9c;
+}
+
+.card + .card {
+  margin-top: 20px;
+}

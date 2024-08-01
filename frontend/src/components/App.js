@@ -3,6 +3,7 @@ import ShoeCollection from "./ShoeCollection"
 import RunHistory from "./RunHistory"
 import AddRunnerForm from "./AddRunnerForm"
 import RunnerStats from "./RunnerStats"
+import "./style.css"
 
 const App = () => {
   const [runners, setRunners] = useState([])
@@ -84,10 +85,10 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h1>My Fitness App</h1>
+    <div className="container">
+      <h1 className="header">Run Tracker App</h1>
 
-      <div>
+      <div className="select-runner">
         <label>
           Select Runner:
           <select
@@ -112,18 +113,34 @@ const App = () => {
 
       {currentRunner && (
         <>
-          <AddRunnerForm addRunner={addRunner} />
-          <ShoeCollection
-            shoes={currentRunner.shoes}
-            addShoe={addShoe}
-            currentRunner={currentRunner}
-          />
-          <RunHistory
-            currentRunner={currentRunner}
-            updateRunners={updateRunners}
-            addRun={addRun}
-          />
-          <RunnerStats currentRunner={currentRunner} />
+          <div className="section">
+            <div className="card">
+              <AddRunnerForm addRunner={addRunner} />
+            </div>
+          </div>
+          <div className="section">
+            <div className="card">
+              <ShoeCollection
+                shoes={currentRunner.shoes}
+                addShoe={addShoe}
+                currentRunner={currentRunner}
+              />
+            </div>
+          </div>
+          <div className="section">
+            <div className="card">
+              <RunHistory
+                currentRunner={currentRunner}
+                updateRunners={updateRunners}
+                addRun={addRun}
+              />
+            </div>
+          </div>
+          <div className="section">
+            <div className="card">
+              <RunnerStats currentRunner={currentRunner} />
+            </div>
+          </div>
         </>
       )}
     </div>

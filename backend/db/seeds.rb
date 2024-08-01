@@ -5,11 +5,11 @@ Runner.destroy_all
 puts "🌱 Seeding..."
 
 runners = [
-  Runner.create(name: "John Doe"),
-  Runner.create(name: "Jane Smith"),
-  Runner.create(name: "Alice Johnson"),
-  Runner.create(name: "Robert Brown"),
-  Runner.create(name: "Emily Davis"),
+  Runner.create(name: "Jamal Johnson"),
+  Runner.create(name: "Aaliyah Williams"),
+  Runner.create(name: "Malik Brown"),
+  Runner.create(name: "Imani Robinson"),
+  Runner.create(name: "Darius Washington"),
 ]
 
 shoes = [

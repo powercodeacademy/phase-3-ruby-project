@@ -20,8 +20,19 @@ class Runner < ActiveRecord::Base
     end
   end
 
+  def total_steps
+    runs.sum { |run| run.cadence * run.total_time_minutes }
+  end
+
+  def favorite_shoes
+    shoes.max_by(&:mileage)
+  end
+
   def stats
-    ["Total Miles Run: #{mileage}", "Pairs of shoes owned: #{shoe_count}",
-     "Average Calories Burned Per Run: #{average_calories_burned}",]
+    ["Total Miles Run: #{mileage}",
+     "Pairs of shoes owned: #{shoe_count}",
+     "Average Calories Burned Per Run: #{average_calories_burned}",
+     "Total Steps Taken: #{total_steps}",
+     "Favorite Shoes: #{favorite_shoes.name}",]
   end
 end
