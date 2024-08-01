@@ -6,7 +6,6 @@ Stay.destroy_all
 puts "creating bnbs.."
 bnb1 = Bnb.create(name: "Sunshine Retreat", location: "Charlottesville, VA", num_of_rooms: 5,
                   cost_per_night: 120, description: "A cozy retreat in the heart of Charlottesville.")
-
 bnb2 = Bnb.create(name: "Mountain View Inn", location: "Asheville, NC", num_of_rooms: 8,
                   cost_per_night: 150, description: "Beautiful views of the mountains.")
 bnb3 = Bnb.create(name: "Seaside Escape", location: "Virginia Beach, VA", num_of_rooms: 10,
@@ -48,58 +47,58 @@ stay5 = Stay.create(bnb_id: bnb5.id, guest_id: guest3.id, check_in: "2024-11-10"
 
 puts "creating guest log entries.."
 GuestLogEntry.create(
-                      bnb_id: bnb1.id,
-                      guest_id: guest1.id,
-                      stay_id: stay1.id,
-                      message: "Had a wonderful stay at Sunshine Retreat!",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb1.id,
+  guest_id: guest1.id,
+  stay_id: stay1.id,
+  message: "Had a wonderful stay at Sunshine Retreat!",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb2.id,
-                      guest_id: guest2.id,
-                      stay_id: stay2.id,
-                      message: "Loved the mountain views at Mountain View Inn.",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb2.id,
+  guest_id: guest2.id,
+  stay_id: stay2.id,
+  message: "Loved the mountain views at Mountain View Inn.",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb3.id,
-                      guest_id: guest3.id,
-                      stay_id: stay3.id,
-                      message: "Enjoyed the beach at Seaside Escape.",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb3.id,
+  guest_id: guest3.id,
+  stay_id: stay3.id,
+  message: "Enjoyed the beach at Seaside Escape.",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb4.id,
-                      guest_id: guest4.id,
-                      stay_id: stay4.id,
-                      message: "Great city location at Urban Oasis.",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb4.id,
+  guest_id: guest4.id,
+  stay_id: stay4.id,
+  message: "Great city location at Urban Oasis.",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb5.id,
-                      guest_id: guest5.id,
-                      stay_id: stay5.id,
-                      message: "Peaceful and quiet at Countryside B&B.",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb5.id,
+  guest_id: guest5.id,
+  stay_id: stay5.id,
+  message: "Peaceful and quiet at Countryside B&B.",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb6.id,
-                      guest_id: guest6.id,
-                      stay_id: stay6.id,
-                      message: "Beautiful lake view at Lake House Lodge.",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb6.id,
+  guest_id: guest6.id,
+  stay_id: stay6.id,
+  message: "Beautiful lake view at Lake House Lodge.",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb1.id,
-                      guest_id: guest2.id,
-                      stay_id: stay7.id,
-                      message: "BEST BREAKFAST.",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb1.id,
+  guest_id: guest2.id,
+  stay_id: stay7.id,
+  message: "BEST BREAKFAST.",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
 GuestLogEntry.create(
-                      bnb_id: bnb1.id,
-                      guest_id: guest6.id,
-                      stay_id: stay8.id,
-                      message: "Great linens",
-                      entry_date: Date.new(2023, rand(1..12), rand(1..28))
-                    )
+  bnb_id: bnb1.id,
+  guest_id: guest6.id,
+  stay_id: stay8.id,
+  message: "Great linens",
+  entry_date: Date.new(2023, rand(1..12), rand(1..28))
+)
