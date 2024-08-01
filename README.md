@@ -8,8 +8,6 @@ Welcome to My Fitness App! This application helps you track your runs, manage yo
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -29,17 +27,11 @@ To install and set up the application, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/my-fitness-app.git
-   cd my-fitness-app
+   git clone git@github.com:Lsimmons98/running-mileage-tracker.git
+   cd running-mileage-tracker
    ```
 
-2. **Install dependencies:**
-
-   ```bash
-   npm install
-   ```
-
-3. **Start the backend server:**
+2. **Start the backend server:**
 
    ```bash
    cd backend
@@ -48,10 +40,11 @@ To install and set up the application, follow these steps:
 
    ```
 
-4. **Start the frontend server:**
+3. **Start the frontend server:**
 
    ```bash
    cd frontend
+   npm install
    npm start
    ```
 
@@ -59,21 +52,18 @@ To install and set up the application, follow these steps:
 
 Once the servers are running, open your browser and go to `http://localhost:3000` to access My Fitness App.
 
-### Adding a Runner
+### Adding a New Runner
 
-1. Click on the "Add Runner" button.
-2. Enter the runner's name.
-3. Click "Submit."
+1. Enter the runner's name.
+2. Click "Add Runner."
 
 ### Logging a Run
 
-1. Select a runner from the dropdown menu.
-2. Click on "Log a Run."
-3. Fill in the run details (distance, time, cadence, etc.).
-4. Click "Submit."
+1. Select a shoe from the dropdown menu.
+2. Click on "Add Run."
+3. Your "fitness tracker" will automatically calculate the details of your run including cadence, average pace, distance, average heart rate, calories burned, and time.
 
-### Managing Shoes
+### Adding New Shoes
 
-1. Select a runner from the dropdown menu.
-2. Click on "Manage Shoes."
-3. Add, edit, or view the shoes associated with the runner.
+1. Enter the name of your shoes.
+2. Click on "Add Shoe."
