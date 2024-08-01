@@ -6,7 +6,7 @@ import StaysList from "./StaysList"
 import BookingForm from "./BookingForm"
 
 function BnbListing({ bnb }) {
-  const { id, name, location, num_of_rooms, cost_per_night, description } = bnb
+  const { id, name, location, cost_per_night, description } = bnb
   const [guestLog, setGuestLog] = useState([])
   const [staysList, setStaysList] = useState([])
 

@@ -9,6 +9,7 @@ function StatCard({ bnb }) {
     num_of_rooms,
     cost_per_night,
     avg_guest_age,
+    bnb_activity,
     revenue_forcasting,
   } = bnb
 
@@ -33,8 +34,10 @@ function StatCard({ bnb }) {
           Cost per night: ${cost_per_night}
         </h6>
         <h6 className="card-subtitle mb-2 text-muted">
-          {" "}
           Average Age of Guests: {avg_guest_age}
+        </h6>
+        <h6 className="card-subtitle mb-2 text-muted">
+          Consider hosting: {bnb_activity}
         </h6>
 
         <div className="table-responsive">

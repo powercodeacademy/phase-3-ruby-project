@@ -34,9 +34,9 @@ function StayEntry({ entry, onDeleteStay, addNewLogEntry }) {
         )}
       </td>
       <td>
-        <button className="button-74" onClick={handleDeleteClick}>
+        {/* <button className="button-74" onClick={handleDeleteClick}>
           Delete Stay
-        </button>
+        </button> */}
       </td>
     </tr>
   )
