@@ -28,8 +28,39 @@ class Runner < ActiveRecord::Base
     shoes.max_by(&:mileage)
   end
 
+  def title
+    case mileage
+    when 0...20
+      "Aspiring Runner - #{20 - mileage} More miles until 'Determined Sprinter'"
+    when 20...45
+      "Determined Sprinter - #{45 - mileage} More miles until 'Fearless Pacer'"
+    when 45...60
+      "Fearless Pacer - #{60 - mileage} More miles until 'Heroic Marathoner'"
+    when 60...75
+      "Heroic Marathoner - #{75 - mileage} More miles until 'Legendary Conqueror'"
+    else
+      "Legendary Conqueror"
+    end
+  end
+
+  def rank
+    runners_ranked = Runner.all.sort_by(&:mileage).reverse
+    position = runners_ranked.index(self)
+    case position
+    when 0
+      "first"
+    when 1
+      "second"
+    when 2
+      "third"
+    else
+      "#{position + 1}th"
+    end
+  end
+
   def stats
-    ["Total Miles Run: #{mileage}",
+    ["Title: #{title} - You are currently ranked #{rank} among all runners.",
+     "Total Miles Run: #{mileage}",
      "Pairs of shoes owned: #{shoe_count}",
      "Average Calories Burned Per Run: #{average_calories_burned}",
      "Total Steps Taken: #{total_steps}",

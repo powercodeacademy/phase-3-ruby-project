@@ -85,7 +85,7 @@ const App = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container, card text-dark bg-info mb-3">
       <h1 className="header">Run Tracker App</h1>
 
       <div className="select-runner">
@@ -114,12 +114,12 @@ const App = () => {
       {currentRunner && (
         <>
           <div className="section">
-            <div className="card">
+            <div class="card text-white bg-secondary mb-3">
               <AddRunnerForm addRunner={addRunner} />
             </div>
           </div>
           <div className="section">
-            <div className="card">
+            <div class="card text-white bg-secondary mb-3">
               <ShoeCollection
                 shoes={currentRunner.shoes}
                 addShoe={addShoe}
@@ -128,7 +128,7 @@ const App = () => {
             </div>
           </div>
           <div className="section">
-            <div className="card">
+            <div class="card text-white bg-secondary mb-3">
               <RunHistory
                 currentRunner={currentRunner}
                 updateRunners={updateRunners}
@@ -137,7 +137,10 @@ const App = () => {
             </div>
           </div>
           <div className="section">
-            <div className="card">
+            <div
+              class="card text-white bg-secondary
+             mb-3"
+            >
               <RunnerStats currentRunner={currentRunner} />
             </div>
           </div>

@@ -24,7 +24,9 @@ const AddShoeForm = ({ currentRunner, addShoe }) => {
           />
         </label>
       </div>
-      <button type="submit">Add Shoe</button>
+      <button className="btn btn-outline-info" type="submit">
+        Add Shoe
+      </button>
     </form>
   )
 }

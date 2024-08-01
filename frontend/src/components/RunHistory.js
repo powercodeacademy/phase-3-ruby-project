@@ -67,18 +67,36 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
                     ))}
                   </select>
                 </label>
-                <button onClick={() => handleSaveClick(run.id)}>Save</button>
-                <button onClick={() => setEditingRunId(null)}>Cancel</button>
+                <button
+                  className="btn btn-outline-info m-3"
+                  onClick={() => handleSaveClick(run.id)}
+                >
+                  Save
+                </button>
+                <button
+                  className="btn btn-outline-info m-3"
+                  onClick={() => setEditingRunId(null)}
+                >
+                  Cancel
+                </button>
               </div>
             ) : (
               <>
                 {run.distance} miles on{" "}
                 {new Date(run.created_at).toLocaleDateString()} with{" "}
                 {run.shoeName}
-                <button onClick={() => handleEditClick(run)}>
+                <button
+                  className="btn btn-outline-info m-3"
+                  onClick={() => handleEditClick(run)}
+                >
                   Change Shoe
                 </button>
-                <button onClick={() => deleteRun(run.id)}>Delete</button>
+                <button
+                  className="btn btn-outline-info m-3"
+                  onClick={() => deleteRun(run.id)}
+                >
+                  Delete
+                </button>
               </>
             )}
           </li>

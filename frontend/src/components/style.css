@@ -1,5 +1,4 @@
 body {
-  background-color: #565758; /* Light grey-blue background */
   font-family: Arial, sans-serif;
 }
 
@@ -12,7 +11,6 @@ body {
 .header {
   text-align: center;
   margin-bottom: 30px;
-  color: rgb(214, 140, 140);
 }
 
 .select-runner {
@@ -43,9 +41,7 @@ body {
 
 .card {
   padding: 20px;
-  border: 1px solid #d53c3c;
   border-radius: 5px;
-  background-color: #be9c9c;
 }
 
 .card + .card {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 
-const RunnerDetails = ({ currentRunner }) => {
+const RunnerStats = ({ currentRunner }) => {
   if (!currentRunner) {
     return <p>Loading...</p>
   }
@@ -18,4 +18,4 @@ const RunnerDetails = ({ currentRunner }) => {
   )
 }
 
-export default RunnerDetails
+export default RunnerStats
