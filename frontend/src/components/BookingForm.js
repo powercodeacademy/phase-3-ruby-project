@@ -33,6 +33,7 @@ function BookingForm({ bnb, addNewStay }) {
         setCheckOut("")
         addNewStay(createdStay)
       })
+      .catch((error) => console.log(error))
   }
 
   return (

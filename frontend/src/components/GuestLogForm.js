@@ -27,6 +27,7 @@ function GuestLogForm({ entry, addNewLogEntry }) {
         setNewMessage("")
         addNewLogEntry(newEntry)
       })
+      .catch((error) => console.log(error))
   }
 
   return (

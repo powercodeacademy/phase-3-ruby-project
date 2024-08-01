@@ -20,12 +20,14 @@ function BnbListing({ bnb }) {
     fetch(`http://localhost:9292/bnbs/${id}/guest_log`)
       .then((r) => r.json())
       .then((entries) => setGuestLog(entries))
+      .catch((error) => console.log(error))
   }
 
   const getStayList = () => {
     fetch(`http://localhost:9292/bnbs/${id}/stays_list`)
       .then((r) => r.json())
       .then((entries) => setStaysList(entries))
+      .catch((error) => console.log(error))
   }
 
   const handleStayListClick = () => {

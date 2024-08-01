@@ -13,9 +13,11 @@ function StayEntry({ entry, onDeleteStay, addNewLogEntry }) {
   function handleDeleteClick() {
     fetch(`http://localhost:9292/stays/${id}`, {
       method: "DELETE",
-    }).then(() => {
-      onDeleteStay(id)
     })
+      .then(() => {
+        onDeleteStay(id)
+      })
+      .catch((error) => console.log(error))
   }
 
   return (

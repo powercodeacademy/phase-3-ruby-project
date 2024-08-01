@@ -37,14 +37,17 @@ function GuestLogEntry({
         setShowEditInput(false)
         getGuestLog()
       })
+      .catch((error) => console.log(error))
   }
 
   function handleDeleteClick() {
     fetch(`http://localhost:9292/guest_log/${id}`, {
       method: "DELETE",
-    }).then(() => {
-      onDeleteEntry(id)
     })
+      .then(() => {
+        onDeleteEntry(id)
+      })
+      .catch((error) => console.log(error))
   }
 
   return (

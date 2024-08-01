@@ -9,6 +9,7 @@ function StatsPortal() {
     fetch("http://localhost:9292/bnbs")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
+      .catch((error) => console.log(error))
   }, [])
 
   return (

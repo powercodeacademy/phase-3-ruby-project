@@ -10,24 +10,28 @@ function App() {
     fetch("http://localhost:9292/bnbs")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
+      .catch((error) => console.log(error))
   }, [])
 
   function handleSortByPriceDesc() {
     fetch("http://localhost:9292/bnbs/sort_by_price_desc")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
+      .catch((error) => console.log(error))
   }
 
   function handleSortByPriceAsc() {
     fetch("http://localhost:9292/bnbs/sort_by_price_asc")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
+      .catch((error) => console.log(error))
   }
 
   function handleSortByMostPopular() {
     fetch("http://localhost:9292/bnbs/sort_by_most_popular")
       .then((r) => r.json())
       .then((bnbs) => setAllBnbs(bnbs))
+      .catch((error) => console.log(error))
   }
 
   return (
