@@ -41,3 +41,5 @@ Run.create(random_run_attributes(runners[2], shoes[3]))
 Run.create(random_run_attributes(runners[2], shoes[3]))
 Run.create(random_run_attributes(runners[3], shoes[4]))
 Run.create(random_run_attributes(runners[4], shoes[5]))
+
+puts "...Seeding Complete 🌱 "
