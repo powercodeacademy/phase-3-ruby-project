@@ -78,6 +78,14 @@ const App = () => {
       })
   }
 
+  const handleChange = (e) => {
+    const selectedRunnerId = parseInt(e.target.value, 10)
+    const selectedRunner = runners.find(
+      (runner) => runner.id === selectedRunnerId
+    )
+    setCurrentRunner(selectedRunner)
+  }
+
   return (
     <div className="container, card text-dark bg-info mb-3">
       <h1 className="header">Run Tracker App</h1>
@@ -87,12 +95,7 @@ const App = () => {
           Select Runner:
           <select
             value={currentRunner ? currentRunner.id : ""}
-            onChange={(e) => {
-              const selectedRunner = runners.find(
-                (runner) => runner.id === parseInt(e.target.value, 10)
-              )
-              setCurrentRunner(selectedRunner)
-            }}
+            onChange={handleChange}
           >
             <option value="">Select a runner</option>
             {Array.isArray(runners) &&
@@ -104,40 +107,20 @@ const App = () => {
           </select>
         </label>
       </div>
-
       {currentRunner && (
         <>
-          <div className="section">
-            <div className="card text-white bg-secondary mb-3">
-              <AddRunnerForm addRunner={addRunner} />
-            </div>
-          </div>
-          <div className="section">
-            <div className="card text-white bg-secondary mb-3">
-              <ShoeCollection
-                shoes={currentRunner.shoes}
-                addShoe={addShoe}
-                currentRunner={currentRunner}
-              />
-            </div>
-          </div>
-          <div className="section">
-            <div className="card text-white bg-secondary mb-3">
-              <RunHistory
-                currentRunner={currentRunner}
-                updateRunners={updateRunners}
-                addRun={addRun}
-              />
-            </div>
-          </div>
-          <div className="section">
-            <div
-              className="card text-white bg-secondary
-             mb-3"
-            >
-              <RunnerStats currentRunner={currentRunner} />
-            </div>
-          </div>
+          <AddRunnerForm addRunner={addRunner} />
+          <ShoeCollection
+            shoes={currentRunner.shoes}
+            addShoe={addShoe}
+            currentRunner={currentRunner}
+          />
+          <RunHistory
+            currentRunner={currentRunner}
+            updateRunners={updateRunners}
+            addRun={addRun}
+          />
+          <RunnerStats currentRunner={currentRunner} />
         </>
       )}
     </div>

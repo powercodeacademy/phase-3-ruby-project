@@ -11,7 +11,7 @@ const ShoeCollection = ({ shoes, addShoe, currentRunner }) => {
   }
 
   return (
-    <div>
+    <div className="card text-white bg-secondary mb-3">
       <h1>Shoe Collection</h1>
       {shoes.length > 0 ? (
         <ul>

@@ -45,7 +45,7 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
   }
 
   return (
-    <div>
+    <div className="card text-white bg-secondary mb-3">
       <h1>Run History</h1>
       {runs.length === 0 ? (
         <p>

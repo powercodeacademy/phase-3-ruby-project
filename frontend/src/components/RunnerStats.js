@@ -6,7 +6,10 @@ const RunnerStats = ({ currentRunner }) => {
   }
 
   return (
-    <div>
+    <div
+      className="card text-white bg-secondary
+    mb-3"
+    >
       <h2>Runner Stats</h2>
       <p>Name: {currentRunner.name}</p>
       <ul>

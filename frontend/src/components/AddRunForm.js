@@ -30,7 +30,9 @@ const AddRunForm = ({ addRun, currentRunner }) => {
           </select>
         </label>
       </div>
-      <button type="submit">Add Run</button>
+      <button className="btn btn-outline-info m-3" type="submit">
+        Add Run
+      </button>
     </form>
   )
 }
