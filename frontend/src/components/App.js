@@ -21,16 +21,12 @@ const App = () => {
       })
   }, [])
 
-  const updateRunners = (newRunners) => {
-    if (Array.isArray(newRunners)) {
-      setRunners(newRunners)
-      if (currentRunner) {
-        const updatedRunner = newRunners.find(
-          (runner) => runner.id === currentRunner.id
-        )
-        setCurrentRunner(updatedRunner)
-      }
-    }
+  const updateRunner = (runner) => {
+    const updatedRunners = runners.map((existingRunner) =>
+      existingRunner.id === runner.id ? runner : existingRunner
+    )
+    setRunners(updatedRunners)
+    setCurrentRunner(runner)
   }
 
   const addShoe = (newShoe) => {
@@ -42,7 +38,7 @@ const App = () => {
       body: JSON.stringify(newShoe),
     })
       .then((response) => response.json())
-      .then(updateRunners)
+      .then(updateRunner)
       .catch((error) => {
         console.error("Error adding shoe:", error)
       })
@@ -57,7 +53,10 @@ const App = () => {
       body: JSON.stringify(newRunner),
     })
       .then((response) => response.json())
-      .then((resp) => updateRunners(resp))
+      .then((resp) => {
+        setRunners([...runners, resp])
+        setCurrentRunner(resp)
+      })
       .catch((error) => {
         console.error("Error adding runner:", error)
       })
@@ -69,10 +68,10 @@ const App = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...newRun, runnerId: currentRunner.id }),
+      body: JSON.stringify(newRun),
     })
       .then((response) => response.json())
-      .then(updateRunners)
+      .then(updateRunner)
       .catch((error) => {
         console.error("Error adding run:", error)
       })
@@ -117,7 +116,7 @@ const App = () => {
           />
           <RunHistory
             currentRunner={currentRunner}
-            updateRunners={updateRunners}
+            updateRunner={updateRunner}
             addRun={addRun}
           />
           <RunnerStats currentRunner={currentRunner} />

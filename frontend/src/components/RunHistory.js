@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import AddRunForm from "./AddRunForm"
 
-const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
+const RunHistory = ({ currentRunner, updateRunner, addRun }) => {
   const [editingRunId, setEditingRunId] = useState(null)
   const [shoeId, setShoeId] = useState("")
 
@@ -25,7 +25,7 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
       }),
     })
       .then((response) => response.json())
-      .then(updateRunners)
+      .then(updateRunner)
       .catch((error) => {
         console.error("Error updating run:", error)
       })
@@ -38,7 +38,7 @@ const RunHistory = ({ currentRunner, updateRunners, addRun }) => {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then(updateRunners)
+      .then(updateRunner)
       .catch((error) => {
         console.error("Error deleting run:", error)
       })
