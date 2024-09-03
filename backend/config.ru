@@ -13,5 +13,10 @@ end
 # Parse JSON from the request body into the params hash
 use Rack::JSONBodyParser
 
+# Ensure that the environment and all models are loaded
+require_relative './models/run'
+require_relative './models/runner'
+require_relative './models/shoe'
+
 # Our application
 run ApplicationController

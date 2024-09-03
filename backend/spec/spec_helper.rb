@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require_relative '../config/environment'
+require 'rack/test'
+require "database_cleaner"
 
 ENV["RACK_ENV"] ||= "test"
 require_relative "../config/environment"
