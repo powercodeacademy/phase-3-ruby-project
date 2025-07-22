@@ -43,6 +43,28 @@ For this project, you must:
   - Accept user input and use it to send requests to your API
   - Use a loop or menu interface for interaction
 
+## Planning
+
+- Plan out your features
+- Develop user stories
+  - "As [ a user ], I want [ to perform this action ] so that [ I can accomplish this goal ]."
+  - Features should not need you there to explain them to users
+  - Create a `user-stories.md` file and add your user stories there
+
+## Project Pitches
+
+Before you start working on your project, you'll pitch your project idea to your instructors for approval and feedback.
+
+For your project pitch, you should include:
+
+- The basic story of your application
+- The core features of your MVP
+- The data you plan to persist and how you will structure it
+- Challenges you expect to face
+- How you are meeting the requirements of the project
+
+**MVP ASAP** - Focus on getting your minimum viable product working first!
+
 ## Example Project Domain
 
 You could build a Book Tracker app:
@@ -92,7 +114,7 @@ Build your CLI application in the `cli/` directory:
 1. Make sure your Sinatra API server is running:
 
    ```bash
-   bundle exec rake server
+   bundle exec rackup
    ```
 
 2. Inside the `cli/` directory, create the files for your CLI app.
