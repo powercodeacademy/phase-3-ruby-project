@@ -85,11 +85,35 @@ before cloning it. You can do this by using the link above or by clicking the
 "Octocat" button at the top of this page, then clicking "Fork" in the upper
 right corner of the repo page.
 
-### Step 2: CLI Setup (Same Repo)
+### Step 2: CLI Setup
 
-1.	Inside the cli/ directory, create the files for your CLI app.
-2.	Use RestClient or Net::HTTP to make requests to your API.
-3.	Make sure your CLI uses gets.chomp, loops, and conditionals to prompt users and respond accordingly.
+Build your CLI application in the `cli/` directory:
+
+1. Make sure your Sinatra API server is running:
+
+   ```bash
+   bundle exec rake server
+   ```
+
+2. Inside the `cli/` directory, create the files for your CLI app.
+
+3. Use RestClient or Net::HTTP to make requests to your API.
+
+4. Make sure your CLI uses `gets.chomp`, loops, and conditionals to prompt users and respond accordingly.
+
+5. Run your CLI application:
+   ```bash
+   ruby cli/main.rb
+   ```
+
+Your CLI must:
+
+- Be object-oriented (at least two classes)
+- Make HTTP requests to your Sinatra API
+- Parse and display JSON responses
+- Accept user input and use it to send requests
+- Use a loop or menu interface
+- Include current value prompts for updates
 
 ## Project Tips
 
@@ -102,7 +126,6 @@ right corner of the repo page.
 
 - [dbdiagram.io][]
 - [Postman][postman download]
-
 
 [dbdiagram.io]: https://dbdiagram.io/
 [postman download]: https://www.postman.com/downloads/
