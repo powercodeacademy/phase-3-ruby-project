@@ -63,8 +63,6 @@ For your project pitch, you should include:
 - Challenges you expect to face
 - How you are meeting the requirements of the project
 
-Reach out to the instructor asynchronously to schedule a time for your pitch.
-
 **MVP ASAP** - Focus on getting your minimum viable product working first!
 
 ## Example Project Domain
