@@ -122,6 +122,23 @@ Your CLI must:
 - Use `binding.pry` for debugging server-side code
 - Use puts and `pp` or gems like `tty-table` for CLI output
 
+## Sample Project
+
+A complete implementation is available on the `sample-project` branch. It demonstrates:
+
+- **Pet Tracker** domain with Owners and Pets
+- Full CRUD API with JSON responses and associated data
+- Object-oriented CLI with RestClient and user-friendly interface
+- All required features including current value prompts for updates
+
+To view the sample:
+
+```bash
+git checkout sample-project
+```
+
+See `SAMPLE_PROJECT_README.md` for detailed documentation.
+
 ## Resources
 
 - [dbdiagram.io][]
