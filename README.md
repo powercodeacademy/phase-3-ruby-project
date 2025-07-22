@@ -19,17 +19,17 @@ By the end of the project, you’ll have a functioning API and a CLI interface t
 
 For this project, you must:
 
-Backend
+### Backend
 
 - Use Sinatra and Active Record to build a JSON API
 - Create at least two models with a one-to-many relationship
 - Expose RESTful routes for both models:
   - Full CRUD for one model
   - Read + Create at minimum for the second model
-  - Your update action must include a prompt for the current values, allowing the user to change them via the CLI
+  - Your update action must include a prompt for the current values (retrieved from the API), allowing the user to change them via the CLI.
 - Send associated data as JSON from your backend where appropriate (e.g., has_many relationships)
 
-Frontend (CLI)
+### Frontend (CLI)
 
 - Build a Ruby CLI frontend that interacts with your API via HTTP requests
 - Implement at least the following actions in your CLI:
