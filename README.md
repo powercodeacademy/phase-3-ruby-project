@@ -47,22 +47,22 @@ Frontend (CLI)
 
 You could build a Book Tracker app:
 
-- Author has many Books
+- `Author` has many `Books`
 - Users can:
-- Create a new book
-- List all books
-- Update book details
-- Delete a book
-- View books by a specific author
+  - Create a new book
+  - List all books
+  - Update book details
+  - Delete a book
+  - View books by a specific author
 
 Or a Workout Log:
 
-- WorkoutSession has many Exercises
+- `WorkoutSession` has many `Exercises`
 - Users can:
-- Log a new workout
-- Add exercises
-- Update reps/weights
-- View or delete past workouts
+  - Log a new workout
+  - Add exercises
+  - Update reps/weights
+  - View or delete past workouts
 
 ## Getting Started
 
@@ -87,9 +87,9 @@ right corner of the repo page.
 
 ### Step 2: CLI Setup (Same Repo)
 
-	1.	Inside the cli/ directory, create the files for your CLI app.
-	2.	Use RestClient or Net::HTTP to make requests to your API.
-	3.	Make sure your CLI uses gets.chomp, loops, and conditionals to prompt users and respond accordingly.
+1.	Inside the cli/ directory, create the files for your CLI app.
+2.	Use RestClient or Net::HTTP to make requests to your API.
+3.	Make sure your CLI uses gets.chomp, loops, and conditionals to prompt users and respond accordingly.
 
 ## Project Tips
 
