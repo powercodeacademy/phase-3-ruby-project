@@ -6,9 +6,8 @@ source "https://rubygems.org"
 # https://github.com/sinatra/sinatra
 gem "sinatra", "~> 2.1"
 
-# A fast and simple web server
-# https://github.com/macournoyer/thin
-gem "thin", "~> 1.8"
+# https://github.com/puma/puma
+gem "puma", "~> 5.6"
 
 # Rack middleware. Used specifically for parsing the request body into params.
 # https://github.com/rack/rack-contrib
@@ -36,7 +35,9 @@ gem "sqlite3", "~> 1.7"
 # Require all files in a folder
 gem "require_all", "~> 3.0"
 
-gem "puma"
+# HTTP client for making requests from CLI
+# https://github.com/rest-client/rest-client
+gem "rest-client", "~> 2.1"
 
 # These gems will only be used when we are running the application locally
 group :development do
