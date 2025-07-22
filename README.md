@@ -114,7 +114,7 @@ Build your CLI application in the `cli/` directory:
 1. Make sure your Sinatra API server is running:
 
    ```bash
-   bundle exec rake server
+   bundle exec rackup
    ```
 
 2. Inside the `cli/` directory, create the files for your CLI app.
