@@ -73,7 +73,7 @@ running. **Fork and clone** this repository to get started. Then, run:
 
 ```bash
 bundle install
-bundle exec rake server
+bundle exec rackup
 ```
 
 This will start your API at http://localhost:9292.
