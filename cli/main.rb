@@ -5,7 +5,7 @@ require 'json'
 
 # API Client class to handle HTTP requests
 class APIClient
-  def initialize(base_url = 'http://localhost:9293')
+  def initialize(base_url = 'http://localhost:9292')
     @base_url = base_url
   end
 
