@@ -6,6 +6,13 @@ source "https://rubygems.org"
 # https://github.com/sinatra/sinatra
 gem "sinatra"
 
+# Rack web server interface
+# https://github.com/rack/rack
+gem "rack"
+
+# Rackup command for starting Rack applications
+gem "rackup"
+
 # https://github.com/puma/puma
 gem "puma"
 
