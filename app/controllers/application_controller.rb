@@ -3,8 +3,16 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
+  # Enable Cross-Origin Resource Sharing
+  configure do
+    enable :cross_origin
+  end
+
+  not_found do
+    { error: "Route not found" }.to_json
+  end
+
+  error do
+    { error: "Internal server error" }.to_json
   end
 end
