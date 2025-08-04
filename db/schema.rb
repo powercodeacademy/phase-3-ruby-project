@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_04_160736) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_04_163606) do
   create_table "card_tags", force: :cascade do |t|
     t.integer "card_id", null: false
     t.integer "tag_id", null: false
@@ -33,6 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_04_160736) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
   end
 
   create_table "tags", force: :cascade do |t|
