@@ -17,6 +17,7 @@ A simple command-line flashcard app for quickly creating, organizing, and review
 - **Tag** – Categorization for cards (e.g., "Loops", "OOP")
 - **CardTag** – Join table between cards and tags
 - _User_ – Stretch goal for personal accounts and privacy
+- _QuizSession_ – Stretch goal for interactive quiz sessions with scoring
 
 ## 🛠️ Setup
 
@@ -26,11 +27,13 @@ A simple command-line flashcard app for quickly creating, organizing, and review
    git clone https://github.com/your-username/flashcard-cli.git
    cd flashcard-cli
    ```
+
 2. **Install dependencies**
 
    ```bash
    bundle install
    ```
+
 3. **Set up the database**
 
    ```bash
@@ -38,6 +41,7 @@ A simple command-line flashcard app for quickly creating, organizing, and review
    rake db:migrate
    rake db:seed # Optional: add sample data
    ```
+
 4. **Run the app**
 
    ```bash
@@ -80,6 +84,7 @@ Coming soon — testing setup and examples.
 - Study tracking and scoring
 - Spaced repetition scheduling
 - Export/import flashcards
+- Interactive quiz sessions with scoring and progress tracking
 
 ## 📄 License
 
