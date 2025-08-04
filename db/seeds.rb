@@ -82,4 +82,4 @@ entries = [
 
 entries.each { |attrs| Entry.create!(attrs) }
 
-puts "✅ Done seeding!"
+puts "🫡 Done seeding!"
