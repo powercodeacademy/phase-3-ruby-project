@@ -46,6 +46,10 @@ gem "require_all"
 # https://github.com/rest-client/rest-client
 gem "rest-client"
 
+# Interactive CLI prompts with arrow key navigation
+# https://github.com/piotrmurach/tty-prompt
+gem "tty-prompt"
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem "pry"
