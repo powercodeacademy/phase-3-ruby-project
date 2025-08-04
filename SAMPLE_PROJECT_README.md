@@ -77,7 +77,7 @@ This is a complete implementation of the Phase 3 project requirements. It demons
 
 ### Usage
 
-1. Start the API server: `bundle exec rackup -p 9293`
+1. Start the API server: `bundle exec rackup -p 9292`
 2. Run the CLI: `ruby cli/main.rb`
 
 ## Implementation Highlights
@@ -116,14 +116,14 @@ This implementation demonstrates:
 1. **Start the API:**
 
    ```bash
-   bundle exec rackup -p 9293
+   bundle exec rackup -p 9292
    ```
 
 2. **Test API endpoints:**
 
    ```bash
-   curl http://localhost:9293/owners
-   curl http://localhost:9293/pets
+   curl http://localhost:9292/owners
+   curl http://localhost:9292/pets
    ```
 
 3. **Run the CLI:**

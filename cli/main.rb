@@ -111,7 +111,7 @@ class CLIInterface
   def run
     puts "Welcome to the Pet Tracker CLI!"
     puts "This application connects to your Sinatra API."
-    puts "Make sure your API server is running on http://localhost:9293"
+    puts "Make sure your API server is running on http://localhost:9292"
     puts
 
     loop do
