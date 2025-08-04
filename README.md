@@ -41,7 +41,7 @@ A simple command-line flashcard app for quickly creating, organizing, and review
 4. **Run the app**
 
    ```bash
-   ruby bin/run.rb
+   ruby cli/main.rb
    ```
 
 ## 🚀 Usage
