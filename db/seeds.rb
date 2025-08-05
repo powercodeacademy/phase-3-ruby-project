@@ -20,8 +20,8 @@ store_names.each do |name|
       store_id: store.id 
     )
 
-    # Add 1-10 items to each receipt 
-    rand(1..10).times do 
+    # Add 1-5 items to each receipt 
+    rand(1..5).times do 
       Item.create(
         name: Faker::Commerce.product_name,
         price: Faker::Commerce.price,
