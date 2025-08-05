@@ -114,10 +114,11 @@ class CLIInterface
 
   def display_receipts(receipts)
     receipts.each do |receipt|
-        puts "ID: #{receipt['id']}"
-        puts "Date: #{receipt['date']}"
-        puts "Store: #{receipt['store']['name']}"
-        puts "----------"
+      puts "ID: #{receipt['id']}"
+      puts "Date: #{receipt['date']}"
+      puts "Store: #{receipt['store']['name']}"
+      puts "Total: $#{receipt['items'].sum { |item| item['price'] }}"
+      puts "----------"
     end
   end
 end

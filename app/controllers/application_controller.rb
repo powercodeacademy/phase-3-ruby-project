@@ -11,6 +11,6 @@ class ApplicationController < Sinatra::Base
       receipts = receipts.where(store_id: store.id) if store 
     end
 
-    receipts.order(date: :desc).to_json(include: :store)
+    receipts.order(date: :desc).to_json(include: [:store, :items])
   end
 end
