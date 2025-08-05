@@ -5,6 +5,6 @@ class ApplicationController < Sinatra::Base
 
   get "/receipts" do
     receipts = Receipt.all.order(date: :desc)
-    receipts.to_json(only: [:date], include: { store: { only: [:name] } })
+    receipts.to_json(include: :store)
   end
 end
