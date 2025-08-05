@@ -32,4 +32,12 @@ class ApplicationController < Sinatra::Base
 
     items.to_json(include: [:store, :receipt])
   end
+
+  get "/items/:id" do 
+    item = Item.find(params[:id])
+    item.to_json 
+  rescue ActiveRecord::RecordNotFound 
+    status 404 
+    { error: "Item not found" }.to_json 
+  end
 end

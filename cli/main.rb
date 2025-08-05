@@ -34,10 +34,15 @@ class APIClient
   end
 
   def get_receipt_by_id(id)
-    response = RestClient.get(@base_url + "receipts/" + id)
+    response = RestClient.get(@base_url + "receipts/" + id.to_s)
     JSON.parse(response.body)
   rescue RestClient::Exception => e 
     { error: "Failed to fetch receipt with ID #{id}: #{e.message}"}
+  end
+
+  def get_receipt_id_by_item(item_id)
+    response = RestClient.get(@base_url + "items/" + item_id)
+    JSON.parse(response.body)['receipt_id']
   end
 
   def get_items 
@@ -117,7 +122,9 @@ class CLIInterface
       when 'a'
         filter_receipts_by_store 
       when 'b'
-        show_receipt_details
+        print "Enter receipt ID: "
+        id = gets.chomp 
+        show_receipt_details(id)
       when 'c'
         break 
       else
@@ -150,10 +157,7 @@ class CLIInterface
     end
   end
 
-  def show_receipt_details 
-    print "Enter receipt ID: "
-    id = gets.chomp 
-
+  def show_receipt_details(id) 
     receipt = @api_client.get_receipt_by_id(id)
     puts "\n=== Receipt from #{receipt['date']} for Store: #{receipt['store']['name']} ==="
     receipt['items'].each do |item|
@@ -189,7 +193,10 @@ class CLIInterface
       when 'a'
         filter_items_by_store
       when 'b'
-        show_receipt_details 
+        print "Enter item ID: "
+        item_id = gets.chomp 
+        receipt_id = @api_client.get_receipt_id_by_item(item_id)
+        show_receipt_details(receipt_id)
       when 'c'
         break 
       else
@@ -200,7 +207,7 @@ class CLIInterface
 
   def display_items(items)
     items.each do |item|
-      puts "#{item['name']}: $#{item['price']}"
+      puts "#{item['id']} #{item['name']}: $#{item['price']}"
     end
     puts "----------"
     puts "Total: $#{total_price(items)}" 
@@ -208,7 +215,7 @@ class CLIInterface
 
   def display_items_with_store(items)
     items.each do |item|
-      puts "#{item['name']} from #{item['store']['name']}: $#{item['price']}"
+      puts "#{item['id']} #{item['name']} from #{item['store']['name']}: $#{item['price']}"
     end
     puts "----------"
     puts "Total: $#{total_price(items)}" 
