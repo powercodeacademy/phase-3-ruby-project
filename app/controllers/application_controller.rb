@@ -13,4 +13,12 @@ class ApplicationController < Sinatra::Base
 
     receipts.order(date: :desc).to_json(include: [:store, :items])
   end
+
+  get "/receipts/:id" do 
+    receipt = Receipt.find(params[:id])
+    receipt.to_json(include: [:store, :items])
+  rescue ActiveRecord::RecordNotFound 
+    status 404 
+    { error: "Receipt not found" }.to_json 
+  end
 end
