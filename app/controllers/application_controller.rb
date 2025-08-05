@@ -4,7 +4,17 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
   get "/receipts" do
-    receipts = Receipt.all.order(date: :desc)
-    receipts.to_json(include: :store)
+    receipts = Receipt.all
+
+    if params[:date]
+      receipts = receipts.where(date: params[:date])
+    end
+
+    if params[:store]
+      store = Store.find_by(name: params[:store])
+      receipts = receipts.where(store_id: store.id) if store 
+    end
+
+    receipts.order(date: :desc).to_json(include: :store)
   end
 end
