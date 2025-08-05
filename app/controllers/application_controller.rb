@@ -21,4 +21,15 @@ class ApplicationController < Sinatra::Base
     status 404 
     { error: "Receipt not found" }.to_json 
   end
+
+  get "/items" do 
+    items = Item.all
+
+    if params[:store] 
+      store = Store.find_by(name: params[:store])
+      items = items.where(store_id: store.id) if store 
+    end
+
+    items.to_json(include: [:store, :receipt])
+  end
 end
