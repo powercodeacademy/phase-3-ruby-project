@@ -4,6 +4,13 @@ class ChildrenController < ApplicationController
   end
 
   get "/children/:id" do
+    child = Child.find_by(id: params[:id])
+    if child
+      child.to_json
+    else
+      status 404
+      { error: "Child not found" }.to_json
+    end
   end
 
   post "/children" do
@@ -23,8 +30,37 @@ class ChildrenController < ApplicationController
   end
 
   patch "/children/:id" do
+    child = Child.find_by(id: params[:id])
+
+    if child.nil?
+      status 404
+      return { error: "Child not found" }.to_json
+    end
+    begin
+      parsed_birthdate = Date.parse(params[:birthdate])
+    rescue ArgumentError
+      status 400
+      return { error: "Invalid birthdate format. Please use YYYY-MM-DD." }.to_json
+    end
+
+    child.update(
+      name: params[:name],
+      birthdate: parsed_birthdate
+    )
+
+    child.to_json
   end
 
   delete "/children/:id" do
+    child = Child.find_by(id: params[:id])
+
+    if child.nil?
+      status 404
+      return { error: "Child not found" }.to_json
+    end
+
+    child.destroy
+
+    child.to_json
   end
 end
