@@ -23,7 +23,7 @@ class EntriesController < ApplicationController
 
     new_entry = Entry.create(
       child: params[:child],
-      milestone: params[:milestone], # First Smile
+      milestone: params[:milestone],
       note: params[:note],
       date: parsed_date,
       age_months: params[:age_months]
@@ -34,8 +34,51 @@ class EntriesController < ApplicationController
   end
 
   patch "/entries/:id" do
+    entry = Entry.find_by(id: params[:id])
+
+    if entry.nil?
+      status 404
+      return { error: "Entry not found" }.to_json
+    end
+    begin
+      parsed_date = Date.parse(params[:birthdate])
+    rescue ArgumentError
+      status 400
+      return { error: "Invalid date format. Please use YYYY-MM-DD." }.to_json
+    end
+
+    entry.update(
+      child: params[:child],
+      milestone: params[:milestone],
+      note: params[:note],
+      date: parsed_date,
+      age_months: params[:age_months]
+    )
+
+    entry.to_json
   end
 
   delete "/entries/:id" do
+    entry = Entry.find_by(id: params[:id])
+
+    if entry.nil?
+      status 404
+      return { error: "Entry not found" }.to_json
+    end
+
+    entry.destroy
+
+    entry.to_json
+  end
+
+  get "/children/:id/entries" do
+    child = Child.find_by(id: params[:id])
+
+    if child.nil?
+      status 404
+      return { error: "Child not found" }.to_json
+    end
+
+    child.entries.to_json(include: %i[child milestone])
   end
 end
