@@ -140,10 +140,9 @@ class CLIInterface
     receipt = @api_client.get_receipt_by_id(id)
     puts "\n=== Receipt from #{receipt['date']} for Store: #{receipt['store']['name']} ==="
     receipt['items'].each do |item|
-      puts item['name']
-      puts "$#{item['price']}"
-      puts "----------"
+      puts "#{item['name']}: $#{item['price']}"
     end
+    puts "----------"
     puts "Total: $#{total_price(receipt)}"
   end
 
