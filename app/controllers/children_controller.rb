@@ -26,6 +26,7 @@ class ChildrenController < ApplicationController
       birthdate: parsed_birthdate
     )
 
+    status 201
     new_child.to_json
   end
 
