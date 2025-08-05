@@ -21,23 +21,23 @@ ActiveRecord::Schema.define(version: 2025_08_04_183513) do
 
   create_table "entries", force: :cascade do |t|
     t.integer "milestone_id"
+    t.integer "child_id"
     t.text "note"
     t.date "date"
     t.integer "age_months"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["child_id"], name: "index_entries_on_child_id"
     t.index ["milestone_id"], name: "index_entries_on_milestone_id"
   end
 
   create_table "milestones", force: :cascade do |t|
-    t.integer "child_id"
     t.string "title"
     t.string "milestone_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["child_id"], name: "index_milestones_on_child_id"
   end
 
+  add_foreign_key "entries", "children"
   add_foreign_key "entries", "milestones"
-  add_foreign_key "milestones", "children"
 end
