@@ -141,43 +141,55 @@ class CLIInterface
     print "\nEnter your choice: "
   end
 
-  #   def run
-  #     puts "Welcome to the Pet Tracker CLI!"
-  #     puts "This application connects to your Sinatra API."
-  #     puts "Make sure your API server is running on http://localhost:9292"
-  #     puts
+  def run
+    puts "Welcome to LittleByLittle CLI!"
+    puts "This application connects to your Sinatra API."
+    puts "Make sure your API server is running on http://localhost:9292"
+    puts
 
-  #     loop do
-  #       display_menu
-  #       choice = gets.chomp.downcase
+    loop do
+      display_menu
+      choice = gets.chomp.downcase
 
-  #       case choice
-  #       when "1"
-  #         view_all_owners
-  #       when "2"
-  #         view_all_pets
-  #       when "3"
-  #         create_owner
-  #       when "4"
-  #         create_pet
-  #       when "5"
-  #         update_owner
-  #       when "6"
-  #         update_pet
-  #       when "7"
-  #         delete_owner
-  #       when "8"
-  #         delete_pet
-  #       when "9"
-  #         view_pets_by_owner
-  #       when "q", "quit", "exit"
-  #         puts "Goodbye!"
-  #         break
-  #       else
-  #         puts "Invalid choice. Please try again."
-  #       end
-  #     end
-  #   end
+      case choice
+      when "1"
+        puts "1"
+      when "2"
+        puts "2"
+      when "3"
+        puts "3"
+      when "4"
+        puts "4"
+      when "5"
+        puts "5"
+      when "6"
+        puts "6"
+      when "7"
+        puts "7"
+      when "8"
+        puts "8"
+      when "9"
+        puts "9"
+      when "10"
+        puts "10"
+      when "11"
+        puts "11"
+      when "12"
+        puts "12"
+      when "13"
+        puts "13"
+      when "14"
+        puts "14"
+      when "15"
+        puts "15"
+      when "q", "quit", "exit"
+        puts "Goodbye!"
+        break
+      else
+        puts "Invalid choice. Please try again."
+      end
+    end
+  end
 
   #   private
 
