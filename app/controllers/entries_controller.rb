@@ -4,6 +4,13 @@ class EntriesController < ApplicationController
   end
 
   get "/entries/:id" do
+    entry = Entry.find_by(id: params[:id])
+    if entry
+      entry.to_json
+    else
+      status 404
+      { error: "Entry not found" }.to_json
+    end
   end
 
   post "/entries" do
