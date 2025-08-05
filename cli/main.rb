@@ -24,6 +24,14 @@ class APIClient
   rescue RestClient::Exception => e 
     { error: "Failed to fetch receipts: #{e.message}" }
   end
+
+  def get_receipts_by_store(store)
+    response = RestClient.get(@base_url + "receipts", { params: { store: store } })
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e 
+    { error: "Failed to fetch receipts by store: #{e.message}" }
+  end
+
 end
 
 class CLIInterface 
@@ -68,15 +76,48 @@ class CLIInterface
 
     if response.empty? 
       puts "No receipts found. Try exiting the CLI and running 'bundle exec rake db:seed'."
-    elsif 
-      response.each do |receipt|
+    else 
+      display_receipts(response)
+    end
+
+    loop do 
+      puts "\n=== Receipt Menu ==="
+      puts "a. Filter by store"
+      puts "c. Back to main menu"
+      print "Enter your choice: "
+      option = gets.chomp.downcase 
+
+      case option 
+      when 'a'
+        filter_receipts_by_store 
+      when 'c'
+        break 
+      else
+        puts "Invalid choice. Please try again."
+      end
+    end
+  end
+
+  def filter_receipts_by_store 
+    print "Enter store name (case sensitive): "
+    store_name = gets.chomp 
+
+    response = @api_client.get_receipts_by_store(store_name) 
+
+    if response.empty? 
+      puts "No receipts found for store '#{store_name}'."
+    else 
+      puts "\n=== Receipts for Store: #{store_name} ==="
+      display_receipts(response) 
+    end
+  end
+
+  def display_receipts(receipts)
+    receipts.each do |receipt|
         puts "ID: #{receipt['id']}"
         puts "Date: #{receipt['date']}"
         puts "Store: #{receipt['store']['name']}"
         puts "----------"
-      end
-    else 
-      puts "Error: #{response[:error]}"
     end
   end
 end
