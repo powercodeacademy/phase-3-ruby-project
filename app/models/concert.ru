@@ -1,4 +1,4 @@
 class Concert < ActiveRecord::Base
-  has_many :attendances
-  has_many :people, through: attendances
+  has_many :tickets
+  has_many :users, through: tickets
 end

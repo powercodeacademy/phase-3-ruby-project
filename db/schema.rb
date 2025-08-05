@@ -12,14 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2025_08_05_153456) do
 
-  create_table "attendances", force: :cascade do |t|
-    t.boolean "ticket_purchased", default: false
-    t.integer "concert_id"
-    t.integer "attendance_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "concerts", force: :cascade do |t|
     t.string "band_name"
     t.string "event_date"
@@ -29,8 +21,15 @@ ActiveRecord::Schema.define(version: 2025_08_05_153456) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "people", force: :cascade do |t|
-    t.string "attendee_name"
+  create_table "tickets", force: :cascade do |t|
+    t.integer "concert_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "user_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

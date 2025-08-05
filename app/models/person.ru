@@ -1,4 +1,4 @@
-class Person < ActiveRecord::Base
-  has_many :attendances
-  has_many :concerts, through: :attendances
+class User < ActiveRecord::Base
+  has_many :tickets
+  has_many :concerts, through: :tickets
 end
