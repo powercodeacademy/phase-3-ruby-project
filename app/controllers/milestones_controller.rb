@@ -19,6 +19,7 @@ class MilestonesController < ApplicationController
       milestone_type: params[:milestone_type]
     )
 
+    status 201
     new_milestone.to_json
   end
 
@@ -83,6 +84,7 @@ class MilestonesController < ApplicationController
       age_months: params[:age_months]
     )
 
+    status 201
     entry.to_json(include: %i[child milestone])
   end
 end
