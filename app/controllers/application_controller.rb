@@ -3,8 +3,22 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  # Add your routes here
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
+  get "/receipts" do
+    receipts = Receipt.all
+
+    if params[:store]
+      store = Store.find_by(name: params[:store])
+      receipts = receipts.where(store_id: store.id) if store 
+    end
+
+    receipts.order(date: :desc).to_json(include: [:store, :items])
+  end
+
+  get "/receipts/:id" do 
+    receipt = Receipt.find(params[:id])
+    receipt.to_json(include: [:store, :items])
+  rescue ActiveRecord::RecordNotFound 
+    status 404 
+    { error: "Receipt not found" }.to_json 
   end
 end

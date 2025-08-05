@@ -8,7 +8,7 @@ As a user, I want to view my receipts from a specific date and/or store, as well
 
 ### Details
 
-The `get /receipts` endpoint should GET all receipts and display the date and sum total for each receipt. There should be optional queries built into this to filter by date and/or store. The `get /receipts/:id` endpoint should show only a specific receipt, with all of that receipt's items nested inside.
+The `get /receipts` endpoint should GET all receipts and display the date and sum total for each receipt. There should be an optional parameter built into this to filter by store. The `get /receipts/:id` endpoint should show only a specific receipt, with all of that receipt's items nested inside.
 
 ## Feature 2: View Purchased Items
 
