@@ -12,6 +12,7 @@
 
 require 'rest-client' 
 require 'json' 
+require 'pry'
 
 class APIClient 
   def initialize(base_url = "http://localhost:9292/")
@@ -30,6 +31,13 @@ class APIClient
     JSON.parse(response.body)
   rescue RestClient::Exception => e 
     { error: "Failed to fetch receipts by store: #{e.message}" }
+  end
+
+  def get_receipt_by_id(id)
+    response = RestClient.get(@base_url + "receipts/" + id)
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e 
+    { error: "Failed to fetch receipt with ID #{id}: #{e.message}"}
   end
 
 end
@@ -83,6 +91,7 @@ class CLIInterface
     loop do 
       puts "\n=== Receipt Menu ==="
       puts "a. Filter by store"
+      puts "b. See receipt details"
       puts "c. Back to main menu"
       print "Enter your choice: "
       option = gets.chomp.downcase 
@@ -90,11 +99,23 @@ class CLIInterface
       case option 
       when 'a'
         filter_receipts_by_store 
+      when 'b'
+        show_receipt_details
       when 'c'
         break 
       else
         puts "Invalid choice. Please try again."
       end
+    end
+  end
+
+  def display_receipts(receipts)
+    receipts.each do |receipt|
+      puts "ID: #{receipt['id']}"
+      puts "Date: #{receipt['date']}"
+      puts "Store: #{receipt['store']['name']}"
+      puts "Total: $#{total_price(receipt)}"
+      puts "----------"
     end
   end
 
@@ -112,14 +133,22 @@ class CLIInterface
     end
   end
 
-  def display_receipts(receipts)
-    receipts.each do |receipt|
-      puts "ID: #{receipt['id']}"
-      puts "Date: #{receipt['date']}"
-      puts "Store: #{receipt['store']['name']}"
-      puts "Total: $#{receipt['items'].sum { |item| item['price'] }}"
+  def show_receipt_details 
+    print "Enter receipt ID: "
+    id = gets.chomp 
+
+    receipt = @api_client.get_receipt_by_id(id)
+    puts "\n=== Receipt from #{receipt['date']} for Store: #{receipt['store']['name']} ==="
+    receipt['items'].each do |item|
+      puts item['name']
+      puts "$#{item['price']}"
       puts "----------"
     end
+    puts "Total: $#{total_price(receipt)}"
+  end
+
+  def total_price(receipt)
+    receipt['items'].sum { |item| item['price'] }
   end
 end
 
