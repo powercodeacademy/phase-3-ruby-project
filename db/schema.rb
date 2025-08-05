@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2025_08_05_153456) do
 
   create_table "concerts", force: :cascade do |t|
     t.string "band_name"
-    t.string "event_date"
+    t.date "event_date"
     t.string "venue"
     t.string "city"
     t.datetime "created_at", precision: 6, null: false
