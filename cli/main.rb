@@ -37,8 +37,7 @@ class CLIInterface
 
       case choice
       when "1"
-        concerts = @api_client.view_all_concerts
-        display_concerts(concerts)
+        view_all_concerts
       when "2"
         attendees = @api_client.view_all_attendees
         display_attendees(attendees)
@@ -71,9 +70,24 @@ class CLIInterface
 
   private
 
-  def display_concerts(concerts)
-    concerts.each do |concert|
-      puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
+  # def display_concerts(concerts)
+  #   concerts.each do |concert|
+  #     puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
+  #   end
+  # end
+
+  def view_all_concerts
+    puts "\n=== All Concerts ==="
+    response = @api_client.view_all_concerts
+
+    return unless response.is_a?(Array)
+
+    if response.empty?
+      puts "No concerts found."
+    else
+      response.each do |concert|
+        puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
+      end
     end
   end
 
@@ -81,6 +95,10 @@ class CLIInterface
     attendees.each do |attendee|
       puts "#{attendee['name']}"
     end
+  end
+
+  def display_new_concert(new_concert)
+    puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
   end
 end
 
