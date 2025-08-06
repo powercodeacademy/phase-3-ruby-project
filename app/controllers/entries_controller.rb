@@ -1,12 +1,12 @@
 class EntriesController < ApplicationController
   get "/entries" do
-    Entry.all.to_json
+    Entry.all.to_json(include: %i[child milestone])
   end
 
   get "/entries/:id" do
     entry = Entry.find_by(id: params[:id])
     if entry
-      entry.to_json
+      entry.to_json(include: %i[child milestone])
     else
       status 404
       { error: "Entry not found" }.to_json

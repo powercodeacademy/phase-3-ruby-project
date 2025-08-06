@@ -2,6 +2,7 @@
 
 require "rest-client"
 require "json"
+require "pry"
 
 # API Client class to handle HTTP requests
 class APIClient
@@ -153,17 +154,17 @@ class CLIInterface
 
       case choice
       when "1"
-        puts "1"
+        view_all_children
       when "2"
-        puts "2"
+        view_all_entries
       when "3"
-        puts "3"
+        view_all_milestones
       when "4"
-        puts "4"
+        create_child
       when "5"
-        puts "5"
+        create_entry
       when "6"
-        puts "6"
+        create_milestone
       when "7"
         puts "7"
       when "8"
@@ -191,115 +192,154 @@ class CLIInterface
     end
   end
 
-  #   private
+  private
 
-  #   def view_all_owners
-  #     puts "\n=== All Owners ==="
-  #     response = @api_client.get_owners
+  def view_all_children
+    puts "\n=== All Children ==="
+    response = @api_client.get_children
 
-  #     if response.is_a?(Array)
-  #       if response.empty?
-  #         puts "No owners found."
-  #       else
-  #         response.each do |owner|
-  #           display_owner(owner)
-  #           puts "-" * 50
-  #         end
-  #       end
-  #     else
-  #       puts "Error: #{response[:error]}"
-  #     end
-  #   end
+    if response.is_a?(Array)
+      if response.empty?
+        puts "No children found."
+      else
+        response.each do |child|
+          display_child(child)
+          puts "-" * 50
+        end
+      end
+    else
+      puts "Error: #{response[:error]}"
+    end
+  end
 
-  #   def view_all_pets
-  #     puts "\n=== All Pets ==="
-  #     response = @api_client.get_pets
+  def view_all_entries
+    puts "\n=== All Entries ==="
+    response = @api_client.get_entries
 
-  #     if response.is_a?(Array)
-  #       if response.empty?
-  #         puts "No pets found."
-  #       else
-  #         response.each do |pet|
-  #           display_pet(pet)
-  #           puts "-" * 50
-  #         end
-  #       end
-  #     else
-  #       puts "Error: #{response[:error]}"
-  #     end
-  #   end
+    if response.is_a?(Array)
+      if response.empty?
+        puts "No entries found."
+      else
+        response.each do |entry|
+          display_entry(entry)
+          puts "-" * 50
+        end
+      end
+    else
+      puts "Error: #{response[:error]}"
+    end
+  end
 
-  #   def create_owner
-  #     puts "\n=== Create New Owner ==="
+  def view_all_milestones
+    puts "\n=== All Milestones ==="
+    response = @api_client.get_milestones
 
-  #     print "Name: "
-  #     name = gets.chomp
+    if response.is_a?(Array)
+      if response.empty?
+        puts "No milestones found."
+      else
+        response.each do |milestone|
+          display_milestone(milestone)
+          puts "-" * 50
+        end
+      end
+    else
+      puts "Error: #{response[:error]}"
+    end
+  end
 
-  #     print "Email: "
-  #     email = gets.chomp
+  def create_child
+    puts "\n=== Create New Child ==="
 
-  #     print "Phone: "
-  #     phone = gets.chomp
+    print "Name: "
+    name = gets.chomp
 
-  #     print "Address (optional): "
-  #     address = gets.chomp
+    print "Birthdate (YYYY-MM-DD): "
+    birthdate = gets.chomp
 
-  #     data = { name: name, email: email, phone: phone }
-  #     data[:address] = address unless address.empty?
+    data = { name: name, birthdate: birthdate }
 
-  #     response = @api_client.create_owner(data)
+    response = @api_client.create_child(data)
 
-  #     if response[:error]
-  #       puts "Error: #{response[:error]}"
-  #     else
-  #       puts "Owner created successfully!"
-  #       display_owner(response)
-  #     end
-  #   end
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Child created successfully!"
+      display_child(response)
+    end
+  end
 
-  #   def create_pet
-  #     puts "\n=== Create New Pet ==="
+  def create_entry
+    puts "\n=== Create New Entry ==="
 
-  #     # First, show available owners
-  #     owners_response = @api_client.get_owners
-  #     if owners_response.is_a?(Array) && !owners_response.empty?
-  #       puts "Available owners:"
-  #       owners_response.each { |owner| puts "#{owner['id']}. #{owner['name']}" }
-  #     else
-  #       puts "No owners available. Please create an owner first."
-  #       return
-  #     end
+    children_response = @api_client.get_children
+    if children_response.is_a?(Array) && !children_response.empty?
+      puts "\n Available children:"
+      children_response.each { |child| puts "#{child['id']}. #{child['name']}" }
+    else
+      puts "No children available. Please create a child first."
+      return
+    end
 
-  #     print "Owner ID: "
-  #     owner_id = gets.chomp.to_i
+    print "Child ID: "
+    child_id = gets.chomp.to_i
 
-  #     print "Name: "
-  #     name = gets.chomp
+    milestones_response = @api_client.get_milestones
+    if milestones_response.is_a?(Array) && !milestones_response.empty?
+      puts "\n Available milestones:"
+      milestones_response.each do |milestone|
+        puts "#{milestone['id']}. #{milestone['title']}. | #{milestone['milestone_type']}"
+      end
+    else
+      puts "No milestones available. Please create a milestone first."
+      return
+    end
 
-  #     print "Species: "
-  #     species = gets.chomp
+    print "Milestone ID: "
+    milestone_id = gets.chomp.to_i
 
-  #     print "Breed: "
-  #     breed = gets.chomp
+    print "Date: "
+    date = gets.chomp
 
-  #     print "Age: "
-  #     age = gets.chomp.to_i
+    print "Age (Months): "
+    age_months = gets.chomp.to_i
 
-  #     print "Notes (optional): "
-  #     notes = gets.chomp
+    print "Note: "
+    note = gets.chomp
 
-  #     data = { name: name, species: species, breed: breed, age: age, owner_id: owner_id }
-  #     data[:notes] = notes unless notes.empty?
+    data = { date: date, age: age_months, note: note, child_id: child_id,
+             milestone_id: milestone_id, }
 
-  #     response = @api_client.create_pet(data)
+    response = @api_client.create_entry(data)
 
-  #     if response[:error]
-  #       puts "Error: #{response[:error]}"
-  #     else
-  #       puts "Pet created successfully!"
-  #       display_pet(response)
-  #     end
-  #   end
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Entry created successfully!"
+      display_entry(response)
+    end
+  end
+
+  def create_milestone
+    puts "\n=== Create New Milestone ==="
+
+    print "Milestone Title: "
+    title = gets.chomp
+
+    print "Milestone Type: "
+    milestone_type = gets.chomp
+
+    data = { title: title, milestone_type: milestone_type }
+
+    response = @api_client.create_milestone(data)
+
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Milestone created successfully!"
+      display_milestone(response)
+    end
+  end
 
   #   def update_owner
   #     view_all_owners
@@ -459,34 +499,38 @@ class CLIInterface
   #     end
   #   end
 
-  #   def display_owner(owner)
-  #     puts "ID: #{owner['id']}"
-  #     puts "Name: #{owner['name']}"
-  #     puts "Email: #{owner['email']}"
-  #     puts "Phone: #{owner['phone']}"
-  #     puts "Address: #{owner['address'] || 'Not provided'}"
+  def display_child(child)
+    puts "ID: #{child['id']}"
+    puts "Name: #{child['name']}"
+    puts "Birthdate: #{child['birthdate']}"
 
-  #     if owner["pets"] && !owner["pets"].empty?
-  #       puts "Pets:"
-  #       owner["pets"].each { |pet| puts "  - #{pet['name']} (#{pet['species']})" }
-  #     else
-  #       puts "Pets: None"
-  #     end
-  #   end
+    if child["entries"] && !child["entries"].empty?
+      puts "Entries:"
+      child["entries"].each { |entry| puts "  - #{entry['date']} (#{entry['note']})" }
+    else
+      puts "Entries: None"
+    end
+  end
 
-  #   def display_pet(pet)
-  #     puts "ID: #{pet['id']}"
-  #     puts "Name: #{pet['name']}"
-  #     puts "Species: #{pet['species']}"
-  #     puts "Breed: #{pet['breed']}"
-  #     puts "Age: #{pet['age']} years"
-  #     puts "Notes: #{pet['notes'] || 'None'}"
+  def display_entry(entry)
+    puts "ID: #{entry['id']}"
+    puts "Date: #{entry['date']}"
+    puts "Note: #{entry['note']}"
+    puts "Age: #{entry['age_months']}"
 
-  #     return unless pet["owner"]
+    return unless entry["child"]
 
-  #     puts "Owner: #{pet['owner']['name']} (ID: #{pet['owner']['id']})"
+    puts "Child: #{entry['child']['name']} (ID: #{entry['child']['id']})"
 
-  #   end
+  end
+
+  def display_milestone(milestone)
+    puts "ID: #{milestone['id']}"
+    puts "Title: #{milestone['title']}"
+    puts "Type: #{milestone['milestone_type']}"
+
+    nil
+  end
 end
 
 # Run the CLI application
