@@ -19,4 +19,10 @@ class ConcertController < ApplicationController
     concert.update(params)
     concert.to_json
   end
+
+  delete "/concerts/:id" do
+    concert = Concert.find(params[:id])
+    concert.destroy
+    { message: "Concert deleted successfully." }.to_json
+  end
 end
