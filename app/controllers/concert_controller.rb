@@ -10,12 +10,13 @@ class ConcertController < ApplicationController
   end
 
   post "/concerts" do
-    concert = Concert.create(
-      band_name: params[:band_name],
-      event_date: params[:event_date],
-      venue: params[:venue],
-      city: params[:city]
-    )
+    concert = Concert.create(params)
+    concert.to_json
+  end
+
+  patch "/concerts/:id" do
+    concert = Concert.find(params[:id])
+    concert.update(params)
     concert.to_json
   end
 end
