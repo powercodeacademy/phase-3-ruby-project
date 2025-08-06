@@ -197,10 +197,10 @@ class CLIInterface
 
       print "Enter price in dollars (round up or down to a whole number): "
       price_input = gets.chomp 
-      items << { name: name, price: price_input.to_i }
+      items << { name: name.capitalize, price: price_input.to_i }
     end
 
-    response = @api_client.create_receipt(date: date, store_name: store_name, items: items)
+    response = @api_client.create_receipt(date: date, store_name: store_name.capitalize, items: items)
 
     if response["error"]
       puts "Failed to create receipt: #{response["error"]}"
