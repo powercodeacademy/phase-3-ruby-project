@@ -1,11 +1,9 @@
 class OwnersController < ApplicationController
-  # GET /owners
   get "/owners" do
     owners = Owner.all
     owners.to_json(include: :pets)
   end
 
-  # GET /owners/:id
   get "/owners/:id" do
     owner = Owner.find(params[:id])
     owner.to_json(include: :pets)
@@ -14,7 +12,6 @@ class OwnersController < ApplicationController
     { error: "Owner not found" }.to_json
   end
 
-  # POST /owners
   post "/owners" do
     owner = Owner.new(params)
     if owner.save
@@ -26,7 +23,6 @@ class OwnersController < ApplicationController
     end
   end
 
-  # PATCH /owners/:id
   patch "/owners/:id" do
     owner = Owner.find(params[:id])
     if owner.update(params)
@@ -40,11 +36,18 @@ class OwnersController < ApplicationController
     { error: "Owner not found" }.to_json
   end
 
-  # DELETE /owners/:id
   delete "/owners/:id" do
     owner = Owner.find(params[:id])
     owner.destroy
     { message: "Owner deleted successfully" }.to_json
+  rescue ActiveRecord::RecordNotFound
+    status 404
+    { error: "Owner not found" }.to_json
+  end
+
+  get "/owners/:owner_id/pets" do
+    owner = Owner.find(params[:owner_id])
+    owner.pets.to_json(include: :owner)
   rescue ActiveRecord::RecordNotFound
     status 404
     { error: "Owner not found" }.to_json
