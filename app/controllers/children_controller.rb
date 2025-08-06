@@ -1,12 +1,12 @@
 class ChildrenController < ApplicationController
   get "/children" do
-    Child.all.to_json
+    Child.all.to_json(include: { entries: { include: :milestone } })
   end
 
   get "/children/:id" do
     child = Child.find_by(id: params[:id])
     if child
-      child.to_json
+      child.to_json(include: { entries: { include: :milestone } })
     else
       status 404
       { error: "Child not found" }.to_json

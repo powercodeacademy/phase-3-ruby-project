@@ -1,12 +1,12 @@
 class EntriesController < ApplicationController
   get "/entries" do
-    Entry.all.to_json
+    Entry.all.to_json(include: %i[child milestone])
   end
 
   get "/entries/:id" do
     entry = Entry.find_by(id: params[:id])
     if entry
-      entry.to_json
+      entry.to_json(include: %i[child milestone])
     else
       status 404
       { error: "Entry not found" }.to_json
@@ -22,8 +22,8 @@ class EntriesController < ApplicationController
     end
 
     new_entry = Entry.create(
-      child: params[:child],
-      milestone: params[:milestone],
+      child_id: params[:child_id],
+      milestone_id: params[:milestone_id],
       note: params[:note],
       date: parsed_date,
       age_months: params[:age_months]
@@ -41,15 +41,15 @@ class EntriesController < ApplicationController
       return { error: "Entry not found" }.to_json
     end
     begin
-      parsed_date = Date.parse(params[:birthdate])
+      parsed_date = Date.parse(params[:date])
     rescue ArgumentError
       status 400
       return { error: "Invalid date format. Please use YYYY-MM-DD." }.to_json
     end
 
     entry.update(
-      child: params[:child],
-      milestone: params[:milestone],
+      child_id: params[:child_id],
+      milestone_id: params[:milestone_id],
       note: params[:note],
       date: parsed_date,
       age_months: params[:age_months]
