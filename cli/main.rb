@@ -40,7 +40,8 @@ class CLIInterface
         concerts = @api_client.view_all_concerts
         display_concerts(concerts)
       when "2"
-        view_all_attendees
+        attendees = @api_client.view_all_attendees
+        display_attendees(attendees)
       when "3"
         create_concert
       when "4"
@@ -73,6 +74,12 @@ class CLIInterface
   def display_concerts(concerts)
     concerts.each do |concert|
       puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
+    end
+  end
+
+  def display_attendees(attendees)
+    attendees.each do |attendee|
+      puts "#{attendee['name']}"
     end
   end
 end
