@@ -70,6 +70,20 @@ class APIClient
     { error: "Failed to fetch entry: #{e.message}" }
   end
 
+  def get_entries_by_milestone(id)
+    response = RestClient.get("#{@base_url}/milestones/#{id}/entries")
+    parse_response(response)
+  rescue RestClient::Exception => e
+    { error: "Failed to fetch entry: #{e.message}" }
+  end
+
+  def get_milestones_by_child(id)
+    response = RestClient.get("#{@base_url}/children/#{id}/milestones")
+    parse_response(response)
+  rescue RestClient::Exception => e
+    { error: "Failed to fetch child: #{e.message}" }
+  end
+
   def create_entry(data)
     response = RestClient.post("#{@base_url}/entries", data.to_json, content_type: :json)
     parse_response(response)
@@ -141,9 +155,9 @@ class CLIInterface
     puts "10. Delete a child"
     puts "11. Delete an entry"
     puts "12. Delete a milestone"
-    puts "13. View entries for a specific child"           # GET /children/:id/entries
-    puts "14. View milestones for a specific child"        # GET /children/:child_id/milestones
-    puts "15. View entries for a specific milestone"
+    puts "13. View entries for a specific child"
+    puts "14. View entries for a specific milestone"
+    puts "15. View milestones for a specific child"
     puts "q. Quit"
     print "\nEnter your choice: "
   end
@@ -186,9 +200,9 @@ class CLIInterface
       when "13"
         view_entries_by_child
       when "14"
-        puts "14"
+        view_entries_by_milestone
       when "15"
-        puts "15"
+        view_milestones_by_child
       when "q", "quit", "exit"
         puts "Goodbye!"
         break
@@ -236,6 +250,24 @@ class CLIInterface
     end
   end
 
+  def view_all_milestones
+    puts "\n=== All Milestones ==="
+    response = @api_client.get_milestones
+
+    if response.is_a?(Array)
+      if response.empty?
+        puts "No milestones found."
+      else
+        response.each do |milestone|
+          display_milestone(milestone)
+          puts "-" * 50
+        end
+      end
+    else
+      puts "Error: #{response[:error]}"
+    end
+  end
+
   def view_entries_by_child
     view_all_children
     puts "\n Enter a Child ID to see the entries for that Child."
@@ -257,13 +289,37 @@ class CLIInterface
     end
   end
 
-  def view_all_milestones
-    puts "\n=== All Milestones ==="
-    response = @api_client.get_milestones
+  def view_entries_by_milestone
+    view_all_milestones
+    puts "\n Enter a Milestone ID to see the entries for that Milestone."
+    print "ID: "
+    id = gets.chomp
+    response = @api_client.get_entries_by_milestone(id)
 
     if response.is_a?(Array)
       if response.empty?
-        puts "No milestones found."
+        puts "No entries found."
+      else
+        response.each do |entry|
+          display_entry(entry)
+          puts "-" * 50
+        end
+      end
+    else
+      puts "Error: #{response[:error]}"
+    end
+  end
+
+  def view_milestones_by_child
+    view_all_children
+    puts "\n Enter a Child ID to see the milestones achieved by that Child."
+    print "ID: "
+    id = gets.chomp
+    response = @api_client.get_milestones_by_child(id)
+
+    if response.is_a?(Array)
+      if response.empty?
+        puts "No milestones found :("
       else
         response.each do |milestone|
           display_milestone(milestone)
