@@ -4,7 +4,6 @@ require "rest-client"
 require "json"
 require "pry"
 
-# API Client class to handle HTTP requests
 class APIClient
   def initialize(base_url = "http://localhost:9292")
     @base_url = base_url
@@ -411,7 +410,6 @@ class CLIInterface
     print "\nEnter the ID of the entry to update: "
     id = gets.chomp.to_i
 
-    # Get current pet data
     current_entry = @api_client.get_entry(id)
     if current_entry[:error]
       puts "Error: #{current_entry[:error]}"
@@ -556,28 +554,6 @@ class CLIInterface
     end
   end
 
-  #   def view_pets_by_owner
-  #     view_all_owners
-  #     print "\nEnter the owner ID to view their pets: "
-  #     owner_id = gets.chomp.to_i
-
-  #     response = @api_client.get_owner_pets(owner_id)
-
-  #     if response.is_a?(Array)
-  #       if response.empty?
-  #         puts "This owner has no pets."
-  #       else
-  #         puts "\n=== Pets for this owner ==="
-  #         response.each do |pet|
-  #           display_pet(pet)
-  #           puts "-" * 50
-  #         end
-  #       end
-  #     else
-  #       puts "Error: #{response[:error]}"
-  #     end
-  #   end
-
   def display_child(child)
     puts "ID: #{child['id']}"
     puts "Name: #{child['name']}"
@@ -612,5 +588,4 @@ class CLIInterface
   end
 end
 
-# Run the CLI application
 CLIInterface.new.run if __FILE__ == $0
