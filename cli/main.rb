@@ -20,6 +20,7 @@ class CLIInterface
     puts "8. Delete an attendee"
     puts "9. View all an attendee's concerts"
     puts "10. View all a concert's attendees"
+    puts "11. Add a concert to an attendee"
     puts "q. Quit"
     print "\nEnter your choice: "
   end
@@ -56,6 +57,8 @@ class CLIInterface
         view_attendees_concerts
       when "10"
         view_concerts_attendees
+      when "11"
+        add_attendee_concert
       when "q", "quit", "exit"
         puts "Goodbye!"
         break
