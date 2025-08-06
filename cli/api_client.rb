@@ -3,7 +3,7 @@ class APIClient
     @base_url = base_url
   end
 
-  def get_all_concerts
+  def view_all_concerts
     response = RestClient.get("#{@base_url}/concerts")
     JSON.parse(response.body)
   rescue RestClient::Exception => e
