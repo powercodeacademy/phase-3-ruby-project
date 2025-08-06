@@ -121,7 +121,7 @@ class CLIInterface
     if response.empty? 
       puts "No receipts found. Try exiting the CLI and running 'bundle exec rake db:seed'."
     else 
-      display_items_with_store(response)
+      display_items(response, include_store: true)
     end
 
     loop do 
@@ -148,20 +148,14 @@ class CLIInterface
     end
   end
 
-  def display_items(items)
-    items.each do |item|
-      puts "#{item['id']} #{item['name']}: $#{item['price']}"
+  def display_items(items, include_store: false)
+    items.each do |item| 
+      line = "#{item['id']} #{item['name']}: $#{item['price']}"
+      line = "#{item['id']} #{item['name']} from #{item['store']['name']}: $#{item['price']}" if include_store 
+      puts line 
     end
     puts "----------"
-    puts "Total: $#{total_price(items)}" 
-  end
-
-  def display_items_with_store(items)
-    items.each do |item|
-      puts "#{item['id']} #{item['name']} from #{item['store']['name']}: $#{item['price']}"
-    end
-    puts "----------"
-    puts "Total: $#{total_price(items)}" 
+    puts "Total: $#{total_price(items)}"
   end
 
   def filter_items_by_store 
