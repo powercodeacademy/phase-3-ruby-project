@@ -134,80 +134,152 @@ class APIClient
   end
 end
 
-# CLI Interface class to handle user interaction
 class CLIInterface
   def initialize
     @api_client = APIClient.new
   end
 
-  def display_menu
-    puts "\n=== LittleByLittle CLI ==="
-    puts "Log your child's milestones!"
-    puts "1. View all children"
-    puts "2. View all entries"
-    puts "3. View all milestones"
-    puts "4. Create a new child user"
-    puts "5. Create a new entry"
-    puts "6. Create a new milestone"
-    puts "7. Update a child"
-    puts "8. Update an entry"
-    puts "9. Update a milestone"
-    puts "10. Delete a child"
-    puts "11. Delete an entry"
-    puts "12. Delete a milestone"
-    puts "13. View entries for a specific child"
-    puts "14. View entries for a specific milestone"
-    puts "15. View milestones for a specific child"
+  def run
+    puts "Welcome to LittleByLittle CLI!"
+    puts "Make sure your API server is running on http://localhost:9292"
+    puts
+    puts <<~'ASCII'
+
+
+       _      _  _    _    _       ______         _      _  _    _    _
+      | |    (_)| |  | |  | |      | ___ \       | |    (_)| |  | |  | |        _       .,
+      | |     _ | |_ | |_ | |  ___ | |_/ / _   _ | |     _ | |_ | |_ | |  ___   `\.____|_\
+      | |    | || __|| __|| | / _ \| ___ \| | | || |    | || __|| __|| | / _ \    \______/
+      | |____| || |_ | |_ | ||  __/| |_/ /| |_| || |____| || |_ | |_ | ||  __/     (_)(_)
+      \_____/|_| \__| \__||_| \___|\____/  \__, |\_____/|_| \__| \__||_| \___|
+                                            __/ |
+                                           |___/
+    ASCII
+    puts "Log your child's developmental milestones!"
+
+    loop do
+      display_main_menu
+      choice = gets.chomp.downcase
+      handle_quit(choice)
+
+      case choice
+      when "1" then view_menu
+      when "2" then create_menu
+      when "3" then update_menu
+      when "4" then delete_menu
+      else puts "Invalid choice. Please try again."
+      end
+    end
+  end
+
+  def handle_quit(choice)
+    return unless %w[q quit exit].include?(choice)
+
+    puts "Goodbye!"
+    exit
+
+  end
+
+  def display_main_menu
+    puts "\n=== Main Menu ==="
+    puts "1. View data"
+    puts "2. Create new record"
+    puts "3. Update record"
+    puts "4. Delete record"
     puts "q. Quit"
     print "\nEnter your choice: "
   end
 
-  def run
-    puts "Welcome to LittleByLittle CLI!"
-    puts "This application connects to your Sinatra API."
-    puts "Make sure your API server is running on http://localhost:9292"
-    puts
-
+  def view_menu
     loop do
-      display_menu
+      puts "\n--- View Menu ---"
+      puts "1. View all children"
+      puts "2. View all entries"
+      puts "3. View all milestones"
+      puts "4. View entries by child"
+      puts "5. View entries by milestone"
+      puts "6. View milestones by child"
+      puts "b. Back to main menu | q. Quit"
+      print "\nEnter your choice: "
+
       choice = gets.chomp.downcase
+      handle_quit(choice)
 
       case choice
-      when "1"
-        view_all_children
-      when "2"
-        view_all_entries
-      when "3"
-        view_all_milestones
-      when "4"
-        create_child
-      when "5"
-        create_entry
-      when "6"
-        create_milestone
-      when "7"
-        update_child
-      when "8"
-        update_entry
-      when "9"
-        update_milestone
-      when "10"
-        delete_child
-      when "11"
-        delete_entry
-      when "12"
-        delete_milestone
-      when "13"
-        view_entries_by_child
-      when "14"
-        view_entries_by_milestone
-      when "15"
-        view_milestones_by_child
-      when "q", "quit", "exit"
-        puts "Goodbye!"
-        break
-      else
-        puts "Invalid choice. Please try again."
+      when "1" then view_all_children
+      when "2" then view_all_entries
+      when "3" then view_all_milestones
+      when "4" then view_entries_by_child
+      when "5" then view_entries_by_milestone
+      when "6" then view_milestones_by_child
+      when "b" then break
+      else puts "Invalid choice. Try again."
+      end
+    end
+  end
+
+  def create_menu
+    loop do
+      puts "\n--- Create Menu ---"
+      puts "1. Create a new child"
+      puts "2. Create a new entry"
+      puts "3. Create a new milestone"
+      puts "b. Back to main menu | q. Quit"
+      print "\nEnter your choice: "
+
+      choice = gets.chomp.downcase
+      handle_quit(choice)
+
+      case choice
+      when "1" then create_child
+      when "2" then create_entry
+      when "3" then create_milestone
+      when "b" then break
+      else puts "Invalid choice. Try again."
+      end
+    end
+  end
+
+  def update_menu
+    loop do
+      puts "\n--- Update Menu ---"
+      puts "1. Update a child"
+      puts "2. Update an entry"
+      puts "3. Update a milestone"
+      puts "b. Back to main menu | q. Quit"
+      print "\nEnter your choice: "
+
+      choice = gets.chomp.downcase
+      handle_quit(choice)
+
+      case choice
+      when "1" then update_child
+      when "2" then update_entry
+      when "3" then update_milestone
+      when "b" then break
+      else puts "Invalid choice. Try again."
+      end
+    end
+  end
+
+  def delete_menu
+    loop do
+      puts "\n--- Delete Menu ---"
+      puts "1. Delete a child (legally)"
+      puts "2. Delete an entry"
+      puts "3. Delete a milestone"
+      puts "b. Back to main menu | q. Quit"
+      print "\nEnter your choice: "
+
+      choice = gets.chomp.downcase
+      handle_quit(choice)
+
+      case choice
+      when "1" then delete_child
+      when "2" then delete_entry
+      when "3" then delete_milestone
+      when "b" then break
+      else puts "Invalid choice. Try again."
       end
     end
   end
