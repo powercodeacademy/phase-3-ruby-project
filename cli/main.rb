@@ -1,65 +1,8 @@
 #!/usr/bin/env ruby
 
-# TODO: Build your CLI application here!
-#
-# Requirements:
-# - Be object-oriented (at least two classes)
-# - Make HTTP requests to your Sinatra API
-# - Parse and display JSON responses
-# - Accept user input and use it to send requests
-# - Use a loop or menu interface
-# - Include current value prompts for updates
-
 require 'rest-client' 
 require 'json' 
-require 'pry'
-
-class APIClient 
-  def initialize(base_url = "http://localhost:9292/")
-    @base_url = base_url 
-  end
-
-  def get_receipts
-    response = RestClient.get(@base_url + "receipts")
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch receipts: #{e.message}" }
-  end
-
-  def get_receipts_by_store(store)
-    response = RestClient.get(@base_url + "receipts", { params: { store: store } })
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch receipts by store: #{e.message}" }
-  end
-
-  def get_receipt_by_id(id)
-    response = RestClient.get(@base_url + "receipts/" + id.to_s)
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch receipt with ID #{id}: #{e.message}"}
-  end
-
-  def get_receipt_id_by_item(item_id)
-    response = RestClient.get(@base_url + "items/" + item_id)
-    JSON.parse(response.body)['receipt_id']
-  end
-
-  def get_items 
-    response = RestClient.get(@base_url + "items")
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch items: #{e.message}" }
-  end
-
-  def get_items_by_store(store)
-    response = RestClient.get(@base_url + "items", { params: { store: store } })
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch items by store: #{e.message}" }
-  end
-
-end
+require_relative './api_client'
 
 class CLIInterface 
   def initialize 
@@ -178,7 +121,7 @@ class CLIInterface
     if response.empty? 
       puts "No receipts found. Try exiting the CLI and running 'bundle exec rake db:seed'."
     else 
-      display_items_with_store(response)
+      display_items(response, include_store: true)
     end
 
     loop do 
@@ -205,20 +148,14 @@ class CLIInterface
     end
   end
 
-  def display_items(items)
-    items.each do |item|
-      puts "#{item['id']} #{item['name']}: $#{item['price']}"
+  def display_items(items, include_store: false)
+    items.each do |item| 
+      puts "#{item['name']}: $#{item['price']}"
+      puts "Bought from: #{item['store']['name']}" if include_store 
+      puts "ID: #{item['id']}"
+      puts "----------"
     end
-    puts "----------"
-    puts "Total: $#{total_price(items)}" 
-  end
-
-  def display_items_with_store(items)
-    items.each do |item|
-      puts "#{item['id']} #{item['name']} from #{item['store']['name']}: $#{item['price']}"
-    end
-    puts "----------"
-    puts "Total: $#{total_price(items)}" 
+    puts "Total: $#{total_price(items)}"
   end
 
   def filter_items_by_store 
