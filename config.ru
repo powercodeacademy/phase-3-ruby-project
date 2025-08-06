@@ -14,6 +14,7 @@ end
 use Rack::JSONBodyParser
 
 # Our application
+
+use ConcertController
+use AttendeeController
 run ApplicationController
-run ConcertController
-run AttendeeController
