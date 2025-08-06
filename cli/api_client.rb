@@ -6,44 +6,39 @@ class APIClient
     @base_url = base_url 
   end
 
-  def get_receipts
-    response = RestClient.get(@base_url + "receipts")
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch receipts: #{e.message}" }
+  def get_receipts 
+    get_request("receipts")
   end
 
-  def get_receipts_by_store(store)
-    response = RestClient.get(@base_url + "receipts", { params: { store: store } })
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch receipts by store: #{e.message}" }
+  def get_receipts_by_store(store) 
+    get_request("receipts", { store: store })
   end
 
   def get_receipt_by_id(id)
-    response = RestClient.get(@base_url + "receipts/" + id.to_s)
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch receipt with ID #{id}: #{e.message}"}
-  end
-
-  def get_receipt_id_by_item(item_id)
-    response = RestClient.get(@base_url + "items/" + item_id)
-    JSON.parse(response.body)['receipt_id']
+    get_request("receipts/#{id}")
   end
 
   def get_items 
-    response = RestClient.get(@base_url + "items")
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch items: #{e.message}" }
+    get_request("items") 
   end
 
   def get_items_by_store(store)
-    response = RestClient.get(@base_url + "items", { params: { store: store } })
-    JSON.parse(response.body)
-  rescue RestClient::Exception => e 
-    { error: "Failed to fetch items by store: #{e.message}" }
+    get_request("items", { store: store })
   end
 
+  def get_receipt_id_by_item(item_id)
+    get_request("items/#{item_id}")['receipt_id']
+  end
+
+  private 
+
+  def get_request(endpoint, params = nil) 
+    url = @base_url + endpoint 
+    options = params ? { params: params } : {}
+
+    response = RestClient.get(url, options)
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e 
+    { error: "GET #{endpoint} failed: #{e.message}" }
+  end
 end
