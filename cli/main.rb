@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 
-require 'rest-client'
-require 'json'
+require "rest-client"
+require "json"
 
-# API Client class to handle HTTP requests
 class APIClient
-  def initialize(base_url = 'http://localhost:9292')
+  def initialize(base_url = "http://localhost:9292")
     @base_url = base_url
   end
 
@@ -87,7 +86,6 @@ class APIClient
   end
 end
 
-# CLI Interface class to handle user interaction
 class CLIInterface
   def initialize
     @api_client = APIClient.new
@@ -119,25 +117,25 @@ class CLIInterface
       choice = gets.chomp.downcase
 
       case choice
-      when '1'
+      when "1"
         view_all_owners
-      when '2'
+      when "2"
         view_all_pets
-      when '3'
+      when "3"
         create_owner
-      when '4'
+      when "4"
         create_pet
-      when '5'
+      when "5"
         update_owner
-      when '6'
+      when "6"
         update_pet
-      when '7'
+      when "7"
         delete_owner
-      when '8'
+      when "8"
         delete_pet
-      when '9'
+      when "9"
         view_pets_by_owner
-      when 'q', 'quit', 'exit'
+      when "q", "quit", "exit"
         puts "Goodbye!"
         break
       else
@@ -275,19 +273,19 @@ class CLIInterface
 
     print "Name (#{current_owner['name']}): "
     name = gets.chomp
-    name = current_owner['name'] if name.empty?
+    name = current_owner["name"] if name.empty?
 
     print "Email (#{current_owner['email']}): "
     email = gets.chomp
-    email = current_owner['email'] if email.empty?
+    email = current_owner["email"] if email.empty?
 
     print "Phone (#{current_owner['phone']}): "
     phone = gets.chomp
-    phone = current_owner['phone'] if phone.empty?
+    phone = current_owner["phone"] if phone.empty?
 
     print "Address (#{current_owner['address'] || 'none'}): "
     address = gets.chomp
-    address = current_owner['address'] if address.empty?
+    address = current_owner["address"] if address.empty?
 
     data = { name: name, email: email, phone: phone, address: address }
 
@@ -320,23 +318,23 @@ class CLIInterface
 
     print "Name (#{current_pet['name']}): "
     name = gets.chomp
-    name = current_pet['name'] if name.empty?
+    name = current_pet["name"] if name.empty?
 
     print "Species (#{current_pet['species']}): "
     species = gets.chomp
-    species = current_pet['species'] if species.empty?
+    species = current_pet["species"] if species.empty?
 
     print "Breed (#{current_pet['breed']}): "
     breed = gets.chomp
-    breed = current_pet['breed'] if breed.empty?
+    breed = current_pet["breed"] if breed.empty?
 
     print "Age (#{current_pet['age']}): "
     age_input = gets.chomp
-    age = age_input.empty? ? current_pet['age'] : age_input.to_i
+    age = age_input.empty? ? current_pet["age"] : age_input.to_i
 
     print "Notes (#{current_pet['notes'] || 'none'}): "
     notes = gets.chomp
-    notes = current_pet['notes'] if notes.empty?
+    notes = current_pet["notes"] if notes.empty?
 
     data = { name: name, species: species, breed: breed, age: age, notes: notes }
 
@@ -358,7 +356,7 @@ class CLIInterface
     print "Are you sure you want to delete this owner? (y/n): "
     confirmation = gets.chomp.downcase
 
-    if confirmation == 'y' || confirmation == 'yes'
+    if %w[y yes].include?(confirmation)
       response = @api_client.delete_owner(id)
 
       if response[:error]
@@ -379,7 +377,7 @@ class CLIInterface
     print "Are you sure you want to delete this pet? (y/n): "
     confirmation = gets.chomp.downcase
 
-    if confirmation == 'y' || confirmation == 'yes'
+    if %w[y yes].include?(confirmation)
       response = @api_client.delete_pet(id)
 
       if response[:error]
@@ -421,9 +419,9 @@ class CLIInterface
     puts "Phone: #{owner['phone']}"
     puts "Address: #{owner['address'] || 'Not provided'}"
 
-    if owner['pets'] && !owner['pets'].empty?
+    if owner["pets"] && !owner["pets"].empty?
       puts "Pets:"
-      owner['pets'].each { |pet| puts "  - #{pet['name']} (#{pet['species']})" }
+      owner["pets"].each { |pet| puts "  - #{pet['name']} (#{pet['species']})" }
     else
       puts "Pets: None"
     end
@@ -437,13 +435,11 @@ class CLIInterface
     puts "Age: #{pet['age']} years"
     puts "Notes: #{pet['notes'] || 'None'}"
 
-    if pet['owner']
-      puts "Owner: #{pet['owner']['name']} (ID: #{pet['owner']['id']})"
-    end
+    return unless pet["owner"]
+
+    puts "Owner: #{pet['owner']['name']} (ID: #{pet['owner']['id']})"
+
   end
 end
 
-# Run the CLI application
-if __FILE__ == $0
-  CLIInterface.new.run
-end
+CLIInterface.new.run if __FILE__ == $0
