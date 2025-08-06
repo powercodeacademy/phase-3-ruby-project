@@ -150,11 +150,11 @@ class CLIInterface
 
   def display_items(items, include_store: false)
     items.each do |item| 
-      line = "#{item['id']} #{item['name']}: $#{item['price']}"
-      line = "#{item['id']} #{item['name']} from #{item['store']['name']}: $#{item['price']}" if include_store 
-      puts line 
+      puts "#{item['name']}: $#{item['price']}"
+      puts "Bought from: #{item['store']['name']}" if include_store 
+      puts "ID: #{item['id']}"
+      puts "----------"
     end
-    puts "----------"
     puts "Total: $#{total_price(items)}"
   end
 
