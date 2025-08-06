@@ -1,19 +1,18 @@
-#!/usr/bin/env ruby
+require "rest-client"
+require "json"
+require_relative "api_client"
 
-# TODO: Build your CLI application here!
-#
-# Requirements:
-# - Be object-oriented (at least two classes)
-# - Make HTTP requests to your Sinatra API
-# - Parse and display JSON responses
-# - Accept user input and use it to send requests
-# - Use a loop or menu interface
-# - Include current value prompts for updates
+# CLI Interface class to handle user interaction
+class CLIInterface
+  def initialize
+    @api_client = APIClient.new
+  end
 
-puts "Welcome to your CLI Application!"
-puts "This application connects to your Sinatra API."
-puts "Make sure your API server is running on http://localhost:9292"
-puts
+  def run
+    puts "Welcome to the Pet Tracker CLI!"
+    puts "This application connects to your Sinatra API."
+    puts "Make sure your API server is running on http://localhost:9292"
+  end
+end
 
-# TODO: Implement your CLI functionality here
-puts "TODO: Build your CLI application"
+CLIInterface.new.run if __FILE__ == $0
