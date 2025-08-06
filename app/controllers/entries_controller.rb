@@ -22,8 +22,8 @@ class EntriesController < ApplicationController
     end
 
     new_entry = Entry.create(
-      child: params[:child],
-      milestone: params[:milestone],
+      child_id: params[:child_id],
+      milestone_id: params[:milestone_id],
       note: params[:note],
       date: parsed_date,
       age_months: params[:age_months]
@@ -41,15 +41,15 @@ class EntriesController < ApplicationController
       return { error: "Entry not found" }.to_json
     end
     begin
-      parsed_date = Date.parse(params[:birthdate])
+      parsed_date = Date.parse(params[:date])
     rescue ArgumentError
       status 400
       return { error: "Invalid date format. Please use YYYY-MM-DD." }.to_json
     end
 
     entry.update(
-      child: params[:child],
-      milestone: params[:milestone],
+      child_id: params[:child_id],
+      milestone_id: params[:milestone_id],
       note: params[:note],
       date: parsed_date,
       age_months: params[:age_months]

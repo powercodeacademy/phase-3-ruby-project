@@ -64,6 +64,13 @@ class APIClient
     { error: "Failed to fetch entry: #{e.message}" }
   end
 
+  def get_entries_by_child(id)
+    response = RestClient.get("#{@base_url}/children/#{id}/entries")
+    parse_response(response)
+  rescue RestClient::Exception => e
+    { error: "Failed to fetch entry: #{e.message}" }
+  end
+
   def create_entry(data)
     response = RestClient.post("#{@base_url}/entries", data.to_json, content_type: :json)
     parse_response(response)
@@ -166,19 +173,19 @@ class CLIInterface
       when "6"
         create_milestone
       when "7"
-        puts "7"
+        update_child
       when "8"
-        puts "8"
+        update_entry
       when "9"
-        puts "9"
+        update_milestone
       when "10"
-        puts "10"
+        delete_child
       when "11"
-        puts "11"
+        delete_entry
       when "12"
-        puts "12"
+        delete_milestone
       when "13"
-        puts "13"
+        view_entries_by_child
       when "14"
         puts "14"
       when "15"
@@ -215,6 +222,27 @@ class CLIInterface
   def view_all_entries
     puts "\n=== All Entries ==="
     response = @api_client.get_entries
+
+    if response.is_a?(Array)
+      if response.empty?
+        puts "No entries found."
+      else
+        response.each do |entry|
+          display_entry(entry)
+          puts "-" * 50
+        end
+      end
+    else
+      puts "Error: #{response[:error]}"
+    end
+  end
+
+  def view_entries_by_child
+    view_all_children
+    puts "\n Enter a Child ID to see the entries for that Child."
+    print "ID: "
+    id = gets.chomp
+    response = @api_client.get_entries_by_child(id)
 
     if response.is_a?(Array)
       if response.empty?
@@ -307,7 +335,7 @@ class CLIInterface
     print "Note: "
     note = gets.chomp
 
-    data = { date: date, age: age_months, note: note, child_id: child_id,
+    data = { date: date, age_months: age_months, note: note, child_id: child_id,
              milestone_id: milestone_id, }
 
     response = @api_client.create_entry(data)
@@ -341,141 +369,192 @@ class CLIInterface
     end
   end
 
-  #   def update_owner
-  #     view_all_owners
-  #     print "\nEnter the ID of the owner to update: "
-  #     id = gets.chomp.to_i
+  def update_child
+    view_all_children
+    print "\nEnter the ID of the child to update: "
+    id = gets.chomp.to_i
 
-  #     # Get current owner data
-  #     current_owner = @api_client.get_owner(id)
-  #     if current_owner[:error]
-  #       puts "Error: #{current_owner[:error]}"
-  #       return
-  #     end
+    current_child = @api_client.get_child(id)
+    if current_child[:error]
+      puts "Error: #{current_child[:error]}"
+      return
+    end
 
-  #     puts "\nCurrent owner data:"
-  #     display_owner(current_owner)
+    puts "\nCurrent child data:"
+    display_child(current_child)
 
-  #     puts "\nEnter new values (press Enter to keep current value):"
+    puts "\nEnter new values (press Enter to keep current value):"
 
-  #     print "Name (#{current_owner['name']}): "
-  #     name = gets.chomp
-  #     name = current_owner["name"] if name.empty?
+    print "Name (#{current_child['name']}): "
+    name = gets.chomp
+    name = current_child["name"] if name.empty?
 
-  #     print "Email (#{current_owner['email']}): "
-  #     email = gets.chomp
-  #     email = current_owner["email"] if email.empty?
+    print "Birthdate (YYYY-MM-DD) (#{current_child['birthdate']}): "
+    birthdate = gets.chomp
+    birthdate = current_child["birthdate"] if birhdate.empty?
 
-  #     print "Phone (#{current_owner['phone']}): "
-  #     phone = gets.chomp
-  #     phone = current_owner["phone"] if phone.empty?
+    data = { name: name, birthdate: birthdate }
 
-  #     print "Address (#{current_owner['address'] || 'none'}): "
-  #     address = gets.chomp
-  #     address = current_owner["address"] if address.empty?
+    response = @api_client.update_owner(id, data)
 
-  #     data = { name: name, email: email, phone: phone, address: address }
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Child updated successfully!"
+      display_child(response)
+    end
+  end
 
-  #     response = @api_client.update_owner(id, data)
+  def update_entry
+    view_entries_by_child
+    puts
+    print "\nEnter the ID of the entry to update: "
+    id = gets.chomp.to_i
 
-  #     if response[:error]
-  #       puts "Error: #{response[:error]}"
-  #     else
-  #       puts "Owner updated successfully!"
-  #       display_owner(response)
-  #     end
-  #   end
+    # Get current pet data
+    current_entry = @api_client.get_entry(id)
+    if current_entry[:error]
+      puts "Error: #{current_entry[:error]}"
+      return
+    end
 
-  #   def update_pet
-  #     view_all_pets
-  #     print "\nEnter the ID of the pet to update: "
-  #     id = gets.chomp.to_i
+    puts "\nCurrent entry data:"
+    display_entry(current_entry)
 
-  #     # Get current pet data
-  #     current_pet = @api_client.get_pet(id)
-  #     if current_pet[:error]
-  #       puts "Error: #{current_pet[:error]}"
-  #       return
-  #     end
+    puts "\nEnter new values (press Enter to keep current value):"
 
-  #     puts "\nCurrent pet data:"
-  #     display_pet(current_pet)
+    print "Note (#{current_entry['note']}): "
+    note = gets.chomp
+    note = current_entry["note"] if note.empty?
 
-  #     puts "\nEnter new values (press Enter to keep current value):"
+    print "Date (#{current_entry['date']}): "
+    date_string = gets.chomp
+    date = date.nil? ? current_entry["date"] : date_string
 
-  #     print "Name (#{current_pet['name']}): "
-  #     name = gets.chomp
-  #     name = current_pet["name"] if name.empty?
+    print "Age (#{current_entry['age_months']}): "
+    age_input = gets.chomp
+    age_months = age_input.empty? ? current_entry["age_months"] : age_input.to_i
 
-  #     print "Species (#{current_pet['species']}): "
-  #     species = gets.chomp
-  #     species = current_pet["species"] if species.empty?
+    print "Child ID (#{current_entry['child_id']}): "
+    child_id = gets.chomp
+    child_id = child_id.empty? ? current_entry["child_id"] : child_id.to_i
 
-  #     print "Breed (#{current_pet['breed']}): "
-  #     breed = gets.chomp
-  #     breed = current_pet["breed"] if breed.empty?
+    print "Milestone ID (#{current_entry['milestone_id']}): "
+    milestone_id = gets.chomp
+    milestone_id = current_entry["milestone_id"] if milestone_id.empty?
 
-  #     print "Age (#{current_pet['age']}): "
-  #     age_input = gets.chomp
-  #     age = age_input.empty? ? current_pet["age"] : age_input.to_i
+    data = { note: note, date: date, age_months: age_months, child_id: child_id,
+             milestone_id: milestone_id, }
 
-  #     print "Notes (#{current_pet['notes'] || 'none'}): "
-  #     notes = gets.chomp
-  #     notes = current_pet["notes"] if notes.empty?
+    response = @api_client.update_entry(id, data)
 
-  #     data = { name: name, species: species, breed: breed, age: age, notes: notes }
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Entry updated successfully!"
+      display_entry(response)
+    end
+  end
 
-  #     response = @api_client.update_pet(id, data)
+  def update_milestone
+    view_all_milestones
+    print "\nEnter the ID of the milestone you wish to update: "
+    id = gets.chomp.to_i
 
-  #     if response[:error]
-  #       puts "Error: #{response[:error]}"
-  #     else
-  #       puts "Pet updated successfully!"
-  #       display_pet(response)
-  #     end
-  #   end
+    current_milestone = @api_client.get_milestone(id)
+    if current_milestone[:error]
+      puts "Error: #{current_milestone[:error]}"
+      return
+    end
 
-  #   def delete_owner
-  #     view_all_owners
-  #     print "\nEnter the ID of the owner to delete: "
-  #     id = gets.chomp.to_i
+    puts "\nCurrent milestone data:"
+    display_milestone(current_milestone)
 
-  #     print "Are you sure you want to delete this owner? (y/n): "
-  #     confirmation = gets.chomp.downcase
+    puts "\nEnter new values (press Enter to keep current value):"
 
-  #     if %w[y yes].include?(confirmation)
-  #       response = @api_client.delete_owner(id)
+    print "Title (#{current_milestone['title']}): "
+    title = gets.chomp
+    title = current_milestone["title"] if title.empty?
 
-  #       if response[:error]
-  #         puts "Error: #{response[:error]}"
-  #       else
-  #         puts "Owner deleted successfully!"
-  #       end
-  #     else
-  #       puts "Deletion cancelled."
-  #     end
-  #   end
+    print "Milestone Type (#{current_milestone['milestone_type']}): "
+    milestone_type = gets.chomp
+    milestone_type = current_milestone["milestone_type"] if milestone_type.empty?
 
-  #   def delete_pet
-  #     view_all_pets
-  #     print "\nEnter the ID of the pet to delete: "
-  #     id = gets.chomp.to_i
+    data = { title: title, milestone_type: milestone_type }
 
-  #     print "Are you sure you want to delete this pet? (y/n): "
-  #     confirmation = gets.chomp.downcase
+    response = @api_client.update_milestone(id, data)
 
-  #     if %w[y yes].include?(confirmation)
-  #       response = @api_client.delete_pet(id)
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Milestone updated successfully!"
+      display_milestone(response)
+    end
 
-  #       if response[:error]
-  #         puts "Error: #{response[:error]}"
-  #       else
-  #         puts "Pet deleted successfully!"
-  #       end
-  #     else
-  #       puts "Deletion cancelled."
-  #     end
-  #   end
+  end
+
+  def delete_child
+    view_all_children
+    print "\nEnter the ID of the child to delete (RIP?): "
+    id = gets.chomp.to_i
+
+    print "Are you sure you want to delete this child? (y/n): "
+    confirmation = gets.chomp.downcase
+
+    if %w[y yes].include?(confirmation)
+      response = @api_client.delete_child(id)
+
+      if response[:error]
+        puts "Error: #{response[:error]}"
+      else
+        puts "Child deleted successfully!"
+      end
+    else
+      puts "Deletion cancelled."
+    end
+  end
+
+  def delete_entry
+    view_all_entries
+    print "\nEnter the ID of the entry to delete: "
+    id = gets.chomp.to_i
+
+    print "Are you sure you want to delete this entry? (y/n): "
+    confirmation = gets.chomp.downcase
+
+    if %w[y yes].include?(confirmation)
+      response = @api_client.delete_entry(id)
+
+      if response[:error]
+        puts "Error: #{response[:error]}"
+      else
+        puts "Entry deleted successfully!"
+      end
+    else
+      puts "Deletion cancelled."
+    end
+  end
+
+  def delete_milestone
+    view_all_milestones
+    print "\nEnter the ID of the milestone to delete: "
+    id = gets.chomp.to_i
+
+    print "Are you sure you want to delete this milestone? (y/n): "
+    confirmation = gets.chomp.downcase
+
+    if %w[y yes].include?(confirmation)
+      response = @api_client.delete_milestone(id)
+
+      if response[:error]
+        puts "Error: #{response[:error]}"
+      else
+        puts "Milestone deleted successfully!"
+      end
+    else
+      puts "Deletion cancelled."
+    end
+  end
 
   #   def view_pets_by_owner
   #     view_all_owners
