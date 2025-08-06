@@ -12,7 +12,7 @@ Attendee.create(name: "Jess Castro")
 
 puts "🌱 Seeding tickets..."
 
-Ticket.create(concert_id: 1, attendee_id: 1)
-Ticket.create(concert_id: 1, attendee_id: 2)
+Ticket.create(concert_id: 17, attendee_id: 1)
+Ticket.create(concert_id: 17, attendee_id: 2)
 
 puts "✅ Done seeding!"

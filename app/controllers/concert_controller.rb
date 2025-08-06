@@ -1,17 +1,21 @@
 class ConcertController < ApplicationController
-    get "/concerts" do
+  get "/concerts" do
     concerts = Concert.all
-    concerts.to_json(include: :users)
+    concerts.to_json(include: :attendees)
   end
 
-    post "/concerts" do
-      concert = Concert.new(params)
-      if concert.save
-        status 201
-        concert.to_json
-      else
-        status 422
-        { errors: concert.errors.full_messages }.to_json
-      end
-    end
+  get "/concerts/:id" do
+    concert = Concert.find(params[:id])
+    concert.to_json(include: :attendees)
+  end
+
+  post "/concerts" do
+    concert = Concert.create(
+      band_name: params[:band_name],
+      event_date: params[:event_date],
+      venue: params[:venue],
+      city: params[:city]
+    )
+    concert.to_json
+  end
 end
