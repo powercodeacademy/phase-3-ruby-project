@@ -1,12 +1,12 @@
 class AttendeeController < ApplicationController
   get "/attendees" do
     attendees = Attendee.all
-    attendees.to_json
+    attendees.to_json(include: :concerts)
   end
 
   get "/attendees/:id" do
     attendee = Attendee.find(params[:id])
-    attendee.to_json
+    attendee.to_json(include: :concerts)
   end
 
   get "/attendees/:id/concerts" do
