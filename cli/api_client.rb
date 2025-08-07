@@ -3,14 +3,14 @@ class APIClient
     @base_url = base_url
   end
 
-  def view_all_concerts
+  def get_concerts
     response = RestClient.get("#{@base_url}/concerts")
     JSON.parse(response.body)
   rescue RestClient::Exception => e
     { error: "Failed to fetch concerts: #{e.message}" }
   end
 
-  def view_all_attendees
+  def get_attendees
     response = RestClient.get("#{@base_url}/attendees")
     JSON.parse(response.body)
   rescue RestClient::Exception => e

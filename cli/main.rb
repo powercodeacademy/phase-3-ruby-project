@@ -2,7 +2,6 @@ require "rest-client"
 require "json"
 require_relative "api_client"
 
-# CLI Interface class to handle user interaction
 class CLIInterface
   def initialize
     @api_client = APIClient.new
@@ -39,8 +38,7 @@ class CLIInterface
       when "1"
         view_all_concerts
       when "2"
-        attendees = @api_client.view_all_attendees
-        display_attendees(attendees)
+        view_all_attendees
       when "3"
         create_concert
       when "4"
@@ -70,35 +68,29 @@ class CLIInterface
 
   private
 
-  # def display_concerts(concerts)
-  #   concerts.each do |concert|
-  #     puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
-  #   end
-  # end
-
   def view_all_concerts
     puts "\n=== All Concerts ==="
-    response = @api_client.view_all_concerts
+    response = @api_client.get_concerts
 
     return unless response.is_a?(Array)
 
     if response.empty?
-      puts "No concerts found."
+      puts "No concerts found"
     else
       response.each do |concert|
-        puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
+        display_concert(concert)
+        puts "-" * 50
       end
     end
   end
 
-  def display_attendees(attendees)
-    attendees.each do |attendee|
-      puts "#{attendee['name']}"
-    end
-  end
+  ## Display
 
-  def display_new_concert(new_concert)
-    puts "#{concert['band_name']} - #{concert['event_date']} @ #{concert['venue']}, #{concert['city']}"
+  def display_concert(concert)
+    puts "Band Name: #{concert['band_name']}"
+    puts "Event Date: #{concert['event_date']}"
+    puts "Venue: #{concert['venue']}"
+    puts "City: #{concert['city']}"
   end
 end
 
