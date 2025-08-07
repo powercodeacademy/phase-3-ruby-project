@@ -2,70 +2,58 @@
 
 ## Feature 1: View All Concerts
 
-**User Story:** As a user, I want to view all concerts I’m interested in, including which people are attending and whether I have purchased a ticket.
+**User Story:** As a user, I want to view all concerts I’m interested in which also shows everyone who is attending.
 
-**Details:** Run a GET request to `/concerts` that includes attendance info, associated people, and the user's ticket purchase status via associations.
+**Details:** Run a GET request to `/concerts` that includes attendees.
 
-## Feature 2: Create a New Concert
+## Feature 2: View All Attendees
+
+**User Story:** As a user, I want to view all attendees and view which concerts they will be attending.
+
+**Details:** Run a GET request to `/attendees` that includes concerts.
+
+## Feature 3: Create a New Concert
 
 **User Story:** As a user, I want to be able to add new concerts I am interested in attending to the list.
 
-**Details:** Run a POST request to create a new concert instance.
+**Details:** Run a POST request to `/concerts` that creates a new concert instance.
 
-## Feature 3: Update a Concert
+## Feature 4: Update a Concert
 
 **User Story:** As a user, I want to be able to update an existing concert if the details change.
 
-**Details:** Run PATCH request to update concert details.
+**Details:** Run PATCH request to `/concerts/:id` to update concert details on a specific concert.
 
-## Feature 4: Delete a Concert
+## Feature 5: Delete a Concert
 
-**User Story:** As a user, I want to be able to delete a concert I have decided I'm no longer interested in.
+**User Story:** As a user, I want to be able to delete a concert I have decided I'm no longer interested in or that has been cancelled.
 
-**Details:** Run a DELETE request to delete a concert.
+**Details:** Run a DELETE request to `/concerts/:id` to delete a specific concert.
 
-## Feature 5: Add a Person
+## Feature 6: Add an Attendee
 
-**User Story:** As a user, I want to be able to add a Person to my peoples table so I can track which concerts they are attending with me.
+**User Story:** As a user, I want to be able to add someone to the `attendees` list so I can track who is attending which concerts.
 
-**Details:** Run POST request to create a new person instance.
+**Details:** Run POST request to `/attendees` to create a new attendee instance.
 
-## Feature 6: Update Attendance Status
+## Feature 7: Update Attendance Status
 
 **User Story:** As a user, I want to be able to update the attendance status of a concert I have purchased tickets to.
 
-**Details:** Run a PATCH request to update attendance status from false to true for selected concert.
-
-## Feature 7: Show a Person as Attending Concert
-
-**User Story:** As a user, I want to be able to update a person to show they are attending a selected concert.
-
-**Details:** Run a POST request to create a new attendance instance and use ActiveRecord associations to include the concert and person.
-
-## Feature 8: Show All Concerts With Purchased Tickets
-
-**User Story:** As a user, I want to be able to see a list of which concerts I have purchased tickets for.
-
-**Details:** Run a GET request to return concerts where `ticket_purchased` is true, using ActiveRecord associations.
-
-## Feature 9: Show Who is Attending a Concert
-
-**User Story:** As a user, I want to be able to see a list of which people are attending a specific concert.
-
-**Details:** Write an ActiveRecord method to GET a list of people associated with selected concert_id.
+**Details:** Run a PATCH request to create a new ticket instance for an existing concert.
 
 ---
 
 # Stretch Goals
 
-## Feature 10: Sort Concerts by Date
+## Feature 8: View an Individual Attendee and Their Concerts
 
-**User Story:** As a user, I want to be able to sort concerts by date in ascending order.
+**User Story:** As a user, I want to be able to search an individual attendee by name and see a list of all concerts they are attending.
 
-**Details:** Write ActiveRecord method to GET and order concerts by date.
+**Details:** Run a GET request to `/attendees/:id` that includes concerts. Loop through an attendees concerts.
 
-## Feature 11: View All Concerts by Attributes
+## Feature 9: View an Individual Band's Concerts and Attendees
 
-**User Story:** As a user, I want to be able to view all concerts by band name, genre, venue, or city.
+**User Story:** As a user, I want to be able to search an individual band by band name and see a list of all it's concerts and attendees for each concert.
 
-**Details:** Write ActiveRecord method to GET all concerts with specified attribute(s).
+**Details:** Run a GET request to `/concerts/:id` that includes concerts. Loop through band's concerts then loop through a concert's attendees.
