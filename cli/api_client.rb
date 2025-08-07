@@ -12,8 +12,22 @@ class APIClient
     { error: "Failed to fetch concerts: #{e.message}" }
   end
 
+  def get_concert(id)
+    response = RestClient.get("#{@base_url}/concerts/#{id}")
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to fetch concert: #{e.message}" }
+  end
+
   def get_attendees
     response = RestClient.get("#{@base_url}/attendees")
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to fetch attendee: #{e.message}" }
+  end
+
+  def get_attendee(id)
+    response = RestClient.get("#{@base_url}/attendees/#{id}")
     JSON.parse(response.body)
   rescue RestClient::Exception => e
     { error: "Failed to fetch attendee: #{e.message}" }
@@ -31,5 +45,19 @@ class APIClient
     JSON.parse(response.body)
   rescue RestClient::Exception => e
     { error: "Failed to create attendee: #{e.message}" }
+  end
+
+  def change_concert(id, data)
+    response = RestClient.patch("#{@base_url}/concerts/#{id}", data.to_json, content_type: :json)
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to update concert: #{e.message}" }
+  end
+
+  def change_attendee(id, data)
+    response = RestClient.patch("#{@base_url}/attendees/#{id}", data.to_json, content_type: :json)
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to update concert: #{e.message}" }
   end
 end
