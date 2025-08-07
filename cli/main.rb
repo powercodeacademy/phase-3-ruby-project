@@ -18,6 +18,7 @@ class CLIInterface
     puts "7. Delete a concert"
     puts "8. Delete an attendee"
     puts "9. Add an attendee ticket"
+    puts "10. Delete am attendee ticket"
     puts "q. Quit"
     print "\nEnter your choice: "
   end
@@ -50,7 +51,9 @@ class CLIInterface
       when "8"
         delete_attendee
       when "9"
-        add_attendee_concert
+        add_attendee_ticket
+      when "10"
+        delete_attendee_ticket
       when "q", "quit", "exit"
         puts "Goodbye!"
         break
@@ -265,7 +268,7 @@ class CLIInterface
     end
   end
 
-  def add_attendee_concert
+  def add_attendee_ticket
     view_all_attendees
     print "\nEnter the ID of the attendee who purchased a ticket: "
     attendee_id = gets.chomp.to_i
@@ -287,6 +290,29 @@ class CLIInterface
         display_attendee(response)
       end
 
+    end
+  end
+
+  def delete_attendee_ticket
+    view_all_attendees
+    print "\nEnter the ID of the attendee who sold their ticket: "
+    attendee_id = gets.chomp.to_i
+
+    current_attendee = @api_client.get_attendee(attendee_id)
+    if current_attendee[:error]
+      puts "Error: #{current_attendee[:error]}"
+      return
+    end
+
+    print "\nEnter the ID of the concert the attendee sold their ticket for: "
+    concert_id = gets.chomp.to_i
+
+    response = @api_client.remove_ticket(attendee_id, concert_id)
+
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "Ticket successfully deleted."
     end
   end
 
@@ -314,7 +340,7 @@ class CLIInterface
     if attendee["concerts"]&.any?
       puts "Concerts:"
       attendee["concerts"].each do |concert|
-        puts " - #{concert['band_name']} - #{concert['event_date']}"
+        puts " - Concert ID: #{concert['id']} - #{concert['band_name']} - #{concert['event_date']}"
       end
     else
       puts " - No concerts yet"

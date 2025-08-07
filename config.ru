@@ -17,4 +17,5 @@ use Rack::JSONBodyParser
 
 use ConcertController
 use AttendeeController
+use TicketController
 run ApplicationController

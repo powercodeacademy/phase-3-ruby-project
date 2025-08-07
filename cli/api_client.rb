@@ -37,7 +37,7 @@ class APIClient
     response = RestClient.get("#{@base_url}/attendees/#{attendee_id}/concerts")
     JSON.parse(response.body)
   rescue RestClient::Exception => e
-    { error: "Failed to fetch attendee: #{e.message}" }
+    { error: "Failed to fetch attendee's concerts: #{e.message}" }
   end
 
   def new_concert(data)
@@ -65,21 +65,21 @@ class APIClient
     response = RestClient.patch("#{@base_url}/attendees/#{id}", data.to_json, content_type: :json)
     JSON.parse(response.body)
   rescue RestClient::Exception => e
-    { error: "Failed to update concert: #{e.message}" }
+    { error: "Failed to update attendee: #{e.message}" }
   end
 
   def remove_concert(id)
     response = RestClient.delete("#{@base_url}/concerts/#{id}")
     JSON.parse(response.body)
   rescue RestClient::Exception => e
-    { error: "Failed to delete owner: #{e.message}" }
+    { error: "Failed to delete concert: #{e.message}" }
   end
 
   def remove_attendee(id)
     response = RestClient.delete("#{@base_url}/attendees/#{id}")
     JSON.parse(response.body)
   rescue RestClient::Exception => e
-    { error: "Failed to delete owner: #{e.message}" }
+    { error: "Failed to delete attendee: #{e.message}" }
   end
 
   def add_ticket(attendee_id, concert_id)
@@ -88,6 +88,21 @@ class APIClient
                                content_type: :json)
     JSON.parse(response.body)
   rescue RestClient::Exception => e
-    { error: "Failed to create new concert: #{e.message}" }
+    { error: "Failed to add new ticket: #{e.message}" }
+  end
+
+  def remove_ticket(attendee_id, concert_id)
+    data = { attendee_id: attendee_id, concert_id: concert_id }
+
+    response = RestClient::Request.execute(
+      method: :delete,
+      url: "#{@base_url}/tickets",
+      payload: data.to_json,
+      headers: { content_type: :json }
+    )
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to delete ticket: #{e.message}" }
+
   end
 end
