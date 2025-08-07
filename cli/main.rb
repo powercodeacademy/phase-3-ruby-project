@@ -84,6 +84,22 @@ class CLIInterface
     end
   end
 
+  def view_all_attendees
+    puts "\n=== All Attendees ==="
+    response = @api_client.get_attendees
+
+    return unless response.is_a?(Array)
+
+    if response.empty?
+      puts "No attendees found"
+    else
+      response.each do |attendee|
+        display_attendee(attendee)
+        puts "-" * 50
+      end
+    end
+  end
+
   ## Display
 
   def display_concert(concert)
@@ -91,6 +107,10 @@ class CLIInterface
     puts "Event Date: #{concert['event_date']}"
     puts "Venue: #{concert['venue']}"
     puts "City: #{concert['city']}"
+  end
+
+  def display_attendee(attendee)
+    puts attendee.name
   end
 end
 
