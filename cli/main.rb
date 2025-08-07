@@ -107,10 +107,19 @@ class CLIInterface
     puts "Event Date: #{concert['event_date']}"
     puts "Venue: #{concert['venue']}"
     puts "City: #{concert['city']}"
+
+    if concert["attendees"]&.any?
+      puts "Attendees:"
+      concert["attendees"].each do |attendee|
+        puts " - #{attendee['name']}"
+      end
+    else
+      puts "No attendees yet"
+    end
   end
 
   def display_attendee(attendee)
-    puts attendee.name
+    puts attendee["name"]
   end
 end
 

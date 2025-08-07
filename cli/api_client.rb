@@ -1,3 +1,5 @@
+require "pry"
+
 class APIClient
   def initialize(base_url = "http://localhost:9292")
     @base_url = base_url

@@ -1,12 +1,12 @@
 class ConcertController < ApplicationController
   get "/concerts" do
     concerts = Concert.all
-    concerts.to_json
+    concerts.to_json(include: :attendees)
   end
 
   get "/concerts/:id" do
     concert = Concert.find(params[:id])
-    concert.to_json
+    concert.to_json(include: :attendees)
   end
 
   get "/concerts/:id/attendees" do
