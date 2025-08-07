@@ -130,6 +130,25 @@ class CLIInterface
 
   end
 
+  def create_attendee
+    puts "\n=== Create New Attendee ==="
+
+    print "Name: "
+    name = gets.chomp
+
+    data = { name: name }
+
+    response = @api_client.new_attendee(data)
+    if response[:error]
+      puts "Error: #{response[:error]}"
+    else
+      puts "attendee created successfully!"
+      display_attendee(response)
+    end
+  end
+
+  #-------------------------------#
+
   def display_concert(concert)
     puts "Band Name: #{concert['band_name']}"
     puts "Event Date: #{concert['event_date']}"

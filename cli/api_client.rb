@@ -25,4 +25,11 @@ class APIClient
   rescue RestClient::Exception => e
     { error: "Failed to create concert: #{e.message}" }
   end
+
+  def new_attendee(data)
+    response = RestClient.post("#{@base_url}/attendees", data.to_json, content_type: :json)
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to create attendee: #{e.message}" }
+  end
 end
