@@ -231,6 +231,48 @@ class CLIInterface
     end
   end
 
+  def delete_concert
+    view_all_concerts
+    print "\nEnter the ID of the concert to delete: "
+    id = gets.chomp.to_i
+
+    print "Are you sure you want to delete this concert? (y/n): "
+    confirmation = gets.chomp.downcase
+
+    if %w[y yes].include?(confirmation)
+      response = @api_client.remove_concert(id)
+
+      if response[:error]
+        puts "Error: #{response[:error]}"
+      else
+        puts "Concert deleted successfully!"
+      end
+    else
+      puts "Deletion cancelled."
+    end
+  end
+
+  def delete_attendee
+    view_all_attendees
+    print "\nEnter the ID of the attendee to delete: "
+    id = gets.chomp.to_i
+
+    print "Are you sure you want to delete this attendee? (y/n): "
+    confirmation = gets.chomp.downcase
+
+    if %w[y yes].include?(confirmation)
+      response = @api_client.remove_attendee(id)
+
+      if response[:error]
+        puts "Error: #{response[:error]}"
+      else
+        puts "Attendee deleted successfully!"
+      end
+    else
+      puts "Deletion cancelled."
+    end
+  end
+
   #-------------------------------#
 
   def display_concert(concert)

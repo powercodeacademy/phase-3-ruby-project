@@ -60,4 +60,18 @@ class APIClient
   rescue RestClient::Exception => e
     { error: "Failed to update concert: #{e.message}" }
   end
+
+  def remove_concert(id)
+    response = RestClient.delete("#{@base_url}/concerts/#{id}")
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to delete owner: #{e.message}" }
+  end
+
+  def remove_attendee(id)
+    response = RestClient.delete("#{@base_url}/attendees/#{id}")
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to delete owner: #{e.message}" }
+  end
 end
