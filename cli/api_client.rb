@@ -19,8 +19,8 @@ class APIClient
     { error: "Failed to fetch attendee: #{e.message}" }
   end
 
-  def create_concert
-    response = RestClient.get("#{@base_url}/concerts", data.to_json, content_type: :json)
+  def new_concert(data)
+    response = RestClient.post("#{@base_url}/concerts", data.to_json, content_type: :json)
     JSON.parse(response.body)
   rescue RestClient::Exception => e
     { error: "Failed to create concert: #{e.message}" }
