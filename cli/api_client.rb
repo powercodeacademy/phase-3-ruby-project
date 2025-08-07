@@ -33,6 +33,13 @@ class APIClient
     { error: "Failed to fetch attendee: #{e.message}" }
   end
 
+  def get_concerts_by_attendee(attendee_id)
+    response = RestClient.get("#{@base_url}/attendees/#{attendee_id}/concerts")
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to fetch attendee: #{e.message}" }
+  end
+
   def new_concert(data)
     response = RestClient.post("#{@base_url}/concerts", data.to_json, content_type: :json)
     JSON.parse(response.body)
@@ -73,5 +80,14 @@ class APIClient
     JSON.parse(response.body)
   rescue RestClient::Exception => e
     { error: "Failed to delete owner: #{e.message}" }
+  end
+
+  def add_ticket(attendee_id, concert_id)
+    data = { concert_id: concert_id }
+    response = RestClient.post("#{@base_url}/attendees/#{attendee_id}/concerts", data.to_json,
+                               content_type: :json)
+    JSON.parse(response.body)
+  rescue RestClient::Exception => e
+    { error: "Failed to create new concert: #{e.message}" }
   end
 end

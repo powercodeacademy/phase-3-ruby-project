@@ -21,10 +21,13 @@ class AttendeeController < ApplicationController
 
   post "/attendees/:id/concerts" do
     attendee = Attendee.find(params[:id])
-    Ticket.create(
-      concert_id: params[:concert_id],
+    concert = Concert.find(params[:concert_id])
+
+    ticket = Ticket.find_or_create_by(
+      concert_id: concert.id,
       attendee_id: attendee.id
-    ).to_json
+    )
+    ticket.to_json
   end
 
   patch "/attendees/:id" do

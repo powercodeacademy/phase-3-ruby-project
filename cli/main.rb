@@ -17,7 +17,7 @@ class CLIInterface
     puts "6. Update an attendee"
     puts "7. Delete a concert"
     puts "8. Delete an attendee"
-    puts "9. Add a concert to an attendee"
+    puts "9. Add an attendee ticket"
     puts "q. Quit"
     print "\nEnter your choice: "
   end
@@ -50,10 +50,6 @@ class CLIInterface
       when "8"
         delete_attendee
       when "9"
-        view_attendees_concerts
-      when "10"
-        view_concerts_attendees
-      when "11"
         add_attendee_concert
       when "q", "quit", "exit"
         puts "Goodbye!"
@@ -157,8 +153,6 @@ class CLIInterface
       return
     end
 
-    puts "Error: #{current_concert[:error]}"
-
     puts "\nCurrent Concert Data:"
     display_concert(current_concert)
 
@@ -207,8 +201,6 @@ class CLIInterface
       puts "Error: #{current_attendee[:error]}"
       return
     end
-
-    puts "Error: #{current_attendee[:error]}"
 
     puts "\nCurrent Attendee Data:"
     display_attendee(current_attendee)
@@ -273,7 +265,30 @@ class CLIInterface
     end
   end
 
-  #-------------------------------#
+  def add_attendee_concert
+    view_all_attendees
+    print "\nEnter the ID of the attendee who purchased a ticket: "
+    attendee_id = gets.chomp.to_i
+
+    current_attendee = @api_client.get_attendee(attendee_id)
+    if current_attendee[:error]
+      puts "Error: #{current_attendee[:error]}"
+    else
+      view_all_concerts
+      print "\nEnter the ID of the concert the attendee purchased ticket for: "
+      concert_id = gets.chomp.to_i
+
+      response = @api_client.add_ticket(attendee_id, concert_id)
+
+      if response[:error]
+        puts "Error: #{response[:error]}"
+      else
+        puts "Ticket successfully added!"
+        display_attendee(response)
+      end
+
+    end
+  end
 
   def display_concert(concert)
     puts "Concert ID:  #{concert['id']}"
