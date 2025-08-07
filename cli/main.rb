@@ -18,7 +18,7 @@ class CLIInterface
     puts "7. Delete a concert"
     puts "8. Delete an attendee"
     puts "9. Add an attendee ticket"
-    puts "10. Delete am attendee ticket"
+    puts "10. Delete an attendee ticket"
     puts "q. Quit"
     print "\nEnter your choice: "
   end
