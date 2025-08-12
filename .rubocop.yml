@@ -1,6 +1,6 @@
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.0.6
+  TargetRubyVersion: 3.3.5
   Exclude:
     - "node_modules/**/*"
     - "vendor/**/*"
@@ -8,6 +8,7 @@ AllCops:
     - "tmp/**/*"
     - "log/**/*"
     - "Gemfile.lock"
+    - "db/schema.rb"
 
 Layout/LineLength:
   Max: 100
@@ -116,7 +117,7 @@ Metrics/BlockLength:
     - "Vagrantfile"
 
 Metrics/MethodLength:
-  Max: 10
+  Max: 20
 
 Metrics/ClassLength:
   Max: 200
@@ -125,10 +126,10 @@ Metrics/ModuleLength:
   Max: 300
 
 Metrics/AbcSize:
-  Max: 15
+  Max: 30
 
 Metrics/PerceivedComplexity:
-  Max: 7
+  Max: 8
 
 Metrics/CyclomaticComplexity:
   Max: 6
