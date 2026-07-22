@@ -5,7 +5,6 @@ ENV["RACK_ENV"] ||= "development"
 # Require in Gems
 require "bundler/setup"
 Bundler.require(:default, ENV.fetch("RACK_ENV", nil))
-require "active_record"
 
 # Set up database connection directly via Active Record
 require "yaml"
