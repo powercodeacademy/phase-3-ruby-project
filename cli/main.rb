@@ -53,7 +53,7 @@ class PetTracker
 
   def view_all_owners
     puts "\n=== All Owners ==="
-    owners = Owner.all.include(:pets)
+    owners = Owner.all.includes(:pets)
 
     if owners.empty?
       puts "No owners found."
@@ -67,7 +67,7 @@ class PetTracker
 
   def view_all_pets
     puts "\n=== All Pets ==="
-    pets = Pet.all.include(:owner)
+    pets = Pet.all.includes(:owner)
 
     if pets.empty?
       puts "No pets found."
