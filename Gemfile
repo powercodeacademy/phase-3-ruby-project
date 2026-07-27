@@ -4,7 +4,8 @@ source "https://rubygems.org"
 
 # An object-relational mapper
 # https://guides.rubyonrails.org/active_record_basics.html
-gem "activerecord", "~> 6.1"
+gem "activerecord", "~> 7.1"
+gem "standalone_migrations"
 
 # Run common tasks from the command line
 # https://github.com/ruby/rake
