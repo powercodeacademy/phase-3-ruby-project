@@ -18,6 +18,15 @@ gem "require_all", "~> 3.0"
 
 gem "standalone_migrations"
 
+gem "tty-prompt"
+
+gem "tty-font"
+
+gem "pastel"
+
+# Generate mock data for database seeds
+gem "faker"
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem "pry", "~> 0.14.1"

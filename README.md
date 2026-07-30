@@ -1,165 +1,72 @@
-# Phase 3 Project — Single-Script Active Record CLI
+# Meal Prep Tracker
 
-## Learning Goals
-
-- Build a database-backed Ruby application using Active Record
-- Design and interact with data models using object-oriented Ruby
-- Implement a multi-class CLI frontend
-- Practice working with migrations, associations, and validations
-
-## Introduction
-
-Congrats on getting through all the material for Phase 3! You've learned how to work with databases, design models with Active Record, and write object-oriented Ruby. Now it's time to bring those skills together into a full project.
-
-This project will focus on building a Ruby command-line application that reads from and writes to a local SQLite3 database using Active Record — no web server required.
-
-By the end of the project, you'll have a functioning CLI that lets users interact with your data by creating, viewing, updating, and deleting records from the terminal.
+Meal Prep Tracker is a Ruby CLI application built with ActiveRecord and SQLite3. The app allows users to create and manage meal plans, add meals to meal plans, update meal information, delete records, and view meal plan budget summaries from the terminal.
 
 ## Requirements
 
-### Models
+Before running the application, make sure you have:
 
-- At least two model classes using `ActiveRecord::Base`
-- A one-to-many relationship (`has_many` / `belongs_to`)
-- At least one model with validations
-- Display associated data where appropriate (e.g. listing a parent record's associated children)
+- Ruby installed
+- Bundler installed
+- SQLite3 installed
 
-### CLI
+## Installation
 
-- At least two Ruby classes (e.g. a `Menu` class and a model-specific helper)
-- A loop or menu interface
-- Ability to create, view, update, and delete records
-- Update prompts should display the current value before asking for a new one
+Clone the repository from GitHub:
 
-## Planning
+    git clone <your-repo-url>
 
-- Plan out your features
-- Develop user stories
-  - "As [ a user ], I want [ to perform this action ] so that [ I can accomplish this goal ]."
-  - Features should not need you there to explain them to users
-  - Create a `user-stories.md` file and add your user stories there
+Move into the project directory:
 
-## Project Pitches
+    cd <repo-folder-name>
 
-Before you start working on your project, you'll pitch your project idea to your instructors for approval and feedback.
+Install the project dependencies:
 
-For your project pitch, you should include:
+    bundle install
 
-- The basic story of your application
-- The core features of your MVP
-- The data you plan to persist and how you will structure it
-- Challenges you expect to face
-- How you are meeting the requirements of the project
+## Database Setup
 
-**MVP ASAP** — Focus on getting your minimum viable product working first!
+Create the database:
 
-## Example Project Domains
+    bundle exec rake db:create
 
-You could build a **Book Tracker** app:
+Run the migrations to create the database tables:
 
-- `Author` has many `Books`
-- Users can:
-  - Create a new book
-  - List all books
-  - Update book details
-  - Delete a book
-  - View books by a specific author
+    bundle exec rake db:migrate
 
-Or a **Workout Log**:
+Seed the database with sample data:
 
-- `WorkoutSession` has many `Exercises`
-- Users can:
-  - Log a new workout
-  - Add exercises
-  - Update reps/weights
-  - View or delete past workouts
+    bundle exec rake seed
 
-## Getting Started
+## Running the Application
 
-**Fork and clone** this repository to get started.
+Start the CLI from the project root:
 
-Install dependencies:
+    ruby cli/cli.rb
 
-```bash
-bundle install
-```
+## Useful Development Commands
 
-Create and migrate the database:
+Open a Pry console with the application environment loaded:
 
-```bash
-bundle exec rake db:create
-bundle exec rake db:migrate
-```
+    bundle exec rake console
 
-Optionally seed the database with starter data:
+Create a new migration:
 
-```bash
-bundle exec rake seed
-```
+    bundle exec rake db:new_migration name=migration_name
 
-Run your CLI application:
+Example:
 
-```bash
-ruby cli/main.rb
-```
+    bundle exec rake db:new_migration name=create_users
 
-## Other Useful Commands
+## Main Features
 
-Open a Pry console with your models loaded:
+The CLI supports:
 
-```bash
-bundle exec rake console
-```
-
-Generate a new migration:
-
-```bash
-bundle exec rake db:create_migration NAME=create_books
-```
-
-## Project Structure
-
-```
-├── app/
-│   └── models/         # Your Active Record model classes go here
-├── cli/
-│   └── main.rb         # Entry point — your CLI menu lives here
-├── config/
-│   └── environment.rb  # Loads gems, DB connection, and models
-├── db/
-│   ├── config.yml      # Database connection settings
-│   ├── migrate/        # Migration files
-│   └── seeds.rb        # Seed data
-└── spec/               # RSpec tests (optional)
-```
-
-## Project Tips
-
-- Sketch your domain model first using [dbdiagram.io](https://dbdiagram.io/)
-- Use `bundle exec rake console` to test your models before building the CLI
-- Use `binding.pry` for debugging
-- Use `puts` and `pp` or gems like `tty-table` for formatted CLI output
-
-## Sample Project
-
-A complete implementation is available on the `sample-project` branch. It demonstrates:
-
-- **Pet Tracker** domain with Owners and Pets
-- Full CRUD with Active Record and a clean menu-driven CLI
-- Object-oriented design with user-friendly output
-- All required features including current value prompts for updates
-
-To view the sample:
-
-```bash
-git checkout sample-project
-```
-
-See `SAMPLE_PROJECT_README.md` for detailed documentation.
-
-## Resources
-
-- [dbdiagram.io](https://dbdiagram.io/)
-- [Active Record Basics](https://guides.rubyonrails.org/active_record_basics.html)
-- [Active Record Associations](https://guides.rubyonrails.org/association_basics.html)
-- [Active Record Validations](https://guides.rubyonrails.org/active_record_validations.html)
+- Viewing users
+- Selecting a user
+- Adding and deleting users
+- Viewing a user’s meal plans and meals
+- Adding, updating, and deleting meal plans
+- Adding, updating, and deleting meals
+- Viewing meal plan budget summaries
+- Preventing meals from exceeding a meal plan’s budget
